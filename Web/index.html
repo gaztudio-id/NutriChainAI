@@ -166,7 +166,7 @@
             <!-- Left links -->
             <div class="nav-links-left">
                 <a href="/" class="nav-link-item active-page">Home</a>
-                <a href="/#about" class="nav-link-item">Tentang</a>
+                <a href="/about" class="nav-link-item">Tentang</a>
             </div>
             
             <!-- Center Logo -->
@@ -181,9 +181,6 @@
                 <a href="/status" class="nav-link-item">Status Model</a>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <!-- Main Content -->
@@ -208,183 +205,12 @@
 
             <div style="display: flex; justify-content: center; gap: 16px;">
                 <a href="/dashboard" class="btn btn-primary" style="padding: 12px 36px;">Buka Dashboard Operasional</a>
-                <a href="#about" class="btn btn-secondary" style="padding: 12px 36px;">Pelajari Program</a>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <div id="about" class="about-section">
-            <span class="badge badge-primary" style="margin-bottom: var(--spacing-xs);">Rancangan Sistem</span>
-            <h2 class="headline-md" style="margin-bottom: var(--spacing-sm);">Tentang Program &amp; NutriChainAI</h2>
-            
-            <!-- Showcase 1: BGN Logo & General MBG Program Explanation -->
-            <div class="showcase-panel">
-                <img src="{{ url_for('static', filename='Logo_Badan_Gizi_Nasional.png') }}" alt="Logo Badan Gizi Nasional" class="showcase-logo">
-                <div class="showcase-content">
-                    <h4>Program Makan Bergizi Gratis (MBG) Nasional</h4>
-                    <p class="body-sm" style="line-height: 1.6; color: var(--color-primary-60);">
-                        Makan Bergizi Gratis (MBG) merupakan program prioritas nasional yang digagas oleh Badan Gizi Nasional untuk mengatasi tantangan gizi anak-anak, meningkatkan kualitas fisik, mendukung perkembangan kognitif siswa, serta menurunkan angka stunting di Indonesia. Melalui dapur umum daerah, bahan pangan segar bersumber lokal diolah secara terstandarisasi untuk menjamin pemenuhan makro dan mikronutrisi yang merata pada setiap porsi makan siang yang dibagikan ke sekolah-sekolah secara gratis.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Showcase 2: NutriChain AI Logo & Project Overview -->
-            <div class="showcase-panel">
-                <div class="showcase-content">
-                    <h4>Overview Proyek Sistem Cerdas NutriChainAI</h4>
-                    <p class="body-sm" style="line-height: 1.6; color: var(--color-primary-60);">
-                        NutriChainAI dirancang sebagai platform audit dan kepatuhan digital berbasis kecerdasan buatan (Deep Learning) untuk mengawal rantai pasokan dan dapur umum program MBG. Sistem ini mengintegrasikan 11 proyek kecerdasan buatan dari hulu (perencanaan menu, kuantitas belanja logistik) hingga hilir (kelayakan baki saji, estimasi gizi visual, sortir kesegaran bahan baku, deteksi benda asing, analisis sisa makanan, dan sentimen media sosial). Integrasi ini membentuk satu alur pengawasan digital (SOP) yang solid untuk memastikan keamanan pangan dan optimalisasi anggaran.
-                    </p>
-                </div>
-                <div>
-                    <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="NutriChainAI Logo" class="showcase-logo show-light-theme" style="height: 90px;">
-                    <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="NutriChainAI Logo" class="showcase-logo show-dark-theme" style="height: 90px;">
-                </div>
-            </div>
-
-            <span class="badge badge-primary" style="margin-top: 16px; margin-bottom: var(--spacing-xs);">Visual Alur Kegiatan</span>
-            <h2 class="headline-md" style="margin-bottom: var(--spacing-sm);">Alur Integrasi SOP (Pipeline)</h2>
-            <p class="body-md" style="color: var(--color-primary-60); margin-bottom: var(--spacing-md);">
-                Proses pengawasan berbasis AI terbagi menjadi 5 Fase operasional terpadu yang saling terhubung untuk mengawal program Makan Bergizi Gratis:
-            </p>
-
-            <!-- Visual Vertical Timeline Container -->
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-
-                <!-- Fase 1 -->
-                <div class="timeline-item">
-                    <div class="timeline-badge">1</div>
-                    <div class="timeline-content">
-                        <h3 class="headline-sm" style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Fase 1: Perencanaan Menu &amp; Logistik (Lokasi: Ruang Dapur)</h3>
-                        <p class="body-sm" style="margin-bottom: 12px; line-height: 1.5;">
-                            Mengatur keselarasan nutrisi menu harian, memprediksi sisa porsi makanan, dan menghitung kuantitas belanja logistik harian sebelum proses memasak.
-                        </p>
-                        <div style="margin-bottom: 12px;">
-                            <span class="group-tag">Kelompok 2 (LSTM) • Rekomendasi Menu</span>
-                            <span class="group-tag">Kelompok 9 (ANN) • Prediksi Belanja</span>
-                            <span class="group-tag">Kelompok 3 (DNN/LSTM Tabular) • Prediksi Kesukaan</span>
-                        </div>
-                        <div class="diagram-flow">
-                            <span class="diagram-node">Input: Data Stok &amp; Siswa</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Proses: LSTM &amp; ANN Inference</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Output: Rencana Menu &amp; Belanja Optimal</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fase 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-badge">2</div>
-                    <div class="timeline-content">
-                        <h3 class="headline-sm" style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Fase 2: Pemeriksaan Kualitas Bahan Baku (Lokasi: Area Penerimaan)</h3>
-                        <p class="body-sm" style="margin-bottom: 12px; line-height: 1.5;">
-                            Melakukan sortir kualitas kesegaran bahan pangan mentah dari pemasok secara instan menggunakan kamera pintar sebelum masuk ke area dapur.
-                        </p>
-                        <div style="margin-bottom: 12px;">
-                            <span class="group-tag">Kelompok 11 (CNN MobileNetV2) • Sortir Kualitas Kesegaran</span>
-                        </div>
-                        <div class="diagram-flow">
-                            <span class="diagram-node">Input: Sayuran/Buah dari Supplier</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Proses: MobileNetV2 Scan</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Output: Klasifikasi Bahan Segar / Layu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fase 3 -->
-                <div class="timeline-item">
-                    <div class="timeline-badge">3</div>
-                    <div class="timeline-content">
-                        <h3 class="headline-sm" style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Fase 3: Perakitan &amp; Keamanan Pangan (Lokasi: Conveyor Belt Dapur)</h3>
-                        <p class="body-sm" style="margin-bottom: 12px; line-height: 1.5;">
-                            Memeriksa kelengkapan menu baki saji, mengestimasi nilai kalori &amp; zat gizi porsi secara visual, serta mendeteksi adanya kontaminasi benda asing makro (plastik/serangga) atau mikro (serpihan logam/rambut) sebelum disegel.
-                        </p>
-                        <div style="margin-bottom: 12px;">
-                            <span class="group-tag">Kelompok 8 (YOLOv8 Segmentasi) • Kelengkapan Tray</span>
-                            <span class="group-tag">Kelompok 1 (CNN) • Hitung Nilai Gizi Visual</span>
-                            <span class="group-tag">Kelompok 5 (YOLO) • Deteksi Benda Asing Makro</span>
-                            <span class="group-tag">Kelompok 10 (ERX Hiperspektral) • Deteksi Benda Asing Mikro</span>
-                        </div>
-                        <div class="diagram-flow">
-                            <span class="diagram-node">Input: Piring Makanan Conveyor</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Proses: YOLO, CNN, &amp; Spektral Scan</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Output: Tray Lengkap, Higienis &amp; Layak Saji</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fase 4 -->
-                <div class="timeline-item">
-                    <div class="timeline-badge">4</div>
-                    <div class="timeline-content">
-                        <h3 class="headline-sm" style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Fase 4: Evaluasi Pasca-Konsumsi (Lokasi: Area Sekolah / Kelas)</h3>
-                        <p class="body-sm" style="margin-bottom: 12px; line-height: 1.5;">
-                            Menganalisis sisa makanan di piring kotor pasca dikonsumsi siswa. Data persentase sisa piring diunggah kembali ke database untuk melatih ulang (retrain) model kesukaan agar prediksi menu esok hari lebih presisi.
-                        </p>
-                        <div style="margin-bottom: 12px;">
-                            <span class="group-tag">Kelompok 7 (CNN Transfer Learning) • Deteksi Piring Kotor</span>
-                            <span class="group-tag">Feedback Loop • Sinkronisasi Data Ke Fase 1</span>
-                        </div>
-                        <div class="diagram-flow">
-                            <span class="diagram-node">Input: Foto Piring Sisa Makanan</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Proses: CNN Classifier &amp; Feedback Upload</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Output: Data Retraining Model Preferensi</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fase 5 -->
-                <div class="timeline-item" style="margin-bottom: 0;">
-                    <div class="timeline-badge">5</div>
-                    <div class="timeline-content">
-                        <h3 class="headline-sm" style="font-size: 16px; margin-bottom: 8px; color: var(--color-primary);">Fase 5: Pemantauan Sentimen &amp; Opini Publik (Lokasi: Dashboard Penyelenggara)</h3>
-                        <p class="body-sm" style="margin-bottom: 12px; line-height: 1.5;">
-                            Memonitor ulasan, komentar, dan sentimen masyarakat umum terhadap menu dan pelaksanaan program MBG dari platform Twitter, TikTok, dan YouTube.
-                        </p>
-                        <div style="margin-bottom: 12px;">
-                            <span class="group-tag">Kelompok 4 (CNN-LSTM) • Sentimen Media Sosial</span>
-                            <span class="group-tag">Kelompok 6 (LSTM) • Sentimen &amp; Peramalan YouTube</span>
-                        </div>
-                        <div class="diagram-flow">
-                            <span class="diagram-node">Input: Ulasan Teks Twitter &amp; YouTube</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Proses: NLP &amp; Time Series Forecasting</span>
-                            <span class="diagram-arrow">➔</span>
-                            <span class="diagram-node">Output: Indeks Sentimen &amp; Arah Opini Publik</span>
-                        </div>
-                    </div>
-                </div>
+                <a href="/about" class="btn btn-secondary" style="padding: 12px 36px;">Pelajari Program</a>
             </div>
         </div>
     </div>
 
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
-                </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
-                </p>
-            </div>
-        </div>
-    </footer>
+
 
 </body>
 </html>

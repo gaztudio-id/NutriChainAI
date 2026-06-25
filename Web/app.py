@@ -61,8 +61,13 @@ KELOMPOK_RESULTS = {
 
 @app.route('/')
 def index():
-    """Render the Cover landing page with About section."""
+    """Render the main integrated Cover & Landing page."""
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    """Render the dedicated About & SOP pipeline page."""
+    return render_template('about.html')
 
 @app.route('/dashboard')
 def dashboard():

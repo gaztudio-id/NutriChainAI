@@ -94,6 +94,58 @@
         .modal-overlay.active .modal-card {
             transform: translateY(0);
         }
+        
+        /* Dashboard Tabs Layout */
+        .dashboard-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 0px;
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            background: none;
+            border: none;
+            color: var(--color-primary-60);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px 20px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.25s ease;
+            outline: none;
+            font-family: inherit;
+        }
+        .tab-button:hover {
+            color: var(--color-primary);
+            background-color: var(--color-primary-90);
+            border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
+        }
+        .tab-button.active-tab {
+            color: var(--color-primary);
+        }
+        .tab-button.active-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--color-primary);
+            border-radius: var(--rounded-full);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeInTab 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .tab-content.active-content {
+            display: block;
+        }
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -104,7 +156,7 @@
             <!-- Left links -->
             <div class="nav-links-left">
                 <a href="/" class="nav-link-item">Home</a>
-                <a href="/#about" class="nav-link-item">Tentang</a>
+                <a href="/about" class="nav-link-item">Tentang</a>
             </div>
             
             <!-- Center Logo -->
@@ -120,9 +172,6 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
 
     <!-- Main Content -->
     <div class="container" style="max-width: 1100px; padding-top: var(--spacing-sm);">
@@ -135,9 +184,18 @@
             </p>
         </div>
 
-        <div class="grid-asymmetric">
-            
-            <!-- Left Column: History Log Section -->
+        <!-- Tabs Navigation -->
+        <div class="dashboard-tabs">
+            <button class="tab-button active-tab" id="tab-log" onclick="switchTab('log')">Riwayat Sesi</button>
+            <button class="tab-button" id="tab-session" onclick="switchTab('session')">Buka Sesi Baru</button>
+            <button class="tab-button" id="tab-metadata" onclick="switchTab('metadata')">Metadata SPPG</button>
+            <button class="tab-button" id="tab-export" onclick="switchTab('export')">Ekspor Laporan</button>
+        </div>
+
+        <!-- Tab Contents -->
+
+        <!-- 1. Riwayat Sesi (Logs) Content -->
+        <div class="tab-content active-content" id="log-content">
             <div class="history-list" style="margin-top: 0;">
                 <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Riwayat Sesi Operasional</h3>
                 <p class="body-sm" style="margin-bottom: var(--spacing-sm);">
@@ -177,7 +235,7 @@
                         {% endfor %}
                     {% else %}
                         <div class="card" style="text-align: center; color: var(--color-primary-60); padding: var(--spacing-md); border-style: dashed;">
-                            <p class="body-md">Belum ada riwayat sesi. Pilih tanggal di samping untuk memulai sesi hari pertama!</p>
+                            <p class="body-md">Belum ada riwayat sesi. Pilih tab "Buka Sesi Baru" untuk memulai sesi hari pertama!</p>
                         </div>
                     {% endif %}
                 </div>
@@ -191,87 +249,95 @@
                     </div>
                 {% endif %}
             </div>
+        </div>
 
-            <!-- Right Column: Operational Controls -->
-            <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
-                
-                <!-- Start Session Form -->
-                <div class="card" style="text-align: left; padding: var(--spacing-md);">
-                    <h3 class="headline-sm" style="font-size: 18px; margin-bottom: var(--spacing-sm);">Buka Sesi Harian</h3>
-                    <form action="/session" method="POST" id="start-session-form" onsubmit="confirmStartSession(event)">
-                        <div class="form-group">
-                            <label class="form-label" for="session-date">Pilih Tanggal Kegiatan</label>
-                            <input type="date" class="form-input" id="session-date" name="session-date" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Mulai Sesi Harian</button>
-                    </form>
-                </div>
-
-                <!-- Central Print Panel & Metadata Settings -->
-                <div class="card" style="text-align: left; padding: var(--spacing-md);">
-                    <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Metadata &amp; Ekspor Laporan</h3>
-                    <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                        Sesuaikan nama unit SPPG dan pejabat penanggung jawab untuk dicetak di halaman Cover Laporan dan tanda tangan.
-                    </p>
-                    
+        <!-- 2. Buka Sesi Baru Content -->
+        <div class="tab-content" id="session-content">
+            <div class="card" style="text-align: left; padding: var(--spacing-md); max-width: 600px; margin: 0 auto;">
+                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: var(--spacing-sm);">Buka Sesi Harian</h3>
+                <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
+                    Pilih tanggal kalender di bawah untuk membuat log kegiatan baru dan mengaktifkan 11 kelompok pemantauan AI.
+                </p>
+                <form action="/session" method="POST" id="start-session-form" onsubmit="confirmStartSession(event)">
                     <div class="form-group">
-                        <label class="form-label" for="sppg-name-input">Nama SPPG / Satuan Pelayanan</label>
-                        <input type="text" class="form-input" id="sppg-name-input" placeholder="Contoh: SPPG Dapur Umum Jakarta Pusat 01">
+                        <label class="form-label" for="session-date">Pilih Tanggal Kegiatan</label>
+                        <input type="date" class="form-input" id="session-date" name="session-date" required>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-                        <div class="form-group">
-                            <label class="form-label" for="nutritionist-name-input">Ahli Gizi / Pengawas Dapur</label>
-                            <input type="text" class="form-input" id="nutritionist-name-input" placeholder="Contoh: Budi Santoso, S.Gz">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="kitchen-head-name-input">Kepala Dapur</label>
-                            <input type="text" class="form-input" id="kitchen-head-name-input" placeholder="Contoh: Chef Haryono">
-                        </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Mulai Sesi Harian</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 3. Metadata SPPG Content -->
+        <div class="tab-content" id="metadata-content">
+            <div class="card" style="text-align: left; padding: var(--spacing-md); max-width: 800px; margin: 0 auto;">
+                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Metadata Penanggung Jawab</h3>
+                <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
+                    Sesuaikan nama unit SPPG dan pejabat penanggung jawab untuk dicetak di halaman Cover Laporan dan kolom tanda tangan. Data ini disimpan otomatis di peramban Anda.
+                </p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="sppg-name-input">Nama SPPG / Satuan Pelayanan</label>
+                    <input type="text" class="form-input" id="sppg-name-input" placeholder="Contoh: SPPG Dapur Umum Jakarta Pusat 01">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <div class="form-group">
+                        <label class="form-label" for="nutritionist-name-input">Ahli Gizi / Pengawas Dapur</label>
+                        <input type="text" class="form-input" id="nutritionist-name-input" placeholder="Contoh: Budi Santoso, S.Gz">
                     </div>
-                    
-                    <div class="form-group" style="margin-bottom: var(--spacing-md);">
-                        <label class="form-label" for="bgn-head-name-input">Penanggung Jawab / Kepala SPPG</label>
-                        <input type="text" class="form-input" id="bgn-head-name-input" placeholder="Contoh: Dr. Ir. Ahmad Subarjo, M.Sc">
-                    </div>
-                    
-                    <h4 class="headline-sm" style="font-size: 15px; margin-bottom: 4px; border-top: 1px solid var(--color-secondary); padding-top: 16px;">Cetak Rekapitulasi Laporan</h4>
-                    <p class="body-sm" style="margin-bottom: var(--spacing-sm);">
-                        Pilih rentang laporan rekapitulasi data log operasional terintegrasi MBG (Bulanan atau Tahunan).
-                    </p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                        <!-- Monthly Report -->
-                        <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
-                            <h4 class="headline-sm" style="font-size: 13px; margin-bottom: 8px;">Laporan Bulanan</h4>
-                            <form action="/report/monthly" method="GET" onsubmit="appendMetadataToForm(this)">
-                                <div class="form-group">
-                                    <input type="month" class="form-input" name="month" required style="font-size: 13px; padding: 8px 16px;">
-                                </div>
-                                <input type="hidden" name="sppg" class="meta-sppg-val">
-                                <input type="hidden" name="gizi" class="meta-gizi-val">
-                                <input type="hidden" name="dapur" class="meta-dapur-val">
-                                <input type="hidden" name="bgn" class="meta-bgn-val">
-                                <button type="submit" class="btn btn-secondary" style="width: 100%; min-height: 36px; font-size: 13px;">Ekspor Laporan</button>
-                            </form>
-                        </div>
-                        <!-- Yearly Report -->
-                        <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
-                            <h4 class="headline-sm" style="font-size: 13px; margin-bottom: 8px;">Laporan Tahunan</h4>
-                            <form action="/report/yearly" method="GET" onsubmit="appendMetadataToForm(this)">
-                                <div class="form-group">
-                                    <input type="number" class="form-input" name="year" min="2020" max="2050" value="2026" required style="font-size: 13px; padding: 8px 16px; text-align: center;">
-                                </div>
-                                <input type="hidden" name="sppg" class="meta-sppg-val">
-                                <input type="hidden" name="gizi" class="meta-gizi-val">
-                                <input type="hidden" name="dapur" class="meta-dapur-val">
-                                <input type="hidden" name="bgn" class="meta-bgn-val">
-                                <button type="submit" class="btn btn-secondary" style="width: 100%; min-height: 36px; font-size: 13px;">Ekspor Laporan</button>
-                            </form>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label" for="kitchen-head-name-input">Kepala Dapur</label>
+                        <input type="text" class="form-input" id="kitchen-head-name-input" placeholder="Contoh: Chef Haryono">
                     </div>
                 </div>
-
+                
+                <div class="form-group" style="margin-bottom: var(--spacing-sm);">
+                    <label class="form-label" for="bgn-head-name-input">Penanggung Jawab / Kepala SPPG</label>
+                    <input type="text" class="form-input" id="bgn-head-name-input" placeholder="Contoh: Dr. Ir. Ahmad Subarjo, M.Sc">
+                </div>
             </div>
+        </div>
+
+        <!-- 4. Ekspor Laporan Content -->
+        <div class="tab-content" id="export-content">
+            <div class="card" style="text-align: left; padding: var(--spacing-md); max-width: 800px; margin: 0 auto;">
+                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Cetak Rekapitulasi Laporan</h3>
+                <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
+                    Pilih rentang laporan rekapitulasi data log operasional terintegrasi MBG (Bulanan atau Tahunan). Nama-nama penanggung jawab pada tab Metadata akan ikut disertakan.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;">
+                    <!-- Monthly Report -->
+                    <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
+                        <h4 class="headline-sm" style="font-size: 14px; margin-bottom: 8px;">Laporan Bulanan</h4>
+                        <form action="/report/monthly" method="GET" onsubmit="appendMetadataToForm(this)">
+                            <div class="form-group">
+                                <input type="month" class="form-input" name="month" required style="font-size: 13px; padding: 8px 16px;">
+                            </div>
+                            <input type="hidden" name="sppg" class="meta-sppg-val">
+                            <input type="hidden" name="gizi" class="meta-gizi-val">
+                            <input type="hidden" name="dapur" class="meta-dapur-val">
+                            <input type="hidden" name="bgn" class="meta-bgn-val">
+                            <button type="submit" class="btn btn-secondary" style="width: 100%; min-height: 36px; font-size: 13px;">Ekspor Laporan</button>
+                        </form>
+                    </div>
+                    <!-- Yearly Report -->
+                    <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
+                        <h4 class="headline-sm" style="font-size: 14px; margin-bottom: 8px;">Laporan Tahunan</h4>
+                        <form action="/report/yearly" method="GET" onsubmit="appendMetadataToForm(this)">
+                            <div class="form-group">
+                                <input type="number" class="form-input" name="year" min="2020" max="2050" value="2026" required style="font-size: 13px; padding: 8px 16px; text-align: center;">
+                            </div>
+                            <input type="hidden" name="sppg" class="meta-sppg-val">
+                            <input type="hidden" name="gizi" class="meta-gizi-val">
+                            <input type="hidden" name="dapur" class="meta-dapur-val">
+                            <input type="hidden" name="bgn" class="meta-bgn-val">
+                            <button type="submit" class="btn btn-secondary" style="width: 100%; min-height: 36px; font-size: 13px;">Ekspor Laporan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -422,6 +488,32 @@
             showPage(currentPage + direction);
         }
 
+        // 2.5 Tabs Switcher Logic
+        function switchTab(tabId) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(function(content) {
+                content.classList.remove('active-content');
+            });
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(function(btn) {
+                btn.classList.remove('active-tab');
+            });
+            
+            // Show selected tab content
+            const activeContent = document.getElementById(tabId + '-content');
+            if (activeContent) {
+                activeContent.classList.add('active-content');
+            }
+            // Set active class on active tab button
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('active-tab');
+            }
+            
+            // Save tab state to localStorage
+            localStorage.setItem('active_dashboard_tab', tabId);
+        }
+
         // 3. Metadata persistence and dynamic injection logic
         function saveMetadataToLocalStorage() {
             localStorage.setItem('sppg_name', document.getElementById('sppg-name-input').value || '');
@@ -458,6 +550,10 @@
         window.addEventListener('load', function() {
             showPage(1);
             loadMetadataFromLocalStorage();
+
+            // Restore active tab from localStorage or default to 'log'
+            const savedTab = localStorage.getItem('active_dashboard_tab') || 'log';
+            switchTab(savedTab);
 
             // Auto-save metadata when user types
             document.getElementById('sppg-name-input').addEventListener('input', saveMetadataToLocalStorage);
