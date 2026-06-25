@@ -177,7 +177,7 @@
     <div class="container" style="max-width: 1100px; padding-top: var(--spacing-sm);">
         
         <div style="margin-bottom: var(--spacing-md); text-align: left;">
-            <h2 class="headline-md" style="margin-top: 4px;">Dashboard Operasional</h2>
+            <h2 class="headline-lg" style="margin-top: 4px;">Dashboard Operasional</h2>
             <p class="body-sm" style="color: var(--color-primary-60); margin-top: 2px;">
                 Mulai sesi harian baru, pantau riwayat log kegiatan, dan ekspor laporan rekapitulasi cetak.
             </p>
@@ -196,7 +196,7 @@
         <!-- 1. Riwayat Sesi (Logs) Content -->
         <div class="tab-content active-content" id="log-content">
             <div class="history-list" style="margin-top: 0;">
-                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Riwayat Sesi Operasional</h3>
+                <h3 class="headline-sm" style="margin-bottom: 8px;">Riwayat Sesi Operasional</h3>
                 <p class="body-sm" style="margin-bottom: var(--spacing-sm);">
                     Pilih sesi tanggal di bawah ini untuk melihat detail, menyunting log, atau mencetak laporan harian.
                 </p>
@@ -253,7 +253,7 @@
         <!-- 2. Buka Sesi Baru Content -->
         <div class="tab-content" id="session-content">
             <div class="card" style="text-align: left; padding: var(--spacing-md); max-width: 600px; margin: 0 auto;">
-                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: var(--spacing-sm);">Buka Sesi Harian</h3>
+                <h3 class="headline-sm" style="margin-bottom: 8px;">Buka Sesi Harian</h3>
                 <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
                     Pilih tanggal kalender di bawah untuk membuat log kegiatan baru dan mengaktifkan 11 kelompok pemantauan AI.
                 </p>
@@ -270,7 +270,7 @@
         <!-- 3. Metadata SPPG Content -->
         <div class="tab-content" id="metadata-content">
             <div class="card" style="text-align: left; padding: var(--spacing-md); max-width: 800px; margin: 0 auto;">
-                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Metadata Penanggung Jawab</h3>
+                <h3 class="headline-sm" style="margin-bottom: 8px;">Metadata Penanggung Jawab</h3>
                 <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
                     Sesuaikan nama unit SPPG dan pejabat penanggung jawab untuk dicetak di halaman Cover Laporan dan kolom tanda tangan. Data ini disimpan otomatis di peramban Anda.
                 </p>
@@ -301,14 +301,14 @@
         <!-- 4. Ekspor Laporan Content -->
         <div class="tab-content" id="export-content">
             <div class="card" style="text-align: left; padding: var(--spacing-md); max-width: 800px; margin: 0 auto;">
-                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Cetak Rekapitulasi Laporan</h3>
+                <h3 class="headline-sm" style="margin-bottom: 8px;">Cetak Rekapitulasi Laporan</h3>
                 <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
                     Pilih rentang laporan rekapitulasi data log operasional terintegrasi MBG (Bulanan atau Tahunan). Nama-nama penanggung jawab pada tab Metadata akan ikut disertakan.
                 </p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;">
                     <!-- Monthly Report -->
                     <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
-                        <h4 class="headline-sm" style="font-size: 14px; margin-bottom: 8px;">Laporan Bulanan</h4>
+                        <h4 class="body-md" style="font-weight: 700; margin-bottom: 8px; color: var(--color-primary);">Laporan Bulanan</h4>
                         <form action="/report/monthly" method="GET" onsubmit="appendMetadataToForm(this)">
                             <div class="form-group">
                                 <input type="month" class="form-input" name="month" required style="font-size: 13px; padding: 8px 16px;">
@@ -322,7 +322,7 @@
                     </div>
                     <!-- Yearly Report -->
                     <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
-                        <h4 class="headline-sm" style="font-size: 14px; margin-bottom: 8px;">Laporan Tahunan</h4>
+                        <h4 class="body-md" style="font-weight: 700; margin-bottom: 8px; color: var(--color-primary);">Laporan Tahunan</h4>
                         <form action="/report/yearly" method="GET" onsubmit="appendMetadataToForm(this)">
                             <div class="form-group">
                                 <input type="number" class="form-input" name="year" min="2020" max="2050" value="2026" required style="font-size: 13px; padding: 8px 16px; text-align: center;">

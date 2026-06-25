@@ -2,8 +2,8 @@ import os
 import json
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 
-# Initialize Flask with the template folder set to the current directory (Web/)
-app = Flask(__name__, template_folder='.', static_folder='static')
+# Initialize Flask with the template folder set to templates/
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 SESSIONS_FILE = os.path.join(os.path.dirname(__file__), 'sessions.json')
 
