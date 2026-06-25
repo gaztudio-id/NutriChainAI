@@ -1,14 +1,14 @@
 # NutriChainAI - Sistem Cerdas Terintegrasi Manajemen MBG
 
-NutriChainAI adalah platform audit, pemantauan, dan verifikasi kualitas gizi serta keamanan pangan terintegrasi untuk program **Makan Bergizi Gratis (MBG) Nasional**. Platform ini dirancang menggunakan arsitektur modular yang menggabungkan 11 proyek kecerdasan buatan (Deep Learning) dari hulu ke hilir ke dalam satu alur operasional (Standard Operating Procedure/SOP) digital.
+NutriChainAI adalah platform audit, pemantauan, dan verifikasi kualitas gizi serta keamanan pangan terintegrasi untuk program Makan Bergizi Gratis (MBG) Nasional. Platform ini dirancang menggunakan arsitektur modular yang menggabungkan 11 proyek kecerdasan buatan (Deep Learning) dari hulu ke hilir ke dalam satu alur operasional (Standard Operating Procedure/SOP) digital.
 
-Proyek ini dibangun menggunakan **Flask (Python)** untuk backend, serta sistem desain **Synthesis Capital** yang bersih, modern, dan ergonomis (dilengkapi fitur tema Terang/Gelap otomatis, Dynamic Island Navbar, dan Floating Theme Switcher).
+Proyek ini dibangun menggunakan Flask (Python) untuk backend, serta sistem desain Synthesis Capital yang bersih, modern, dan ergonomis (dilengkapi fitur tema Terang/Gelap otomatis, Dynamic Island Navbar, dan Floating Theme Switcher).
 
 ---
 
-## 📋 Alur Integrasi Sistem (SOP Pipeline)
+## Alur Integrasi Sistem (SOP Pipeline)
 
-Operasional sistem terbagi menjadi **5 Fase Utama** yang berjalan secara berurutan:
+Operasional sistem terbagi menjadi 5 Fase Utama yang berjalan secara berurutan:
 
 1. **Fase 1: Perencanaan Menu & Logistik (Ruang Dapur)**
    * Mempersiapkan kecukupan gizi harian, estimasi sisa porsi menu, serta meramalkan kuantitas belanja logistik dapur umum.
@@ -23,9 +23,9 @@ Operasional sistem terbagi menjadi **5 Fase Utama** yang berjalan secara berurut
 
 ---
 
-## 🛠️ Pembagian Modul Kerja Kelompok (Kelompok 1 - 11)
+## Pembagian Modul Kerja Kelompok (Kelompok 1 - 11)
 
-Setiap kelompok bertanggung jawab untuk mengimplementasikan fungsionalitas algoritma AI masing-masing pada berkas template HTML yang telah disediakan di folder `Web/Kelompok_X/kelompok_X.html`. 
+Setiap kelompok bertanggung jawab untuk mengimplementasikan fungsionalitas algoritma AI masing-masing pada berkas template HTML yang telah disediakan di folder `Web/Kelompok_X/kelompok_X.html`.
 
 Berikut adalah rincian fungsionalitas dan model AI untuk setiap kelompok:
 
@@ -45,47 +45,75 @@ Berikut adalah rincian fungsionalitas dan model AI untuk setiap kelompok:
 
 ---
 
-## ✍️ Panduan Pengisian dan Integrasi Kelompok
+## Panduan Kerja Kolaboratif Menggunakan Git
 
-Setiap kelompok wajib mengikuti langkah-langkah di bawah ini untuk mengintegrasikan model Deep Learning mereka ke dalam platform NutriChainAI:
+Untuk menghindari konflik kode (merge conflicts) dan menjaga integritas file utama, setiap anggota kelompok wajib mengikuti prosedur kerja Git berikut secara disiplin:
 
-### Langkah 1: Persiapan Model
-1. Letakkan file model Anda (format `.h5`, `.keras`, `.pt`, `.onnx`, atau `.bin`) di folder kelompok masing-masing (misal: `Web/Kelompok_X/model.h5`).
-2. Tuliskan skrip inferensi Python di dalam handler rute kelompok Anda di file `Web/app.py` jika ingin melakukan inferensi real-time di server Flask.
+### 1. Sebelum Melakukan Edit (Sinkronisasi Kode)
+Selalu tarik versi kode terbaru dari repository pusat sebelum Anda mulai membuat perubahan. Hal ini mencegah terjadinya konflik akibat bekerja pada basis kode yang usang.
+```bash
+git pull origin main
+```
 
-### Langkah 2: Edit Berkas HTML (`kelompok_X.html`)
-1. Buka berkas `Web/Kelompok_X/kelompok_X.html` di kode editor Anda.
-2. Anda diperbolehkan memodifikasi bagian **Main Content** di dalam `<div class="container" style="max-width: 1100px;">` untuk menambahkan:
-   * Form unggah gambar (untuk model deteksi citra seperti CNN/YOLO).
-   * Input teks/angka parameter (untuk model prediksi tabular seperti ANN/LSTM).
-   * Visualisasi grafik diagram batasan gizi, chart ulasan sentimen, atau bounding box deteksi objek.
-3. **PENTING**: Jangan merubah struktur navigasi **Dynamic Island Navbar** (`.dynamic-island-container`) dan file javascript `theme.js` di bagian header karena sudah diseragamkan untuk menjaga konsistensi transisi page-load loader dan responsivitas web.
+### 2. Aturan Pembatasan Edit Berkas
+* **Hanya Edit Berkas Kelompok Anda**: Batasi modifikasi Anda pada folder kelompok masing-masing (misal: `Web/Kelompok_X/`).
+* **Hanya Edit Endpoint Anda di `Web/app.py`**: Jika kelompok Anda memerlukan penambahan endpoint Machine Learning pada server Flask, edit file `Web/app.py` hanya pada blok route/fungsi kelompok Anda (`/kelompok-X` atau endpoint buatan Anda sendiri). Jangan memodifikasi route inti seperti `/`, `/about`, `/dashboard`, `/status`, atau route milik kelompok lain.
+* **JANGAN Edit Berkas CSS/JS Utama**: Jangan memodifikasi file style global `Web/static/style.css` atau fungsionalitas tema `Web/static/theme.js`. Jika memerlukan CSS kustom khusus kelompok, tulis CSS tersebut di dalam tag `<style>` di HTML kelompok Anda sendiri (`kelompok_X.html`).
 
-### Langkah 3: Integrasi API Flask (`Web/app.py`)
-1. Buka file `Web/app.py`.
-2. Cari rute `@app.route('/kelompok-<int:num>')` yang merender halaman Anda.
-3. Anda dapat menambahkan logika endpoint baru (contoh: POST `/kelompok-X/predict`) untuk menerima input data dari frontend HTML kelompok Anda, melakukan inferensi menggunakan library deep learning pilihan Anda (TensorFlow/PyTorch/ONNX Runtime), dan mengembalikan data dalam format JSON untuk dirender secara dinamis menggunakan Javascript fetch API di HTML Anda.
-
-### Langkah 4: Pengujian Mandiri
-1. Jalankan server Flask lokal Anda:
+### 3. Alur Penyimpanan dan Pengiriman (Stage, Commit & Push)
+Setelah menguji kode Anda secara lokal dan memastikan server berjalan normal:
+1. **Lakukan Stage Secara Spesifik**: Hindari penggunaan perintah `git add .` karena perintah ini dapat secara tidak sengaja menstagen file temporer atau file kelompok lain. Lakukan stage hanya pada file pekerjaan Anda:
    ```bash
-   python app.py
+   git add Web/Kelompok_X/
+   git add Web/app.py
    ```
-2. Buka `http://127.0.0.1:5050` pada browser Anda.
-3. Masuk ke halaman **Status Model** atau **Dashboard Operasional** lalu klik kelompok Anda untuk memverifikasi apakah layout UI terender dengan rapi, form input berfungsi, dan API inferensi mengembalikan output yang sesuai.
+2. **Lakukan Commit dengan Format Standar**: Gunakan format commit yang seragam yaitu `type: isi nya`. Contoh:
+   ```bash
+   git commit -m "feat: kelompok 3 integrasi model prediksi kesukaan menu"
+   ```
+3. **Kirim Perubahan ke Server**: Kirim commit Anda ke branch utama:
+   ```bash
+   git push origin main
+   ```
 
 ---
 
-## 🚀 Cara Menjalankan Aplikasi Secara Lokal
+## Panduan Teknis Integrasi Model Machine Learning
 
-1. Pastikan Python 3.8+ sudah terinstal di sistem Anda.
-2. Instal dependensi dasar Flask:
+### Langkah 1: Penyiapan Model
+1. Simpan file bobot model Anda (seperti `.h5`, `.pt`, `.onnx`, atau `.bin`) ke dalam folder kelompok masing-masing (contoh: `Web/Kelompok_X/model.h5`).
+2. Muat model tersebut pada server backend di `Web/app.py` menggunakan pustaka yang sesuai (seperti TensorFlow, PyTorch, atau ONNX Runtime).
+
+### Langkah 2: Pembuatan Endpoint Prediksi di Backend (`Web/app.py`)
+Tambahkan handler baru untuk menerima request prediksi, contoh:
+```python
+@app.route('/predict-kelompok-X', methods=['POST'])
+def predict_kelompok_x():
+    # Ambil input gambar atau data tabular dari request
+    # Lakukan prapemrosesan data
+    # Jalankan prediksi model
+    # Kembalikan response dalam format JSON
+    return jsonify({"status": "success", "result": prediction_value})
+```
+
+### Langkah 3: Desain UI Frontend (`kelompok_X.html`)
+Desain antarmuka kelompok Anda secara profesional di dalam `<div class="container" style="max-width: 1100px;">`:
+* Gunakan elemen input formulir yang bersih dan berlabel jelas.
+* Gunakan Javascript `fetch` API untuk mengirim data input ke endpoint backend secara asinkron tanpa me-reload halaman.
+* Tampilkan hasil inferensi secara dinamis pada elemen visual seperti grafik atau bounding box pada canvas.
+
+---
+
+## Cara Menjalankan Aplikasi Secara Lokal
+
+1. Pastikan Python 3.8+ terinstal di sistem Anda.
+2. Pasang dependensi Flask:
    ```bash
    pip install Flask
    ```
-3. *(Opsional)* Instal dependensi machine learning Anda jika menggunakan inferensi sisi server (seperti `tensorflow`, `torch`, `opencv-python`, dll).
+3. Pasang dependensi Machine Learning yang diperlukan kelompok Anda (seperti `tensorflow`, `torch`, `opencv-python`, dll).
 4. Jalankan aplikasi:
    ```bash
    python app.py
    ```
-5. Akses web di: [http://127.0.0.1:5050](http://127.0.0.1:5050)
+5. Akses aplikasi melalui peramban pada alamat: http://127.0.0.1:5050
