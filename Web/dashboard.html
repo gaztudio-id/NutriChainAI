@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriChainAI - Dashboard Operasional</title>
+    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
+    <!-- Theme Manager JS -->
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <!-- Shared Design System CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .history-list {
+            margin-top: var(--spacing-md);
+            text-align: left;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-secondary);
+            border-radius: var(--rounded-sm);
+            padding: 16px var(--spacing-sm);
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .history-item:hover {
+            border-color: var(--color-primary-70);
+            transform: translateX(4px);
+        }
+        .progress-bar-container {
+            width: 100px;
+            height: 8px;
+            background-color: var(--color-secondary);
+            border-radius: var(--rounded-full);
+            overflow: hidden;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: var(--color-primary);
+            border-radius: var(--rounded-full);
+        }
+        /* Pagination controls */
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: var(--spacing-sm);
+        }
+        /* Print reports panel */
+        .report-panel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+        /* Modal dialog overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(18, 10, 89, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-card {
+            background-color: var(--color-surface);
+            border-radius: var(--rounded-sm);
+            border: 1px solid var(--color-secondary);
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+                <!-- Dynamic Island Navbar -->
+    <div class="dynamic-island-container">
+        <div class="dynamic-island-nav">
+            <!-- Left links -->
+            <div class="nav-links-left">
+                <a href="/" class="nav-link-item">Home</a>
+                <a href="/#about" class="nav-link-item">Tentang</a>
+            </div>
+            
+            <!-- Center Logo -->
+            <a href="/" class="brand-name-center">
+                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
+                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
+            </a>
+            
+            <!-- Right links -->
+            <div class="nav-links-right">
+                <a href="/dashboard" class="nav-link-item active-page">Dashboard</a>
+                <a href="/status" class="nav-link-item">Status Model</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="max-width: 1100px; padding-top: var(--spacing-sm);">
+        
+        <div style="margin-bottom: var(--spacing-md); text-align: left;">
+            <span class="badge badge-primary">Pusat Kontrol</span>
+            <h2 class="headline-md" style="margin-top: 4px;">Dashboard Operasional</h2>
+            <p class="body-sm" style="color: var(--color-primary-60); margin-top: 2px;">
+                Mulai sesi harian baru, pantau riwayat log kegiatan, dan ekspor laporan rekapitulasi cetak.
+            </p>
+        </div>
+
+        <div class="grid-asymmetric">
+            
+            <!-- Left Column: History Log Section -->
+            <div class="history-list" style="margin-top: 0;">
+                <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Riwayat Sesi Operasional</h3>
+                <p class="body-sm" style="margin-bottom: var(--spacing-sm);">
+                    Pilih sesi tanggal di bawah ini untuk melihat detail, menyunting log, atau mencetak laporan harian.
+                </p>
+
+                <div id="log-items-container">
+                    {% if history %}
+                        {% for item in history %}
+                            <div class="history-item log-row" data-date="{{ item.date }}">
+                                <div style="flex: 1;" onclick="window.location.href='/session/{{ item.date }}'">
+                                    <strong class="body-md" style="color: var(--color-primary); cursor: pointer;">Tanggal: {{ item.date }}</strong>
+                                    <div class="body-sm" style="margin-top: 4px;">{{ item.completed }} dari 11 Kelompok Selesai</div>
+                                </div>
+                                <div class="flex-between" style="gap: 16px;">
+                                    <div onclick="window.location.href='/session/{{ item.date }}'" style="cursor: pointer; display: flex; align-items: center;">
+                                        <span class="progress-bar-container">
+                                            <div class="progress-fill" style="width: {{ item.pct }}%;"></div>
+                                        </span>
+                                        <span class="badge {% if item.pct == 100 %}badge-success{% else %}badge-primary{% endif %}" style="font-size: 11px; margin-right: 12px;">
+                                            {{ item.pct }}%
+                                        </span>
+                                    </div>
+                                    <div style="display: flex; gap: 6px;">
+                                        <button onclick="goToDailyReport('{{ item.date }}')" class="btn btn-secondary" style="min-height: auto; padding: 6px 12px; font-size: 12px;" title="Cetak Laporan Harian">
+                                            Laporan
+                                        </button>
+                                        <button class="btn btn-secondary" onclick="openRenameModal('{{ item.date }}')" style="min-height: auto; padding: 6px 12px; font-size: 12px;" title="Ubah Tanggal Sesi">
+                                            Ubah
+                                        </button>
+                                        <button class="btn btn-secondary" onclick="openDeleteModal('{{ item.date }}')" style="background-color: var(--color-error); border-color: var(--color-error); color: white; min-height: auto; padding: 6px 12px; font-size: 12px;" title="Hapus Sesi">
+                                            Hapus
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="card" style="text-align: center; color: var(--color-primary-60); padding: var(--spacing-md); border-style: dashed;">
+                            <p class="body-md">Belum ada riwayat sesi. Pilih tanggal di samping untuk memulai sesi hari pertama!</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Pagination Toolbar -->
+                {% if history and history|length > 5 %}
+                    <div class="pagination-bar">
+                        <button class="btn btn-secondary" id="btn-prev" onclick="changePage(-1)" style="min-height: 36px; padding: 4px 16px; font-size: 13px;">Sebelumnya</button>
+                        <span class="body-sm" style="font-weight: 700;">Halaman <span id="page-num">1</span> dari <span id="page-total">1</span></span>
+                        <button class="btn btn-secondary" id="btn-next" onclick="changePage(1)" style="min-height: 36px; padding: 4px 16px; font-size: 13px;">Berikutnya</button>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Right Column: Operational Controls -->
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                
+                <!-- Start Session Form -->
+                <div class="card" style="text-align: left; padding: var(--spacing-md);">
+                    <h3 class="headline-sm" style="font-size: 18px; margin-bottom: var(--spacing-sm);">Buka Sesi Harian</h3>
+                    <form action="/session" method="POST" id="start-session-form" onsubmit="confirmStartSession(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="session-date">Pilih Tanggal Kegiatan</label>
+                            <input type="date" class="form-input" id="session-date" name="session-date" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Mulai Sesi Harian</button>
+                    </form>
+                </div>
+
+                <!-- Central Print Panel & Metadata Settings -->
+                <div class="card" style="text-align: left; padding: var(--spacing-md);">
+                    <h3 class="headline-sm" style="font-size: 18px; margin-bottom: 4px;">Metadata &amp; Ekspor Laporan</h3>
+                    <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
+                        Sesuaikan nama unit SPPG dan pejabat penanggung jawab untuk dicetak di halaman Cover Laporan dan tanda tangan.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="sppg-name-input">Nama SPPG / Satuan Pelayanan</label>
+                        <input type="text" class="form-input" id="sppg-name-input" placeholder="Contoh: SPPG Dapur Umum Jakarta Pusat 01">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="nutritionist-name-input">Ahli Gizi / Pengawas Dapur</label>
+                            <input type="text" class="form-input" id="nutritionist-name-input" placeholder="Contoh: Budi Santoso, S.Gz">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="kitchen-head-name-input">Kepala Dapur</label>
+                            <input type="text" class="form-input" id="kitchen-head-name-input" placeholder="Contoh: Chef Haryono">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: var(--spacing-md);">
+                        <label class="form-label" for="bgn-head-name-input">Penanggung Jawab / Kepala SPPG</label>
+                        <input type="text" class="form-input" id="bgn-head-name-input" placeholder="Contoh: Dr. Ir. Ahmad Subarjo, M.Sc">
+                    </div>
+                    
+                    <h4 class="headline-sm" style="font-size: 15px; margin-bottom: 4px; border-top: 1px solid var(--color-secondary); padding-top: 16px;">Cetak Rekapitulasi Laporan</h4>
+                    <p class="body-sm" style="margin-bottom: var(--spacing-sm);">
+                        Pilih rentang laporan rekapitulasi data log operasional terintegrasi MBG (Bulanan atau Tahunan).
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <!-- Monthly Report -->
+                        <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
+                            <h4 class="headline-sm" style="font-size: 13px; margin-bottom: 8px;">Laporan Bulanan</h4>
+                            <form action="/report/monthly" method="GET" onsubmit="appendMetadataToForm(this)">
+                                <div class="form-group">
+                                    <input type="month" class="form-input" name="month" required style="font-size: 13px; padding: 8px 16px;">
+                                </div>
+                                <input type="hidden" name="sppg" class="meta-sppg-val">
+                                <input type="hidden" name="gizi" class="meta-gizi-val">
+                                <input type="hidden" name="dapur" class="meta-dapur-val">
+                                <input type="hidden" name="bgn" class="meta-bgn-val">
+                                <button type="submit" class="btn btn-secondary" style="width: 100%; min-height: 36px; font-size: 13px;">Ekspor Laporan</button>
+                            </form>
+                        </div>
+                        <!-- Yearly Report -->
+                        <div class="card" style="padding: 16px; background-color: rgba(18, 10, 89, 0.02); border: 1px solid var(--color-secondary);">
+                            <h4 class="headline-sm" style="font-size: 13px; margin-bottom: 8px;">Laporan Tahunan</h4>
+                            <form action="/report/yearly" method="GET" onsubmit="appendMetadataToForm(this)">
+                                <div class="form-group">
+                                    <input type="number" class="form-input" name="year" min="2020" max="2050" value="2026" required style="font-size: 13px; padding: 8px 16px; text-align: center;">
+                                </div>
+                                <input type="hidden" name="sppg" class="meta-sppg-val">
+                                <input type="hidden" name="gizi" class="meta-gizi-val">
+                                <input type="hidden" name="dapur" class="meta-dapur-val">
+                                <input type="hidden" name="bgn" class="meta-bgn-val">
+                                <button type="submit" class="btn btn-secondary" style="width: 100%; min-height: 36px; font-size: 13px;">Ekspor Laporan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+
+    <!-- Alert Modal: Start Session Confirmation -->
+    <div class="modal-overlay" id="confirm-start-modal">
+        <div class="modal-card">
+            <h3 class="headline-sm" style="margin-bottom: 12px; font-size: 18px;">Buka Sesi Baru</h3>
+            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-md);">
+                Anda akan memulai sesi harian baru untuk tanggal <strong id="modal-date-display"></strong>. Sesi ini akan mencatat status kelayakan operasional dari 11 kelompok. Lanjutkan?
+            </p>
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn btn-secondary" onclick="closeModal('confirm-start-modal')" style="min-height: 36px; padding: 4px 16px;">Batal</button>
+                <button class="btn btn-primary" onclick="submitStartSession()" style="min-height: 36px; padding: 4px 16px;">Ya, Buka Sesi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal: Delete Session Confirmation -->
+    <div class="modal-overlay" id="delete-session-modal">
+        <div class="modal-card">
+            <h3 class="headline-sm" style="margin-bottom: 12px; color: var(--color-error); font-size: 18px;">Hapus Sesi Log</h3>
+            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-md);">
+                Apakah Anda yakin ingin menghapus log kegiatan operasional untuk tanggal <strong id="delete-date-display"></strong>? Tindakan ini bersifat permanen dan tidak dapat dibatalkan.
+            </p>
+            <form id="delete-form" action="" method="POST" style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('delete-session-modal')" style="min-height: 36px; padding: 4px 16px;">Batal</button>
+                <button type="submit" class="btn btn-primary" style="background-color: var(--color-error); min-height: 36px; padding: 4px 16px;">Ya, Hapus</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert Modal: Rename Date Session -->
+    <div class="modal-overlay" id="rename-session-modal">
+        <div class="modal-card">
+            <h3 class="headline-sm" style="margin-bottom: 12px; font-size: 18px;">Ubah Tanggal Sesi</h3>
+            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
+                Masukkan tanggal baru untuk menggantikan log sesi tanggal <strong id="rename-date-display"></strong>:
+            </p>
+            <form id="rename-form" action="" method="POST">
+                <div class="form-group">
+                    <input type="date" class="form-input" name="new-date" required>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('rename-session-modal')" style="min-height: 36px; padding: 4px 16px;">Batal</button>
+                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
+                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
+                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
+                </div>
+                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
+                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
+                </p>
+                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
+                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Pagination & Modal Controller Script -->
+    <script>
+        // 1. Modal Confirmation Handling
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Start session workflow
+        function confirmStartSession(event) {
+            event.preventDefault();
+            const dateVal = document.getElementById('session-date').value;
+            document.getElementById('modal-date-display').innerText = dateVal;
+            openModal('confirm-start-modal');
+        }
+        function submitStartSession() {
+            document.getElementById('start-session-form').submit();
+        }
+
+        // Delete session workflow
+        function openDeleteModal(date) {
+            document.getElementById('delete-date-display').innerText = date;
+            document.getElementById('delete-form').action = '/session/' + date + '/delete';
+            openModal('delete-session-modal');
+        }
+
+        // Rename session workflow
+        function openRenameModal(date) {
+            document.getElementById('rename-date-display').innerText = date;
+            document.getElementById('rename-form').action = '/session/' + date + '/rename';
+            
+            // Set date input value to existing date
+            const dateInput = document.querySelector('#rename-session-modal input[type="date"]');
+            dateInput.value = date;
+            
+            openModal('rename-session-modal');
+        }
+
+        // 2. Client Side Pagination for Logs History List
+        const itemsPerPage = 5;
+        let currentPage = 1;
+        const rows = Array.from(document.querySelectorAll('.log-row'));
+        const pageTotal = Math.ceil(rows.length / itemsPerPage);
+
+        function showPage(page) {
+            if (rows.length === 0) return;
+            
+            // Boundary enforcement
+            if (page < 1) page = 1;
+            if (page > pageTotal) page = pageTotal;
+            currentPage = page;
+
+            // Hide all rows, then show current page slice
+            rows.forEach(row => row.style.display = 'none');
+            
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            
+            rows.slice(start, end).forEach(row => {
+                row.style.display = 'flex';
+            });
+
+            // Update UI elements
+            const pageNumText = document.getElementById('page-num');
+            const pageTotalText = document.getElementById('page-total');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            if (pageNumText) pageNumText.innerText = currentPage;
+            if (pageTotalText) pageTotalText.innerText = pageTotal;
+            
+            if (btnPrev) btnPrev.disabled = (currentPage === 1);
+            if (btnNext) btnNext.disabled = (currentPage === pageTotal);
+        }
+
+        function changePage(direction) {
+            showPage(currentPage + direction);
+        }
+
+        // 3. Metadata persistence and dynamic injection logic
+        function saveMetadataToLocalStorage() {
+            localStorage.setItem('sppg_name', document.getElementById('sppg-name-input').value || '');
+            localStorage.setItem('nutritionist_name', document.getElementById('nutritionist-name-input').value || '');
+            localStorage.setItem('kitchen_head_name', document.getElementById('kitchen-head-name-input').value || '');
+            localStorage.setItem('bgn_head_name', document.getElementById('bgn-head-name-input').value || '');
+        }
+
+        function loadMetadataFromLocalStorage() {
+            document.getElementById('sppg-name-input').value = localStorage.getItem('sppg_name') || 'SPPG Dapur Umum Utama';
+            document.getElementById('nutritionist-name-input').value = localStorage.getItem('nutritionist_name') || 'Ahli Gizi NutriChain';
+            document.getElementById('kitchen-head-name-input').value = localStorage.getItem('kitchen_head_name') || 'Kepala Dapur NutriChain';
+            document.getElementById('bgn-head-name-input').value = localStorage.getItem('bgn_head_name') || 'Kepala Badan Gizi Nasional';
+        }
+
+        function appendMetadataToForm(form) {
+            saveMetadataToLocalStorage();
+            form.querySelector('.meta-sppg-val').value = document.getElementById('sppg-name-input').value;
+            form.querySelector('.meta-gizi-val').value = document.getElementById('nutritionist-name-input').value;
+            form.querySelector('.meta-dapur-val').value = document.getElementById('kitchen-head-name-input').value;
+            form.querySelector('.meta-bgn-val').value = document.getElementById('bgn-head-name-input').value;
+        }
+
+        function goToDailyReport(date) {
+            saveMetadataToLocalStorage();
+            const sppg = encodeURIComponent(document.getElementById('sppg-name-input').value || '');
+            const gizi = encodeURIComponent(document.getElementById('nutritionist-name-input').value || '');
+            const dapur = encodeURIComponent(document.getElementById('kitchen-head-name-input').value || '');
+            const bgn = encodeURIComponent(document.getElementById('bgn-head-name-input').value || '');
+            window.location.href = `/session/${date}/report?sppg=${sppg}&gizi=${gizi}&dapur=${dapur}&bgn=${bgn}`;
+        }
+
+        // Initialize pagination and default date on load
+        window.addEventListener('load', function() {
+            showPage(1);
+            loadMetadataFromLocalStorage();
+
+            // Auto-save metadata when user types
+            document.getElementById('sppg-name-input').addEventListener('input', saveMetadataToLocalStorage);
+            document.getElementById('nutritionist-name-input').addEventListener('input', saveMetadataToLocalStorage);
+            document.getElementById('kitchen-head-name-input').addEventListener('input', saveMetadataToLocalStorage);
+            document.getElementById('bgn-head-name-input').addEventListener('input', saveMetadataToLocalStorage);
+            
+            // Set today's date as default in session-date input (local timezone)
+            const dateInput = document.getElementById('session-date');
+            if (dateInput && !dateInput.value) {
+                const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+                const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
+                dateInput.value = localISOTime;
+            }
+        });
+    </script>
+</body>
+</html>

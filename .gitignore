@@ -1,0 +1,20 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE configurations
+.idea/
+.vscode/
+
+# Project specific ignores requested by user
+Rancangan Smart System MBG - 3 TI A (1).pdf
+synthesis.capital-design.md
+synthesis.capital-design.md.bk
+*.pdf

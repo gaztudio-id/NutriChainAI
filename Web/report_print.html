@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan {{ type }} - NutriChainAI</title>
+    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        @page {
+            size: A4 portrait;
+            margin: 20mm 15mm 20mm 15mm;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a2e;
+            padding: 0;
+            margin: 0;
+            line-height: 1.4;
+            font-size: 13px;
+        }
+
+        /* Top Action Bar for screen only */
+        .no-print-bar {
+            background-color: #120A59;
+            color: #ffffff;
+            padding: 14px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+        .btn-print {
+            background-color: #D8F500;
+            color: #120A59;
+            border: none;
+            padding: 8px 20px;
+            font-weight: 700;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Master Print Table Layout */
+        .master-print-layout {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+        .master-print-layout > thead > tr > td,
+        .master-print-layout > tbody > tr > td {
+            border: none;
+            padding: 0;
+        }
+
+        /* Repeated Kop (Header) Style */
+        .header-print {
+            border-bottom: 2px solid #1a1a2e;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+        }
+        .header-logos {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo-header-bgn {
+            max-height: 60px;
+            width: auto;
+            display: inline-block;
+        }
+        .logo-header-nutri {
+            max-height: 52px;
+            width: auto;
+            display: inline-block;
+        }
+        .logo-divider {
+            width: 1px;
+            height: 40px;
+            background-color: #cccccc;
+        }
+        .header-title-box {
+            text-align: right;
+            font-weight: 600;
+        }
+        .title-main {
+            font-size: 16px;
+            font-weight: 800;
+            color: #120A59;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .title-sub {
+            font-size: 11px;
+            color: #4A4A68;
+            margin: 2px 0 0 0;
+            font-weight: 500;
+        }
+
+        /* Formal Metadata Table */
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .meta-table td {
+            border: 1px solid #cccccc;
+            padding: 8px 10px;
+            width: 33.33%;
+        }
+        .meta-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #5B5490;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .meta-val {
+            font-size: 13px;
+            font-weight: 700;
+            color: #120A59;
+        }
+
+        /* System description banner */
+        .desc-section {
+            border: 1px solid #cccccc;
+            background-color: #fcfcfd;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #4A4A68;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .desc-section strong {
+            color: #120A59;
+        }
+
+        /* Formal Section Headers */
+        .section-title {
+            color: #120A59;
+            font-size: 14px;
+            font-weight: 800;
+            border-bottom: 1.5px solid #120A59;
+            padding-bottom: 3px;
+            margin-top: 24px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* Formal Audit Tables */
+        .audit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .audit-table tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .audit-table th, .audit-table td {
+            border: 1px solid #cccccc;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .audit-table th {
+            background-color: #f4f5f7;
+            color: #120A59;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .col-step { width: 22%; font-weight: 700; }
+        .col-metode { width: 15%; }
+        .col-peran { width: 25%; font-size: 11px; color: #4A4A68; }
+        .col-status { width: 10%; font-weight: 700; text-align: center; }
+        .col-output { width: 28%; font-weight: 600; background-color: #fafbfd; }
+
+        .status-done { color: #306E00; }
+        .status-pending { color: #D92D20; }
+
+        /* Signature Section */
+        .signature-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            width: 100%;
+        }
+        .signature-block {
+            width: 200px;
+            text-align: center;
+        }
+        .signature-line {
+            border-top: 1px solid #1a1a2e;
+            margin-top: 80px; /* Increased spacer for signature */
+            padding-top: 6px;
+            font-weight: 700;
+            color: #120A59;
+        }
+        .signature-role {
+            font-size: 11px;
+            color: #5B5490;
+        }
+
+        /* Monthly sessions separator */
+        .session-separator {
+            background-color: #120A59;
+            color: #ffffff;
+            padding: 8px 12px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* ==========================================================================
+           PRINT COVER PAGE STYLING
+           ========================================================================== */
+        .print-cover-page {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 240mm; /* Decreased height to prevent page overflow */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10mm 15mm; /* Reduced padding */
+            border: none; /* Removed border */
+            background-color: #ffffff;
+            page-break-after: always;
+            break-after: page;
+            margin-bottom: 40px;
+        }
+
+        .cover-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .logo-cover-bgn {
+            height: 85px;
+            width: auto;
+        }
+
+        .logo-cover-nutri {
+            height: 60px;
+            width: auto;
+        }
+
+        .cover-divider {
+            height: 3px;
+            background: linear-gradient(90deg, #120A59, #D8F500, #120A59);
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .cover-title-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .cover-badge {
+            background-color: #120A59;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .cover-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #120A59;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+
+        .cover-subtitle {
+            font-size: 15px;
+            font-weight: 600;
+            color: #5B5490;
+            margin: 0 0 20px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .cover-description {
+            font-size: 12px;
+            color: #4A4A68;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .cover-metadata-box {
+            background-color: #f8f9fa;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 85%;
+            max-width: 500px;
+        }
+
+        .cover-meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cover-meta-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .cover-meta-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cover-meta-table .meta-label {
+            font-weight: 600;
+            color: #5B5490;
+            width: 40%;
+            text-align: left;
+        }
+
+        .cover-meta-table .meta-value {
+            font-weight: 700;
+            color: #120A59;
+            text-align: left;
+        }
+
+        .cover-footer {
+            text-align: center;
+            font-size: 11px;
+            color: #5B5490;
+            line-height: 1.5;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+
+        .publisher-name {
+            font-weight: 800;
+            color: #120A59;
+            font-size: 13px;
+            margin: 4px 0 2px 0;
+            text-transform: uppercase;
+        }
+
+        .publisher-sub {
+            font-size: 10px;
+            color: #7B74A8;
+        }
+
+        @media print {
+            .no-print-bar {
+                display: none;
+            }
+            body {
+                padding: 0;
+                background-color: #ffffff;
+            }
+            .print-cover-page {
+                min-height: 240mm; /* A4 height margins compatible */
+                height: auto;
+                margin: 0;
+                padding: 10mm 15mm;
+                border: none; /* Removed border */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar for screen display -->
+    <div class="no-print-bar">
+        <span>Pratinjau Cetak Laporan {{ type }} NutriChainAI</span>
+        <div>
+            <button onclick="window.history.back()" style="background: transparent; border: none; color: #ffffff; margin-right: 20px; cursor: pointer; font-weight: 600;">Kembali</button>
+            <button onclick="window.print()" class="btn-print">Cetak PDF</button>
+        </div>
+    </div>
+
+    <!-- Cover Page (Halaman Cover Utama) -->
+    <div class="print-cover-page">
+        <!-- Top Logos: BGN on the Left, NutriChain on the Right -->
+        <div class="cover-logos">
+            <!-- Left: Logo Badan Gizi Nasional -->
+            <img src="{{ url_for('static', filename='Logo_Badan_Gizi_Nasional.png') }}" alt="Logo BGN" class="logo-cover-bgn">
+            <!-- Right: Logo NutriChainAI -->
+            <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo NutriChainAI" class="logo-cover-nutri">
+        </div>
+        
+        <!-- Divider Line -->
+        <div class="cover-divider"></div>
+        
+        <!-- Report Title & Subtitle -->
+        <div class="cover-title-container">
+            <span class="cover-badge">Laporan Resmi Sistem</span>
+            <h1 class="cover-title">Laporan Evaluasi Operasional {{ type }}</h1>
+            <h2 class="cover-subtitle">Sistem Cerdas Terintegrasi NutriChainAI</h2>
+            <p class="cover-description">
+                Platform digital berbasis kecerdasan buatan (Deep Learning) untuk mengawal, memantau, 
+                dan memverifikasi alur rantai pasok serta kelayakan gizi program Makan Bergizi Gratis (MBG) Nasional.
+            </p>
+        </div>
+        
+        <!-- Metadata Box -->
+        <div class="cover-metadata-box">
+            <table class="cover-meta-table">
+                <tr>
+                    <td class="meta-label">Satuan Pelayanan (SPPG)</td>
+                    <td class="meta-value" id="sppg-placeholder">: Loading...</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Jenis Laporan</td>
+                    <td class="meta-value">: Laporan {{ type }}</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Rentang Evaluasi</td>
+                    <td class="meta-value">: {{ scope }}</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Tingkat Kesiapan</td>
+                    <td class="meta-value">: {{ pct }}% Operasional ({{ completed }}/11 Proyek AI)</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Ahli Gizi / Pengawas</td>
+                    <td class="meta-value" id="nutritionist-placeholder">: Loading...</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Kepala Dapur Umum</td>
+                    <td class="meta-value" id="kitchen-head-placeholder">: Loading...</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Penanggung Jawab / Kepala SPPG</td>
+                    <td class="meta-value" id="bgn-head-placeholder">: Loading...</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Tanggal Cetak</td>
+                    <td class="meta-value" id="cover-print-date">: 2026-06-25</td>
+                </tr>
+                <tr>
+                    <td class="meta-label">Status Kelayakan</td>
+                    <td class="meta-value">: 
+                        {% if pct == 100 %}
+                            <strong style="color: #306E00;">SIAP OPERASIONAL</strong>
+                        {% else %}
+                            <strong style="color: #D92D20;">DALAM EVALUASI</strong>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Footer / Publisher info on Cover -->
+        <div class="cover-footer">
+            <p>Diterbitkan Oleh:</p>
+            <p class="publisher-name">Badan Gizi Nasional Republik Indonesia</p>
+            <p class="publisher-sub">Sistem Pengawasan Digital &amp; Audit Kecerdasan Buatan Terintegrasi</p>
+        </div>
+    </div>
+
+    <!-- Master Print Table Layout -->
+    <table class="master-print-layout">
+        <thead>
+            <tr>
+                <td>
+                    <!-- Print Layout Header (Repeated Kop on every page) -->
+                    <div class="header-print">
+                        <div class="header-logos">
+                            <!-- Left: Logo Badan Gizi Nasional -->
+                            <img src="{{ url_for('static', filename='Logo_Badan_Gizi_Nasional.png') }}" alt="Logo BGN" class="logo-header-bgn">
+                            <!-- Divider Line -->
+                            <div class="logo-divider"></div>
+                            <!-- Right: Logo NutriChainAI -->
+                            <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo NutriChainAI" class="logo-header-nutri">
+                        </div>
+                        <div class="header-title-box">
+                            <h1 class="title-main">NutriChain AI</h1>
+                            <p class="title-sub">Sistem Cerdas Terintegrasi Manajemen Program MBG</p>
+                            <div id="header-print-date" style="font-size: 9px; color: #7B74A8; margin-top: 3px; font-weight: 500;">Dicetak: 2026-06-25</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>
+                    
+                    <!-- Meta Details Table -->
+                    <table class="meta-table">
+                        <tr>
+                            <td>
+                                <div class="meta-label">Rentang Evaluasi</div>
+                                <div class="meta-val">{{ scope }}</div>
+                            </td>
+                            <td>
+                                <div class="meta-label">Tingkat Kelengkapan</div>
+                                <div class="meta-val">{{ pct }}% Selesai</div>
+                            </td>
+                            <td>
+                                <div class="meta-label">Kelayakan Sistem</div>
+                                <div class="meta-val">
+                                    {% if pct == 100 %}
+                                        <span style="color: #306E00;">SIAP OPERASIONAL</span>
+                                    {% else %}
+                                        <span style="color: #D92D20;">DALAM EVALUASI</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Description -->
+                    <div class="desc-section">
+                        <strong>Deskripsi Teknis Terintegrasi:</strong> NutriChain AI merupakan rancangan sistem terpadu (Smart System) yang menggabungkan 11 proyek Deep Learning ke dalam satu rantai alur operasional (pipeline) berkesinambungan. Sistem ini dirancang oleh Badan Gizi Nasional untuk mendigitalisasi dan memvalidasi proses dapur umum program Makan Bergizi Gratis (MBG) dari hulu ke hilir.
+                    </div>
+
+                    <!-- Main Report Content -->
+                    {% if type == 'Harian' %}
+                        
+                        <!-- FASE 1 -->
+                        <div class="section-title">Fase 1: Perencanaan Menu &amp; Logistik (Lokasi: Ruang Dapur)</div>
+                        <table class="audit-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-step">Langkah / Proyek</th>
+                                    <th class="col-metode">Metode / Algoritma</th>
+                                    <th class="col-peran">Fungsionalitas &amp; Peran SOP</th>
+                                    <th class="col-status">Status</th>
+                                    <th class="col-output">Hasil Operasional (Output)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for step in steps if step.num == 2 %}
+                                <tr>
+                                    <td class="col-step">Langkah 1.1: Rekomendasi Menu</td>
+                                    <td class="col-metode">Kelompok 2 (LSTM)</td>
+                                    <td class="col-peran">Mempelajari urutan resep sebelumnya untuk memberikan rekomendasi susunan menu secara otomatis.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% for step in steps if step.num == 9 %}
+                                <tr>
+                                    <td class="col-step">Langkah 1.2: Memprediksi Belanja</td>
+                                    <td class="col-metode">Kelompok 9 (ANN)</td>
+                                    <td class="col-peran">Memprediksi jumlah bahan baku (kg/liter) yang perlu dibeli berdasarkan data historis dan jumlah siswa.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% for step in steps if step.num == 3 %}
+                                <tr>
+                                    <td class="col-step">Langkah 1.3: Prediksi Kesukaan</td>
+                                    <td class="col-metode">Kelompok 3 (DNN/LSTM)</td>
+                                    <td class="col-peran">Memprediksi tingkat konsumsi atau kesukaan siswa berdasarkan variabel data seperti cuaca dan jenis lauk.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- FASE 2 -->
+                        <div class="section-title">Fase 2: Pengecekan Bahan Baku (Lokasi: Area Penerimaan)</div>
+                        <table class="audit-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-step">Langkah / Proyek</th>
+                                    <th class="col-metode">Metode / Algoritma</th>
+                                    <th class="col-peran">Fungsionalitas &amp; Peran SOP</th>
+                                    <th class="col-status">Status</th>
+                                    <th class="col-output">Hasil Operasional (Output)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for step in steps if step.num == 11 %}
+                                <tr>
+                                    <td class="col-step">Langkah 2.1: Sortir Sayur &amp; Buah</td>
+                                    <td class="col-metode">Kelompok 11 (CNN MobileNet)</td>
+                                    <td class="col-peran">Memindai sayur dan buah mentah untuk memisahkan bahan yang masih segar dengan yang sudah layu atau busuk.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- FASE 3 -->
+                        <div class="section-title">Fase 3: Perakitan &amp; Keamanan Pangan (Lokasi: Conveyor Belt Dapur)</div>
+                        <table class="audit-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-step">Langkah / Proyek</th>
+                                    <th class="col-metode">Metode / Algoritma</th>
+                                    <th class="col-peran">Fungsionalitas &amp; Peran SOP</th>
+                                    <th class="col-status">Status</th>
+                                    <th class="col-output">Hasil Operasional (Output)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for step in steps if step.num == 8 %}
+                                <tr>
+                                    <td class="col-step">Langkah 3.1: Verifikasi Kelengkapan Baki</td>
+                                    <td class="col-metode">Kelompok 8 (YOLOv8)</td>
+                                    <td class="col-peran">Memastikan 4 komponen wajib (makanan pokok, lauk, sayur, buah) sudah lengkap tersaji di atas baki.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% for step in steps if step.num == 1 %}
+                                <tr>
+                                    <td class="col-step">Langkah 3.2: Estimasi Gizi Visual</td>
+                                    <td class="col-metode">Kelompok 1 (CNN)</td>
+                                    <td class="col-peran">Menganalisis gambar dan input berat (gram) untuk menghitung total gizi dan kalori makanan.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% for step in steps if step.num == 5 %}
+                                <tr>
+                                    <td class="col-step">Langkah 3.3: Cek Benda Asing (Makro)</td>
+                                    <td class="col-metode">Kelompok 5 (YOLO)</td>
+                                    <td class="col-peran">Menggunakan dataset TACO untuk mendeteksi benda asing kasat mata (plastik/serangga) di makanan.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% for step in steps if step.num == 10 %}
+                                <tr>
+                                    <td class="col-step">Langkah 3.4: Cek Benda Asing (Mikro)</td>
+                                    <td class="col-metode">Kelompok 10 (ERX spektral)</td>
+                                    <td class="col-peran">Mendeteksi anomali benda asing yang sangat kecil dan tidak kasat mata menggunakan citra hiperspektral.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- FASE 4 -->
+                        <div class="section-title">Fase 4: Evaluasi Sisa Makanan (Lokasi: Area Sekolah / Kelas)</div>
+                        <table class="audit-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-step">Langkah / Proyek</th>
+                                    <th class="col-metode">Metode / Algoritma</th>
+                                    <th class="col-peran">Fungsionalitas &amp; Peran SOP</th>
+                                    <th class="col-status">Status</th>
+                                    <th class="col-output">Hasil Operasional (Output)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for step in steps if step.num == 7 %}
+                                <tr>
+                                    <td class="col-step">Langkah 4.1: Foto Piring Kotor</td>
+                                    <td class="col-metode">Kelompok 7 (CNN Transfer)</td>
+                                    <td class="col-peran">Membaca gambar piring kotor setelah makan untuk mengklasifikasikan apakah makanan "Habis" atau "Tidak Habis".</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="col-step">Langkah 4.2: Feedback Loop</td>
+                                    <td class="col-metode">Sistem Database</td>
+                                    <td class="col-peran">Mengunggah persentase sisa makanan harian untuk retrain model kelompok 3 dan 9 secara otomatis.</td>
+                                    <td class="col-status"><span class="status-done">Aktif</span></td>
+                                    <td class="col-output">Sinkronisasi database terotomatisasi aktif.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- FASE 5 -->
+                        <div class="section-title">Fase 5: Pemantauan Opini Publik (Lokasi: Dashboard Penyelenggara)</div>
+                        <table class="audit-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-step">Langkah / Proyek</th>
+                                    <th class="col-metode">Metode / Algoritma</th>
+                                    <th class="col-peran">Fungsionalitas &amp; Peran SOP</th>
+                                    <th class="col-status">Status</th>
+                                    <th class="col-output">Hasil Operasional (Output)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for step in steps if step.num == 4 %}
+                                <tr>
+                                    <td class="col-step">Langkah 5.1: Analisis Sentimen Medsos</td>
+                                    <td class="col-metode">Kelompok 4 (CNN-LSTM)</td>
+                                    <td class="col-peran">Mengklasifikasikan sentimen opini dari Twitter (X) dan TikTok serta meramalkan tren ke depan.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% for step in steps if step.num == 6 %}
+                                <tr>
+                                    <td class="col-step">Langkah 5.2: Analisis Sentimen YouTube</td>
+                                    <td class="col-metode">Kelompok 6 (LSTM)</td>
+                                    <td class="col-peran">Menilai sentimen komentar di YouTube dan memprediksi arah tren opini publik pada masa mendatang.</td>
+                                    <td class="col-status"><span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">{{ step.status }}</span></td>
+                                    <td class="col-output">{{ step.result }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    {% else %}
+                        <!-- Monthly/Yearly Report -->
+                        {% if sessions %}
+                            {% for sess in sessions %}
+                                <div class="session-separator">
+                                    Tanggal Kegiatan Operasional: {{ sess.date }} | Progres: {{ sess.pct }}% Selesai ({{ sess.completed }}/11 Kelompok)
+                                </div>
+                                
+                                <table class="audit-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 25%;">Langkah / Proyek</th>
+                                            <th style="width: 20%;">Metode / Pelaksana</th>
+                                            <th style="width: 12%; text-align: center;">Status</th>
+                                            <th style="width: 43%;">Hasil Analisis Operasional (Output)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for step in sess.steps %}
+                                        <tr>
+                                            <td style="font-weight: 700;">Langkah {{ step.phase.split(' ')[1][:1] }}.{{ step.num }}: {{ step.title }}</td>
+                                            <td>Kelompok {{ step.num }} ({{ step.algo }})</td>
+                                            <td style="text-align: center; font-weight: 700;">
+                                                <span class="{% if step.status == 'Selesai' %}status-done{% else %}status-pending{% endif %}">
+                                                    {{ step.status }}
+                                                </span>
+                                            </td>
+                                            <td>{{ step.result }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endfor %}
+                        {% else %}
+                            <div style="text-align: center; color: #7B74A8; font-style: italic; padding: 40px; border: 1px solid #E5E7EB; border-radius: 4px;">
+                                Tidak ada data log kegiatan yang terdaftar dalam rentang ini.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <!-- Footer Signatures -->
+                    <div class="signature-container">
+                        <div class="signature-block">
+                            <p>Dipersiapkan Oleh:</p>
+                            <div class="signature-line" id="sig-gizi">Ahli Gizi &amp; Pengawas Dapur</div>
+                            <div class="signature-role">NutriChainAI Operator</div>
+                        </div>
+                        <div class="signature-block">
+                            <p>Diverifikasi Oleh:</p>
+                            <div class="signature-line" id="sig-dapur">Kepala Dapur Umum MBG</div>
+                            <div class="signature-role">Manajer Operasional</div>
+                        </div>
+                        <div class="signature-block">
+                            <p>Disetujui Oleh:</p>
+                            <div class="signature-line" id="sig-bgn">Penyelenggara Program MBG</div>
+                            <div class="signature-role">Penanggung Jawab / Kepala SPPG</div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        window.addEventListener('load', function() {
+            // Set current date dynamically
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            let mm = today.getMonth() + 1; // Months start at 0
+            let dd = today.getDate();
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            const formattedToday = yyyy + '-' + mm + '-' + dd;
+            
+            // Get metadata from query params or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const sppgName = urlParams.get('sppg') || localStorage.getItem('sppg_name') || 'SPPG Dapur Umum Utama';
+            const giziName = urlParams.get('gizi') || localStorage.getItem('nutritionist_name') || 'Ahli Gizi NutriChain';
+            const dapurName = urlParams.get('dapur') || localStorage.getItem('kitchen_head_name') || 'Kepala Dapur NutriChain';
+            const bgnName = urlParams.get('bgn') || localStorage.getItem('bgn_head_name') || 'Kepala Badan Gizi Nasional';
+            
+            // Set cover placeholders
+            const sppgPlaceholder = document.getElementById('sppg-placeholder');
+            if (sppgPlaceholder) sppgPlaceholder.textContent = ': ' + sppgName;
+            
+            const nutritionistPlaceholder = document.getElementById('nutritionist-placeholder');
+            if (nutritionistPlaceholder) nutritionistPlaceholder.textContent = ': ' + giziName;
+            
+            const kitchenHeadPlaceholder = document.getElementById('kitchen-head-placeholder');
+            if (kitchenHeadPlaceholder) kitchenHeadPlaceholder.textContent = ': ' + dapurName;
+            
+            const bgnHeadPlaceholder = document.getElementById('bgn-head-placeholder');
+            if (bgnHeadPlaceholder) bgnHeadPlaceholder.textContent = ': ' + bgnName;
+
+            const printDateEl = document.getElementById('cover-print-date');
+            if (printDateEl) {
+                printDateEl.textContent = ': ' + formattedToday;
+            }
+            
+            const headerPrintDateEl = document.getElementById('header-print-date');
+            if (headerPrintDateEl) {
+                headerPrintDateEl.textContent = 'Dicetak: ' + formattedToday;
+            }
+
+            // Set signature blocks
+            const sigGizi = document.getElementById('sig-gizi');
+            if (sigGizi) sigGizi.textContent = giziName;
+            
+            const sigDapur = document.getElementById('sig-dapur');
+            if (sigDapur) sigDapur.textContent = dapurName;
+            
+            const sigBgn = document.getElementById('sig-bgn');
+            if (sigBgn) sigBgn.textContent = bgnName;
+
+            setTimeout(function() {
+                window.print();
+            }, 300);
+        });
+    </script>
+</body>
+</html>

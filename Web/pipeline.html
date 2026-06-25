@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriChainAI - Alur Kegiatan {{ date }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
+    <!-- Theme Manager JS -->
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <!-- Shared Design System CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .progress-bar-container-lg {
+            width: 100%;
+            height: 12px;
+            background-color: var(--color-secondary);
+            border-radius: var(--rounded-full);
+            overflow: hidden;
+            margin: var(--spacing-sm) 0 var(--spacing-md) 0;
+        }
+        .progress-fill-lg {
+            height: 100%;
+            background-color: var(--color-primary);
+            border-radius: var(--rounded-full);
+            transition: width 0.3s ease;
+        }
+        /* Modal dialog overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(18, 10, 89, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-card {
+            background-color: var(--color-surface);
+            border-radius: var(--rounded-sm);
+            border: 1px solid var(--color-secondary);
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+                <!-- Dynamic Island Navbar -->
+    <div class="dynamic-island-container">
+        <div class="dynamic-island-nav">
+            <!-- Left links -->
+            <div class="nav-links-left">
+                <a href="/" class="nav-link-item active-page">Home</a>
+                <a href="/#about" class="nav-link-item">Tentang</a>
+            </div>
+            
+            <!-- Center Logo -->
+            <a href="/" class="brand-name-center">
+                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
+                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
+            </a>
+            
+            <!-- Right links -->
+            <div class="nav-links-right">
+                <a href="/dashboard" class="nav-link-item">Dashboard</a>
+                <a href="/status" class="nav-link-item">Status Model</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="max-width: 1100px;">
+        <section style="padding-top: var(--spacing-md);">
+            <div class="flex-between" style="flex-wrap: wrap;">
+                <div>
+                    <span class="badge badge-primary">Log Operasional</span>
+                    <h2 class="headline-lg" style="margin-top: 4px; margin-bottom: 4px;">Alur Kegiatan Harian</h2>
+                    <p class="body-sm" style="color: var(--color-primary-60);">
+                        Mengawasi jalannya sistem cerdas terintegrasi untuk tanggal <strong>{{ date }}</strong>.
+                    </p>
+                </div>
+                <div style="text-align: right;">
+                    <button onclick="confirmCloseSession(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 20px;">Tutup &amp; Simpan Log</button>
+                </div>
+            </div>
+
+            <!-- Progress Summary Card -->
+            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
+                <div class="flex-between">
+                    <strong class="body-md">Progress Kerja Hari Ini:</strong>
+                    <span class="badge {% if pct == 100 %}badge-success{% else %}badge-primary{% endif %}">{{ pct }}% Selesai ({{ completed }}/11)</span>
+                </div>
+                <div class="progress-bar-container-lg">
+                    <div class="progress-fill-lg" style="width: {{ pct }}%;"></div>
+                </div>
+                <p class="body-sm">
+                    Pilih modul di bawah ini untuk melihat detail antarmuka kerja dan mengelola status kelayakan operasional.
+                </p>
+            </div>
+
+            <!-- Pipeline Phases -->
+            <div class="pipeline-container">
+
+                <!-- FASE 1 -->
+                <div class="pipeline-phase">
+                    <div class="flex-between">
+                        <h3 class="pipeline-phase-title">Fase 1: Perencanaan Menu &amp; Logistik</h3>
+                        <span class="body-sm" style="font-style: italic;">Manajemen Dapur</span>
+                    </div>
+                    <div class="pipeline-steps-grid">
+                        
+                        <!-- Kelompok 2 -->
+                        <div class="card step-card {% if steps['kelompok-2'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-2?date={{ date }}'">
+                            <span class="label-sm">Langkah 1.1 • Kelompok 2 (LSTM)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Rekomendasi Menu</h4>
+                            <p class="body-sm">Rekomendasi menu berbasis LSTM.</p>
+                            <div class="step-status-tag {% if steps['kelompok-2'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-2'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Kelompok 9 -->
+                        <div class="card step-card {% if steps['kelompok-9'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-9?date={{ date }}'">
+                            <span class="label-sm">Langkah 1.2 • Kelompok 9 (ANN)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Prediksi Belanja</h4>
+                            <p class="body-sm">Prediksi kuantitas logistik harian.</p>
+                            <div class="step-status-tag {% if steps['kelompok-9'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-9'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Kelompok 3 -->
+                        <div class="card step-card {% if steps['kelompok-3'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-3?date={{ date }}'">
+                            <span class="label-sm">Langkah 1.3 • Kelompok 3 (DNN/LSTM)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Prediksi Kesukaan</h4>
+                            <p class="body-sm">Prediksi tingkat sisa makanan.</p>
+                            <div class="step-status-tag {% if steps['kelompok-3'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-3'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- FASE 2 -->
+                <div class="pipeline-phase">
+                    <div class="flex-between">
+                        <h3 class="pipeline-phase-title">Fase 2: Pemeriksaan Kualitas Bahan Baku</h3>
+                        <span class="body-sm" style="font-style: italic;">Penerimaan Gudang</span>
+                    </div>
+                    <div class="pipeline-steps-grid">
+                        
+                        <!-- Kelompok 11 -->
+                        <div class="card step-card {% if steps['kelompok-11'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-11?date={{ date }}'">
+                            <span class="label-sm">Langkah 2.1 • Kelompok 11 (MobileNetV2)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Sortir Kesegaran</h4>
+                            <p class="body-sm">Sortir kesegaran bahan baku.</p>
+                            <div class="step-status-tag {% if steps['kelompok-11'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-11'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- FASE 3 -->
+                <div class="pipeline-phase">
+                    <div class="flex-between">
+                        <h3 class="pipeline-phase-title">Fase 3: Perakitan &amp; Keamanan Pangan</h3>
+                        <span class="body-sm" style="font-style: italic;">Conveyor Belt Dapur</span>
+                    </div>
+                    <div class="pipeline-steps-grid">
+                        
+                        <!-- Kelompok 8 -->
+                        <div class="card step-card {% if steps['kelompok-8'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-8?date={{ date }}'">
+                            <span class="label-sm">Langkah 3.1 • Kelompok 8 (YOLOv8)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Kelengkapan Menu Tray</h4>
+                            <p class="body-sm">Klasifikasi kelengkapan baki saji.</p>
+                            <div class="step-status-tag {% if steps['kelompok-8'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-8'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Kelompok 1 -->
+                        <div class="card step-card {% if steps['kelompok-1'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-1?date={{ date }}'">
+                            <span class="label-sm">Langkah 3.2 • Kelompok 1 (CNN)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Hitung Nilai Gizi</h4>
+                            <p class="body-sm">Estimasi gizi visual porsi.</p>
+                            <div class="step-status-tag {% if steps['kelompok-1'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-1'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Kelompok 5 -->
+                        <div class="card step-card {% if steps['kelompok-5'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-5?date={{ date }}'">
+                            <span class="label-sm">Langkah 3.3 • Kelompok 5 (YOLO)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Cek Benda Asing Makro</h4>
+                            <p class="body-sm">Deteksi kontaminasi fisik makro.</p>
+                            <div class="step-status-tag {% if steps['kelompok-5'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-5'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Kelompok 10 -->
+                        <div class="card step-card {% if steps['kelompok-10'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-10?date={{ date }}'">
+                            <span class="label-sm">Langkah 3.4 • Kelompok 10 (ERX)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Cek Benda Asing Mikro</h4>
+                            <p class="body-sm">Deteksi kontaminasi mikro ERX.</p>
+                            <div class="step-status-tag {% if steps['kelompok-10'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-10'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- FASE 4 -->
+                <div class="pipeline-phase">
+                    <div class="flex-between">
+                        <h3 class="pipeline-phase-title">Fase 4: Evaluasi Pasca-Konsumsi</h3>
+                        <span class="body-sm" style="font-style: italic;">Sekolah &amp; Kelas</span>
+                    </div>
+                    <div class="pipeline-steps-grid">
+                        
+                        <!-- Kelompok 7 -->
+                        <div class="card step-card {% if steps['kelompok-7'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-7?date={{ date }}'">
+                            <span class="label-sm">Langkah 4.1 • Kelompok 7 (CNN)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Foto Piring Kotor</h4>
+                            <p class="body-sm">Klasifikasi piring sisa makan.</p>
+                            <div class="step-status-tag {% if steps['kelompok-7'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-7'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- FASE 5 -->
+                <div class="pipeline-phase" style="border-left-color: transparent;">
+                    <div class="flex-between">
+                        <h3 class="pipeline-phase-title">Fase 5: Pemantauan Opini Publik</h3>
+                        <span class="body-sm" style="font-style: italic;">Dashboard Analitis</span>
+                    </div>
+                    <div class="pipeline-steps-grid">
+                        
+                        <!-- Kelompok 4 -->
+                        <div class="card step-card {% if steps['kelompok-4'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-4?date={{ date }}'">
+                            <span class="label-sm">Langkah 5.1 • Kelompok 4 (CNN-LSTM)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Sentimen Medsos</h4>
+                            <p class="body-sm">Analisis sentimen Twitter &amp; TikTok.</p>
+                            <div class="step-status-tag {% if steps['kelompok-4'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-4'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Kelompok 6 -->
+                        <div class="card step-card {% if steps['kelompok-6'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-6?date={{ date }}'">
+                            <span class="label-sm">Langkah 5.2 • Kelompok 6 (LSTM)</span>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Sentimen YouTube</h4>
+                            <p class="body-sm">Analisis sentimen &amp; peramalan YouTube.</p>
+                            <div class="step-status-tag {% if steps['kelompok-6'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
+                                {% if steps['kelompok-6'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top: var(--spacing-lg); text-align: center;">
+                <button onclick="confirmCloseSession(event)" class="btn btn-primary" style="min-width: 200px;">Simpan &amp; Kembali ke Cover</button>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Alert Modal: Save & Close Session Confirmation -->
+    <div class="modal-overlay" id="save-session-modal">
+        <div class="modal-card">
+            <h3 class="headline-sm" style="margin-bottom: 12px;">Simpan Sesi Operasional</h3>
+            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-md);">
+                Apakah Anda yakin ingin menyimpan dan menutup log kegiatan operasional untuk tanggal <strong>{{ date }}</strong>? Progress harian ini akan disimpan dengan aman di database.
+            </p>
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn btn-secondary" onclick="closeModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
+                <a href="/dashboard" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px; display: inline-flex; align-items: center; justify-content: center;">Ya, Simpan &amp; Tutup</a>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
+                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
+                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
+                </div>
+                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
+                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
+                </p>
+                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
+                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById('save-session-modal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('save-session-modal').classList.remove('active');
+        }
+        function confirmCloseSession(event) {
+            event.preventDefault();
+            openModal();
+        }
+    </script>
+</body>
+</html>

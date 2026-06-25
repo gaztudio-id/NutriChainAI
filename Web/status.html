@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriChainAI - Status Model Terintegrasi</title>
+    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
+    <!-- Theme Manager JS -->
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <!-- Shared Design System CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-md);
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-secondary);
+            border-radius: var(--rounded-sm);
+            overflow: hidden;
+        }
+        .status-table th, .status-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-secondary);
+            font-size: 14px;
+        }
+        .status-table th {
+            background-color: var(--color-table-header-bg);
+            font-weight: 700;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+        .status-table tr:last-child td {
+            border-bottom: none;
+        }
+        .status-table tr:hover td {
+            background-color: var(--color-table-row-hover);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: var(--rounded-full);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status-active {
+            background-color: var(--color-success-bg);
+            color: var(--color-success);
+            border: 1px solid var(--color-success-border);
+        }
+    </style>
+</head>
+<body>
+
+                <!-- Dynamic Island Navbar -->
+    <div class="dynamic-island-container">
+        <div class="dynamic-island-nav">
+            <!-- Left links -->
+            <div class="nav-links-left">
+                <a href="/" class="nav-link-item">Home</a>
+                <a href="/#about" class="nav-link-item">Tentang</a>
+            </div>
+            
+            <!-- Center Logo -->
+            <a href="/" class="brand-name-center">
+                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
+                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
+            </a>
+            
+            <!-- Right links -->
+            <div class="nav-links-right">
+                <a href="/dashboard" class="nav-link-item">Dashboard</a>
+                <a href="/status" class="nav-link-item active-page">Status Model</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <section style="padding-top: var(--spacing-md);">
+            <div class="flex-between" style="flex-wrap: wrap; margin-bottom: var(--spacing-sm);">
+                <div>
+                    <span class="badge badge-primary">Sistem Monitoring</span>
+                    <h2 class="headline-lg" style="margin-top: 4px;">Status Model Terintegrasi</h2>
+                    <p class="body-sm" style="color: var(--color-primary-60); margin-top: 4px;">
+                        Daftar kondisi operasional dan alur terintegrasi untuk masing-masing kelompok proyek.
+                    </p>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <a href="/dashboard" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Ke Dashboard</a>
+                    <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Kembali ke Cover</a>
+                </div>
+            </div>
+
+            <!-- Status Metrics Summary -->
+            <div class="metrics-grid">
+                <div class="card" style="padding: 16px;">
+                    <span class="label-sm">Total Model</span>
+                    <h4 class="headline-sm" style="font-size: 24px; margin-top: 4px; color: var(--color-primary);">11 dari 11</h4>
+                </div>
+                <div class="card" style="padding: 16px;">
+                    <span class="label-sm">Status Operasional</span>
+                    <h4 class="headline-sm" style="font-size: 24px; margin-top: 4px; color: var(--color-success);">Semua Aktif</h4>
+                </div>
+                <div class="card" style="padding: 16px;">
+                    <span class="label-sm">Alur Integrasi</span>
+                    <h4 class="headline-sm" style="font-size: 24px; margin-top: 4px; color: var(--color-primary);">100% Selesai</h4>
+                </div>
+            </div>
+
+            <!-- Table of Models -->
+            <div class="table-responsive">
+                <table class="status-table">
+                    <thead>
+                        <tr>
+                            <th>Kelompok</th>
+                            <th>Fokus Proyek / Alur</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Kelompok 1</strong></td>
+                            <td>Analisis Kandungan Gizi Makanan (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 2</strong></td>
+                            <td>Rekomendasi Menu Makanan (Fase 1: Perencanaan Menu &amp; Logistik)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 3</strong></td>
+                            <td>Prediksi Kesukaan Menu MBG (Fase 1: Perencanaan Menu &amp; Logistik)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 4</strong></td>
+                            <td>Analisis Sentimen Medsos (Fase 5: Pemantauan Opini Publik)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 5</strong></td>
+                            <td>Deteksi Kontaminasi Benda Asing Makro (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 6</strong></td>
+                            <td>Analisis Sentimen Komentar YouTube (Fase 5: Pemantauan Opini Publik)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 7</strong></td>
+                            <td>Deteksi Sisa Makanan Piring Kotor (Fase 4: Evaluasi Pasca-Konsumsi)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 8</strong></td>
+                            <td>Deteksi Kelengkapan Menu Tray (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 9</strong></td>
+                            <td>Prediksi Kebutuhan Distribusi (Fase 1: Perencanaan Menu &amp; Logistik)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 10</strong></td>
+                            <td>Kelayakan Gizi &amp; Benda Asing Mikro (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelompok 11</strong></td>
+                            <td>Sortir Kualitas Kesegaran Bahan Baku (Fase 2: Pemeriksaan Kualitas Bahan Baku)</td>
+                            <td><span class="status-badge status-active">Aktif</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+
+        <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
+                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
+                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
+                </div>
+                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
+                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
+                </p>
+                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
+                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
