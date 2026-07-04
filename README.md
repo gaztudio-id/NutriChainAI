@@ -61,8 +61,6 @@ K8["K8<br/>Cek Kelengkapan Komponen<br/><b>YOLOv8</b>"]
 K1["K1<br/>Validasi Nilai Gizi & Kalori<br/><b>CNN</b>"]
 K5["K5<br/>Deteksi Kontaminasi Makro<br/><b>YOLO</b>"]
 K10["K10<br/>Deteksi Anomali Mikro<br/><b>Hyperspectral</b>"]
-
-K8 --> K1 --> K5 --> K10
 end
 
 %%==============================
@@ -78,11 +76,8 @@ end
 %%==============================
 subgraph F5["Fase 5 - Pemantauan Opini Publik"]
 direction LR
-
 T["Data TikTok & X"] --> K4["K4<br/>Sentimen Medsos<br/><b>CNN-LSTM</b>"]
-
 Y["Data YouTube"] --> K6["K6<br/>Sentimen YouTube<br/><b>IndoBERT + LSTM</b>"]
-
 end
 
 %%==============================
@@ -95,11 +90,14 @@ DB(("Dashboard Evaluasi Pusat"))
 %%==============================
 K3 --> K11
 K11 --> K8
+K8 --> K1
+K1 --> K5
+K5 --> K10
 K10 --> K7
 
 %% Feedback
-K7 -. Retrain Prediksi Sisa .-> K3
-K7 -. Retrain Prediksi Logistik .-> K9
+K7 -.->|Retrain Prediksi Sisa| K3
+K7 -.->|Retrain Prediksi Logistik| K9
 
 %% Dashboard
 K7 --> DB
