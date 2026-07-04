@@ -1,216 +1,311 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok {{ num }} - {{ meta.title }}</title>
-    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
-    <!-- Theme Manager JS -->
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
-    <!-- Shared Design System CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .work-container {
-            border: 2px dashed var(--color-primary-70);
-            background-color: var(--color-workspace-bg);
-            border-radius: var(--rounded-sm);
-            padding: var(--spacing-lg);
-            text-align: center;
-            margin-top: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+{% extends 'partials/base_kelompok.html' %}
+{% block workspace %}
+<div class="feature-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-        /* Modal dialog overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(18, 10, 89, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-card {
-            background-color: var(--color-surface);
-            border-radius: var(--rounded-sm);
-            border: 1px solid var(--color-secondary);
-            padding: 24px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-card {
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-
-                <!-- Dynamic Island Navbar -->
-    <div class="dynamic-island-container">
-        <div class="dynamic-island-nav">
-            <!-- Left links -->
-            <div class="nav-links-left">
-                <a href="/" class="nav-link-item">Home</a>
-                <a href="/about" class="nav-link-item">Tentang</a>
+    <!-- Row 1: Main Grid (Left visual workspace panel, Right analysis panel) -->
+    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; flex-wrap: wrap;">
+        
+        <!-- Left Panel: Camera frame, controls, example images -->
+        <div class="card" style="padding: 20px;">
+            <div class="flex-between" style="margin-bottom: 16px;">
+                <div class="detail-info-label" style="margin: 0; font-weight: 700;">Area Deteksi Visual</div>
+                <button onclick="openSettingsK5()" class="btn btn-secondary" style="min-height: auto; padding: 4px 12px; font-size: 11px;">Konfigurasi YOLOv8</button>
             </div>
-            
-            <!-- Center Logo -->
-            <a href="/" class="brand-name-center">
-                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
-                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
-            </a>
-            
-            <!-- Right links -->
-            <div class="nav-links-right">
-                <a href="/dashboard" class="nav-link-item">Dashboard</a>
-                <a href="/status" class="nav-link-item active-page">Status Model</a>
-            </div>
-        </div>
-    </div>
 
-    <!-- Main Content -->
-    <div class="container" style="max-width: 1100px;">
-        <section style="padding-top: var(--spacing-md);">
-            
-            <div class="flex-between">
-                <div>
-                    <h2 class="headline-md" style="margin-top: 8px;">Kelompok {{ num }}: {{ meta.title }}</h2>
-                    <p class="body-sm" style="margin-top: 4px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
-                </div>
+            <!-- Preview stage (Webcam Video / Image element) -->
+            <div id="k5-frame-container" style="position: relative; background: var(--color-workspace-bg); border-radius: var(--rounded-sm); border: 2px solid var(--color-secondary); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                <!-- Streaming elements -->
+                <video id="k5-video" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                <img id="k5-img" style="width: 100%; height: 100%; object-fit: contain; display: block;" alt="Preview image" src="">
+                <canvas id="k5-canvas" style="display: none;"></canvas>
                 
-                <div>
-                    {% if date %}
-                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Alur</a>
-                    {% else %}
-                        <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Cover</a>
-                    {% endif %}
+                <!-- Overlay scan line effect -->
+                <div id="k5-scan-line" style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: rgba(13,148,136,0.5); display: none; animation: scanAnim 2.5s linear infinite;"></div>
+            </div>
+
+            <!-- Style keyframe for scan line -->
+            <style>
+                @keyframes scanAnim {
+                    0% { top: 0%; }
+                    50% { top: 100%; }
+                    100% { top: 0%; }
+                }
+            </style>
+
+            <!-- Control buttons row -->
+            <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+                <button id="k5-camera-btn" onclick="startCameraK5()" class="btn btn-secondary" style="flex: 1; min-height: auto; padding: 10px;">Buka Kamera Langsung</button>
+                <button id="k5-stop-btn" onclick="stopCameraK5()" class="btn btn-secondary" style="min-height: auto; padding: 10px; display: none; border-color: var(--color-error); color: var(--color-error);">Hentikan Kamera</button>
+                <button onclick="document.getElementById('k5-file-input').click()" class="btn btn-primary" style="flex: 1; min-height: auto; padding: 10px;">Unggah Media Berkas</button>
+                <input type="file" id="k5-file-input" accept="image/*" style="display: none;" onchange="handleFileK5(event)">
+            </div>
+
+            <!-- Example images section -->
+            <div style="margin-top: 20px;">
+                <div class="detail-info-label" style="font-size: 11px; margin-bottom: 8px;">Gunakan aset contoh bawaan:</div>
+                <div style="display: flex; gap: 12px;">
+                    <img src="/static/img/contoh1.png" alt="Sampel 1" style="height: 60px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); cursor: pointer;" onclick="loadExampleK5(this.src)">
+                    <img src="/static/img/contoh4.png" alt="Sampel 2" style="height: 60px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); cursor: pointer;" onclick="loadExampleK5(this.src)">
+                    <img src="/static/img/contoh3.png" alt="Sampel 3" style="height: 60px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); cursor: pointer;" onclick="loadExampleK5(this.src)">
                 </div>
             </div>
 
-            <!-- Operational Status Banner -->
-            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
-                <div class="flex-between">
-                    <div>
-                        <span class="body-sm">Status Kegiatan Sesi Tanggal: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong>:</span>
-                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
-                            {% if status == 'completed' %}
-                                <span style="color: var(--color-success);">Telah Diselesaikan</span>
-                            {% else %}
-                                <span style="color: var(--color-primary-60);">Menunggu Pelaksanaan</span>
-                            {% endif %}
-                        </h4>
+        </div>
+
+        <!-- Right Panel: Analysis details -->
+        <div class="card" style="padding: 20px; min-height: 380px;">
+            <div class="detail-info-label" style="margin-bottom: 16px; font-weight: 700;">Analisis Benda Asing</div>
+            
+            <div id="k5-status-box" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); background: var(--color-workspace-bg); text-align: center; margin-bottom: 20px;">
+                <div id="k5-status-title" style="font-size: 14px; font-weight: 700; color: var(--color-primary-60);">Area Deteksi Kosong</div>
+                <div id="k5-status-desc" class="body-sm" style="color: var(--color-primary-60);">Menunggu unggahan data visual.</div>
+            </div>
+
+            <div id="k5-metrics-box" style="display: none;">
+                <div class="detail-info-grid">
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Benda Asing Terdeteksi</div>
+                        <div class="detail-info-value" id="k5-count" style="font-size: 18px; font-weight: 700;">0 objek</div>
                     </div>
-                    {% if date %}
-                        {% if status == 'completed' %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Ubah Hasil Harian</a>
-                        {% else %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Selesaikan Tugas Harian</a>
-                        {% endif %}
-                    {% endif %}
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Rata-rata Confidence</div>
+                        <div class="detail-info-value" id="k5-confidence">-</div>
+                    </div>
+                </div>
+
+                <div class="detail-divider" style="margin-top: 16px;">
+                    <div class="detail-info-label">Status Keamanan</div>
+                    <div id="k5-verdict-box" style="padding: 12px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); font-size: 13px; font-weight: 500; margin-top: 8px; line-height: 1.5;">
+                        -
+                    </div>
                 </div>
             </div>
 
-            <!-- Blank Workspace Area for Kelompok Developers -->
-            <div class="work-container">
-                <h3 class="headline-sm" style="color: var(--color-primary-60); margin-bottom: 8px;">Workspace Kelompok 5</h3>
-                <p class="body-sm" style="max-width: 500px;">
-                    Tempat pengerjaan Front End &amp; Integrasi Deep Learning Model oleh Kelompok 5.
-                </p>
+        </div>
 
-                <div style="text-align: left; background-color: var(--color-code-bg); border: 1px solid var(--color-secondary); padding: 16px; border-radius: var(--rounded-sm); width: 100%; margin-top: var(--spacing-md); font-family: monospace; font-size: 13px;">
-                    <!-- TODO: Kelompok 5 Developer: Masukkan form upload gambar makanan & deteksi bounding box di sini -->
-                    <span style="color: #656d78;">&lt;!-- Masukkan Kode UI Front End Kelompok 5 di Sini --&gt;</span>
-                </div>
-            </div>
-
-            <!-- Technical Instructions Collapsible -->
-            <details class="tech-details">
-                <summary>💡 Petunjuk Integrasi Backend (Kelompok 5 Developer)</summary>
-                <div class="tech-content">
-&lt;!--
-Langkah Integrasi Backend Python Flask:
-1. Pastikan menginstal ultralytics untuk model YOLO Anda.
-2. Edit file app.py utama:
-   a. Buat route POST untuk menerima file gambar baki saji.
-   b. Jalankan inferensi deteksi YOLO model.
-   c. Simpan gambar hasil output bounding boxes, lalu tampilkan di HTML.
---&gt;
-                </div>
-            </details>
-
-        </section>
     </div>
 
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
+    <!-- Threshold settings overlay modal -->
+    <div id="k5-settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
+        <div class="card animate-fade-in" style="max-width: 400px; width: 90%; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
+            <div class="detail-info-label" style="margin-bottom: 16px;">Konfigurasi Jaringan YOLOv8</div>
+            
+            <div style="margin-bottom: 20px;">
+                <div class="flex-between" style="font-size: 13px; margin-bottom: 6px;">
+                    <span>Batas Kepercayaan (Threshold):</span>
+                    <strong id="k5-slider-val" style="color: var(--color-primary);">32.6%</strong>
                 </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
+                <input type="range" id="k5-slider" min="10" max="100" step="0.1" value="32.6" style="width: 100%; accent-color: var(--color-primary);" oninput="document.getElementById('k5-slider-val').textContent = this.value + '%'">
+                <p class="body-sm" style="color: var(--color-primary-60); line-height: 1.4; margin-top: 6px;">
+                    Kurangi persentase threshold untuk membuat model sensitif mendeteksi objek kecil. Naikkan threshold untuk menekan kemungkinan salah deteksi (false positive).
                 </p>
             </div>
-        </div>
-    </footer>
 
-
-    <!-- Alert Modal: Confirm Step Completion -->
-    <div class="modal-overlay" id="confirm-task-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Konfirmasi Penyelesaian</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                Apakah Anda yakin ingin menyimpan langkah ini untuk sesi tanggal <strong>{{ date }}</strong>?
-            </p>
-            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST" id="complete-task-form">
-                <div class="form-group" style="text-align: left; margin-top: 12px;">
-                    <label class="form-label" for="custom-result" style="font-size: 13px;">Detail Hasil Operasional (Hasil Model):</label>
-                    <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="border-radius: 8px; resize: vertical; font-size: 13px; font-family: inherit; width: 100%; box-sizing: border-box;">{{ result }}</textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Ya, Simpan</button>
-                </div>
-            </form>
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn btn-secondary" onclick="closeSettingsK5()" style="min-height: auto; padding: 8px 16px;">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="applySettingsK5()" style="min-height: auto; padding: 8px 16px;">Terapkan</button>
+            </div>
         </div>
     </div>
 
-    <script>
-        function openTaskModal() {
-            document.getElementById('confirm-task-modal').classList.add('active');
-        }
-        function closeTaskModal() {
-            document.getElementById('confirm-task-modal').classList.remove('active');
-        }
-        function confirmCompleteTask(event) {
-            event.preventDefault();
-            openTaskModal();
-        }
-    </script>
+</div>
+{% endblock %}
 
-</body>
-</html>
+{% block extra_scripts %}
+<script>
+let confThreshold = 0.326;
+let streamK5 = null;
+let intervalK5 = null;
+let isRunningK5 = false;
+let isFetchingK5 = false;
+
+function openSettingsK5() {
+    document.getElementById('k5-slider').value = (confThreshold * 100).toFixed(1);
+    document.getElementById('k5-slider-val').textContent = (confThreshold * 100).toFixed(1) + '%';
+    document.getElementById('k5-settings-modal').style.display = 'flex';
+}
+
+function closeSettingsK5() {
+    document.getElementById('k5-settings-modal').style.display = 'none';
+}
+
+function applySettingsK5() {
+    const val = parseFloat(document.getElementById('k5-slider').value);
+    confThreshold = val / 100;
+    closeSettingsK5();
+}
+
+async function startCameraK5() {
+    try {
+        if (streamK5) stopCameraK5();
+        
+        document.getElementById('k5-img').style.display = 'none';
+        const video = document.getElementById('k5-video');
+        video.style.display = 'block';
+        
+        streamK5 = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } } });
+        video.srcObject = streamK5;
+        await video.play();
+        
+        isRunningK5 = true;
+        document.getElementById('k5-camera-btn').style.display = 'none';
+        document.getElementById('k5-stop-btn').style.display = 'inline-block';
+        document.getElementById('k5-scan-line').style.display = 'block';
+        
+        // Start live inference loop (post frame every 750ms)
+        intervalK5 = setInterval(runInferenceK5, 750);
+        
+        updateStatusK5('Kamera Aktif', 'Kamera siap memindai sisa baki saji.');
+    } catch (e) {
+        alert('Tidak bisa mengakses kamera: ' + e.message);
+    }
+}
+
+function stopCameraK5() {
+    if (intervalK5) {
+        clearInterval(intervalK5);
+        intervalK5 = null;
+    }
+    if (streamK5) {
+        streamK5.getTracks().forEach(t => t.stop());
+        streamK5 = null;
+    }
+    const video = document.getElementById('k5-video');
+    video.srcObject = null;
+    video.style.display = 'none';
+    
+    isRunningK5 = false;
+    document.getElementById('k5-camera-btn').style.display = 'inline-block';
+    document.getElementById('k5-stop-btn').style.display = 'none';
+    document.getElementById('k5-scan-line').style.display = 'none';
+}
+
+function handleFileK5(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    stopCameraK5();
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        const img = document.getElementById('k5-img');
+        img.src = evt.target.result;
+        img.style.display = 'block';
+        
+        runSingleFileInferenceK5(file);
+    }
+    reader.readAsDataURL(file);
+}
+
+function loadExampleK5(url) {
+    stopCameraK5();
+    const img = document.getElementById('k5-img');
+    img.src = url;
+    img.style.display = 'block';
+    
+    // Convert source URL to blob and run inference
+    fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+            const file = new File([blob], 'contoh.png', { type: 'image/png' });
+            runSingleFileInferenceK5(file);
+        });
+}
+
+async function runSingleFileInferenceK5(file) {
+    updateStatusK5('Menganalisis...', 'Mengevaluasi kontaminasi benda asing makro.');
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const res = await fetch(`/kelompok-5/detect?conf=${confThreshold}`, {
+        method: 'POST',
+        body: formData
+    });
+    const result = await res.json();
+    
+    // Draw base64 image annotation result
+    if (result.image_base64) {
+        document.getElementById('k5-img').src = 'data:image/jpeg;base64,' + result.image_base64;
+    }
+    
+    displayResultK5(result);
+}
+
+async function runInferenceK5() {
+    if (isFetchingK5 || !isRunningK5) return;
+    
+    const video = document.getElementById('k5-video');
+    if (video.readyState < 2) return;
+    
+    const canvas = document.getElementById('k5-canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append('file', blob, 'frame.jpg');
+        
+        isFetchingK5 = true;
+        try {
+            const res = await fetch(`/kelompok-5/detect?conf=${confThreshold}`, {
+                method: 'POST',
+                body: formData
+            });
+            const result = await res.json();
+            
+            // Show annotated frame
+            if (result.image_base64 && isRunningK5) {
+                const img = document.getElementById('k5-img');
+                img.src = 'data:image/jpeg;base64,' + result.image_base64;
+                img.style.display = 'block';
+                video.style.display = 'none';
+            }
+            displayResultK5(result);
+        } catch (err) {
+            console.error(err);
+        }
+        isFetchingK5 = false;
+    }, 'image/jpeg', 0.7);
+}
+
+function updateStatusK5(title, desc) {
+    document.getElementById('k5-status-title').textContent = title;
+    document.getElementById('k5-status-desc').textContent = desc;
+}
+
+function displayResultK5(result) {
+    document.getElementById('k5-metrics-box').style.display = 'block';
+    
+    const count = result.detections_count || 0;
+    document.getElementById('k5-count').textContent = count + ' objek';
+    document.getElementById('k5-confidence').textContent = (result.confidence * 100).toFixed(1) + '%';
+    
+    const verdict = document.getElementById('k5-verdict-box');
+    const isSafe = count === 0;
+    
+    if (document.getElementById('custom-result')) {
+        document.getElementById('custom-result').value = `Inspeksi Higienitas: ${isSafe ? 'Aman' : 'Terdeteksi ' + count + ' kontaminan makro'}. Confidence: ${(result.confidence * 100).toFixed(1)}%.`;
+    }
+    
+    if (isSafe) {
+        updateStatusK5('Aman', 'Tidak terdeteksi adanya benda asing makro.');
+        document.getElementById('k5-status-title').style.color = 'var(--color-success)';
+        
+        verdict.textContent = 'Bahan pangan aman dari benda asing makro (kawat, plastik, rambut, ulat). Layak disajikan dalam piring saji.';
+        verdict.style.background = 'rgba(13, 148, 136, 0.05)';
+        verdict.style.borderColor = 'rgba(13, 148, 136, 0.2)';
+        verdict.style.color = 'var(--color-success)';
+    } else {
+        updateStatusK5('Terdeteksi Kontaminasi', `Ditemukan ${count} kontaminan makro!`);
+        document.getElementById('k5-status-title').style.color = 'var(--color-error)';
+        
+        verdict.textContent = 'TERDETEKSI KONTAMINASI BENDA ASING! JANGAN DIOLAH ATAU DISAJIKAN. Harap sortir manual dan bersihkan sebelum didistribusikan.';
+        verdict.style.background = 'rgba(217, 45, 32, 0.05)';
+        verdict.style.borderColor = 'rgba(217, 45, 32, 0.2)';
+        verdict.style.color = 'var(--color-error)';
+    }
+}
+</script>
+{% endblock %}

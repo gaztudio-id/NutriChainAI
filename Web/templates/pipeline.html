@@ -139,8 +139,8 @@
                         <!-- Kelompok 9 -->
                         <div class="card step-card {% if steps['kelompok-9'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-9?date={{ date }}'">
                             <span class="label-sm">Langkah 1.2 • Kelompok 9 (ANN)</span>
-                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Prediksi Belanja</h4>
-                            <p class="body-sm">Prediksi kuantitas logistik harian.</p>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Prediksi Kebutuhan MBG</h4>
+                            <p class="body-sm">Prediksi peserta didik, gizi, dan logistik harian.</p>
                             <div class="step-status-tag {% if steps['kelompok-9'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
                                 {% if steps['kelompok-9'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
                             </div>
@@ -162,7 +162,7 @@
                 <!-- FASE 2 -->
                 <div class="pipeline-phase">
                     <div class="flex-between">
-                        <h3 class="pipeline-phase-title">Fase 2: Pemeriksaan Kualitas Bahan Baku</h3>
+                        <h3 class="pipeline-phase-title">Fase 2: Pemeriksaan Kualitas Buah dan Sayur</h3>
                         <span class="body-sm" style="font-style: italic;">Penerimaan Gudang</span>
                     </div>
                     <div class="pipeline-steps-grid">
@@ -170,8 +170,8 @@
                         <!-- Kelompok 11 -->
                         <div class="card step-card {% if steps['kelompok-11'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-11?date={{ date }}'">
                             <span class="label-sm">Langkah 2.1 • Kelompok 11 (MobileNetV2)</span>
-                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Sortir Kesegaran</h4>
-                            <p class="body-sm">Sortir kesegaran bahan baku.</p>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Sortir Kesegaran Buah dan Sayur</h4>
+                            <p class="body-sm">Klasifikasi kesegaran buah dan sayur dari supplier.</p>
                             <div class="step-status-tag {% if steps['kelompok-11'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
                                 {% if steps['kelompok-11'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
                             </div>
@@ -221,8 +221,8 @@
                         <!-- Kelompok 10 -->
                         <div class="card step-card {% if steps['kelompok-10'] == 'completed' %}completed{% endif %}" onclick="window.location.href='/kelompok-10?date={{ date }}'">
                             <span class="label-sm">Langkah 3.4 • Kelompok 10 (ERX)</span>
-                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Cek Benda Asing Mikro</h4>
-                            <p class="body-sm">Deteksi kontaminasi mikro ERX.</p>
+                            <h4 class="headline-sm" style="font-size: 16px; margin: 6px 0;">Inspeksi Anomali Mikro</h4>
+                            <p class="body-sm">Deteksi anomali bahan pangan mikro (ERX).</p>
                             <div class="step-status-tag {% if steps['kelompok-10'] == 'completed' %}status-completed{% else %}status-pending{% endif %}">
                                 {% if steps['kelompok-10'] == 'completed' %}Selesai{% else %}Belum Selesai{% endif %}
                             </div>
@@ -294,14 +294,62 @@
 
     <!-- Alert Modal: Save & Close Session Confirmation -->
     <div class="modal-overlay" id="save-session-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Simpan Sesi Operasional</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-md);">
-                Apakah Anda yakin ingin menyimpan dan menutup log kegiatan operasional untuk tanggal <strong>{{ date }}</strong>? Progress harian ini akan disimpan dengan aman di database.
+        <div class="modal-card" style="max-width: 600px; width: 95%; max-height: 85vh; overflow-y: auto;">
+            <h3 class="headline-sm" style="margin-bottom: 8px;">Review &amp; Konfirmasi Sesi</h3>
+            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
+                Berikut adalah detail peninjauan kelayakan operasional 11 kelompok untuk tanggal <strong>{{ date }}</strong>:
             </p>
-            <div style="display: flex; justify-content: flex-end; gap: 12px;">
-                <button class="btn btn-secondary" onclick="closeModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                <a href="/dashboard" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px; display: inline-flex; align-items: center; justify-content: center;">Ya, Simpan &amp; Tutup</a>
+            
+            <!-- Detailed list of steps -->
+            <div style="border: 1px solid var(--color-secondary); border-radius: var(--rounded-sm); overflow: hidden; margin-bottom: var(--spacing-sm); max-height: 280px; overflow-y: auto; text-align: left;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <thead>
+                        <tr style="background-color: var(--color-table-header-bg); border-bottom: 1px solid var(--color-secondary);">
+                            <th style="padding: 10px; text-align: left; font-weight: 700; color: var(--color-primary);">Kelompok</th>
+                            <th style="padding: 10px; text-align: left; font-weight: 700; color: var(--color-primary);">Status</th>
+                            <th style="padding: 10px; text-align: left; font-weight: 700; color: var(--color-primary);">Detail Hasil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for step in enriched_steps %}
+                        <tr style="border-bottom: 1px solid var(--color-secondary);">
+                            <td style="padding: 10px; font-weight: 700; white-space: nowrap;">Kelompok {{ step.num }}</td>
+                            <td style="padding: 10px;">
+                                {% if step.status == 'Selesai' %}
+                                    <span style="color: var(--color-success); font-weight: 700;">✓ Selesai</span>
+                                {% else %}
+                                    <span style="color: var(--color-error); font-weight: 700;">⚠ Pending</span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 10px; color: var(--color-primary-60); font-style: italic;">
+                                {{ step.result }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Warning if not 100% -->
+            {% if pct < 100 %}
+            <div style="background-color: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--rounded-sm); padding: 10px 12px; margin-bottom: var(--spacing-sm); text-align: left; display: flex; align-items: start; gap: 8px;">
+                <span style="font-size: 16px; line-height: 1;">⚠️</span>
+                <div style="font-size: 11px; color: #b45309; line-height: 1.4;">
+                    <strong>Perhatian:</strong> Sesi belum lengkap 100% (masih ada {{ 11 - completed }} kelompok pending). Simpan &amp; tutup tetap diperbolehkan dan Anda dapat melengkapinya kapan saja.
+                </div>
+            </div>
+            {% else %}
+            <div style="background-color: var(--color-success-bg); border: 1px solid var(--color-success-border); border-radius: var(--rounded-sm); padding: 10px 12px; margin-bottom: var(--spacing-sm); text-align: left; display: flex; align-items: start; gap: 8px;">
+                <span style="font-size: 16px; line-height: 1; color: var(--color-success);">✓</span>
+                <div style="font-size: 11px; color: var(--color-success); line-height: 1.4;">
+                    <strong>Lengkap:</strong> Semua 11 kelompok pemantauan telah diverifikasi dan siap dikompilasi ke laporan.
+                </div>
+            </div>
+            {% endif %}
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--color-secondary); padding-top: 16px;">
+                <button class="btn btn-secondary" onclick="closeModal()" style="min-height: 36px; padding: 4px 16px;">Kembali</button>
+                <a href="/dashboard" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px; display: inline-flex; align-items: center; justify-content: center;">Ya, Simpan &amp; ACC Sesi</a>
             </div>
         </div>
     </div>

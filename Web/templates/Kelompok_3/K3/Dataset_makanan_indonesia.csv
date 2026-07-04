@@ -1,0 +1,733 @@
+Tanggal,Waktu_Makan,Cuaca,Seksi_Kantin,Karbohidrat,Lauk_Protein,Sayuran,Sup,Sisa_Karbohidrat_%,Sisa_Lauk_%,Sisa_Sayuran_%,Sisa_Sup_%,Persentase_Sisa_Rata
+2025-06-11,Makan Malam,Berawan,Seksi A,Nasi Merah,Tahu Bacem,,Sup Jagung,33.74,67.29,,50.57,50.53
+2025-06-11,Makan Malam,Cerah,Seksi B,Nasi Putih,Tahu Bacem,Sayur Nangka,Sup Tomat,9.68,90.02,45.83,18.3,40.96
+2025-06-11,Makan Malam,Cerah,Seksi C,Nasi Uduk,Ikan Tongkol,Capcay,Soto Ayam,12.26,44.23,42.13,8.6,26.81
+2025-06-11,Makan Malam,Hujan,Seksi D,Nasi Merah,Ikan Lele,Sayur Nangka,Soto Ayam,64.0,73.59,31.76,8.77,44.53
+2025-06-11,Makan Siang,Berawan,Seksi A,,Ikan Lele,Tumis Kacang Panjang,Sayur Lodeh,,26.54,26.58,63.82,38.98
+2025-06-11,Makan Siang,Hujan,Seksi B,Nasi Putih,,Kangkung,Sup Tomat,25.9,,71.39,43.51,46.93
+2025-06-11,Makan Siang,Cerah,Seksi C,Nasi Putih,Ikan Lele,Bayam,Sup Tomat,39.32,31.55,14.43,27.42,28.18
+2025-06-11,Makan Siang,Hujan,Seksi D,Nasi Merah,Ikan Lele,Capcay,Sup Tomat,51.28,57.77,58.68,14.29,45.5
+2025-06-11,Sarapan,Cerah,Seksi A,Nasi Uduk,,Kangkung,Sayur Lodeh,53.81,,40.35,43.26,45.81
+2025-06-11,Sarapan,Cerah,Seksi B,Nasi Uduk,Ikan Lele,Capcay,Sup Jagung,29.63,10.19,23.15,23.32,21.57
+2025-06-11,Sarapan,Hujan,Seksi C,Nasi Putih,Ikan Tongkol,Sayur Nangka,Sup Jagung,42.68,73.13,23.43,44.42,45.92
+2025-06-11,Sarapan,Berawan,Seksi D,Nasi Merah,Tahu Bacem,Sayur Nangka,Soto Ayam,17.02,94.04,54.61,44.73,52.6
+2025-06-12,Makan Malam,Hujan,Seksi A,Nasi Uduk,Tahu Bacem,Capcay,Sup Tomat,13.3,61.54,40.85,20.06,33.94
+2025-06-12,Makan Malam,Berawan,Seksi B,Nasi Putih,Tahu Bacem,Capcay,Sup Jagung,47.85,4.52,57.16,50.42,39.99
+2025-06-12,Makan Malam,Berawan,Seksi C,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Sup Tomat,54.33,32.1,50.68,63.98,50.27
+2025-06-12,Makan Malam,Hujan,Seksi D,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,,56.31,39.97,3.95,,33.41
+2025-06-12,Makan Siang,Hujan,Seksi A,,Telur Balado,Sayur Nangka,Sup Jagung,,68.32,34.77,54.71,52.6
+2025-06-12,Makan Siang,Berawan,Seksi B,Nasi Putih,Ikan Lele,Kangkung,Sayur Lodeh,19.92,26.99,45.5,76.42,42.21
+2025-06-12,Makan Siang,Hujan,Seksi C,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Sup Jagung,32.85,12.46,36.88,23.07,26.32
+2025-06-12,Makan Siang,Berawan,Seksi D,Nasi Merah,Ikan Lele,Capcay,Sup Jagung,35.67,51.21,31.83,22.13,35.21
+2025-06-12,Sarapan,Berawan,Seksi A,Nasi Putih,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,51.67,48.94,60.07,32.91,48.4
+2025-06-12,Sarapan,Hujan,Seksi B,Nasi Merah,Tempe Goreng,Capcay,Sup Jagung,17.91,65.78,65.6,17.87,41.79
+2025-06-12,Sarapan,Cerah,Seksi C,Nasi Merah,Telur Balado,Sayur Nangka,Sup Jagung,36.55,34.02,77.0,39.36,46.73
+2025-06-12,Sarapan,Hujan,Seksi D,Nasi Uduk,Tahu Bacem,Sayur Nangka,Sup Jagung,52.07,81.09,20.19,53.43,51.7
+2025-06-13,Makan Malam,Hujan,Seksi A,Nasi Uduk,Ikan Lele,,Sup Jagung,49.21,37.71,,74.02,53.65
+2025-06-13,Makan Malam,Cerah,Seksi B,Nasi Uduk,Tahu Bacem,Capcay,Soto Ayam,3.97,64.41,23.51,30.94,30.71
+2025-06-13,Makan Malam,Cerah,Seksi C,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Sup Tomat,9.04,47.96,44.98,65.68,41.92
+2025-06-13,Makan Malam,Berawan,Seksi D,Nasi Putih,Tempe Goreng,Kangkung,Sup Tomat,10.52,7.77,68.82,49.92,34.26
+2025-06-13,Makan Siang,Cerah,Seksi A,Nasi Uduk,Telur Balado,Tumis Kacang Panjang,Sup Jagung,48.8,66.72,27.3,25.04,41.96
+2025-06-13,Makan Siang,Hujan,Seksi B,Nasi Merah,Ikan Lele,Bayam,Soto Ayam,46.06,66.32,66.31,3.51,45.55
+2025-06-13,Makan Siang,Hujan,Seksi C,Nasi Putih,Tahu Bacem,,Sup Tomat,5.33,59.63,,75.38,46.78
+2025-06-13,Makan Siang,Hujan,Seksi D,Nasi Merah,Tempe Goreng,Capcay,Sup Jagung,49.8,36.62,8.48,41.69,34.15
+2025-06-13,Sarapan,Hujan,Seksi A,Nasi Uduk,Ayam Goreng,,Sup Tomat,37.33,68.12,,29.58,45.01
+2025-06-13,Sarapan,Berawan,Seksi B,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,,32.17,34.11,60.67,,42.32
+2025-06-13,Sarapan,Hujan,Seksi C,Nasi Uduk,Tahu Bacem,Bayam,Sup Tomat,41.9,15.58,39.6,79.51,44.15
+2025-06-13,Sarapan,Cerah,Seksi D,Nasi Merah,Ikan Tongkol,Kangkung,Sayur Lodeh,23.72,61.44,48.88,58.73,48.19
+2025-06-14,Makan Malam,Berawan,Seksi A,Nasi Uduk,Ikan Lele,Tumis Kacang Panjang,Sayur Lodeh,4.29,53.95,40.74,57.49,39.12
+2025-06-14,Makan Malam,Hujan,Seksi B,Nasi Uduk,Tahu Bacem,Capcay,Soto Ayam,20.49,76.97,47.23,23.22,41.98
+2025-06-14,Makan Malam,Berawan,Seksi C,Nasi Uduk,Ikan Lele,,Sup Tomat,39.17,48.09,,52.61,46.62
+2025-06-14,Makan Malam,Cerah,Seksi D,Nasi Merah,,Bayam,Sup Jagung,37.76,,48.48,62.4,49.55
+2025-06-14,Makan Siang,Berawan,Seksi A,,,Bayam,Sup Jagung,,,16.24,32.57,24.4
+2025-06-14,Makan Siang,Berawan,Seksi B,Nasi Merah,Ikan Lele,Kangkung,Sup Tomat,28.86,22.62,39.35,36.82,31.91
+2025-06-14,Makan Siang,Cerah,Seksi C,Nasi Merah,Ikan Lele,Sayur Nangka,Soto Ayam,56.82,23.34,75.93,50.45,51.64
+2025-06-14,Makan Siang,Hujan,Seksi D,Nasi Putih,Ayam Goreng,Capcay,Sayur Lodeh,17.06,43.22,56.63,61.27,44.54
+2025-06-14,Sarapan,Hujan,Seksi A,Nasi Merah,Ayam Goreng,,Sup Jagung,15.24,85.42,,31.51,44.06
+2025-06-14,Sarapan,Cerah,Seksi B,Nasi Putih,Ayam Goreng,Kangkung,Sup Jagung,16.2,22.73,2.09,57.8,24.7
+2025-06-14,Sarapan,Hujan,Seksi C,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Soto Ayam,63.22,59.17,11.92,36.93,42.81
+2025-06-14,Sarapan,Berawan,Seksi D,Nasi Uduk,Ikan Lele,Kangkung,Sayur Lodeh,24.97,49.17,48.79,33.85,39.2
+2025-06-15,Makan Malam,Cerah,Seksi A,Nasi Uduk,,Bayam,Sup Jagung,2.22,,29.68,51.59,27.83
+2025-06-15,Makan Malam,Hujan,Seksi B,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,Sup Jagung,41.14,53.72,57.68,63.05,53.9
+2025-06-15,Makan Malam,Berawan,Seksi C,Nasi Uduk,Telur Balado,Kangkung,Sup Tomat,7.09,23.19,3.65,72.39,26.58
+2025-06-15,Makan Malam,Hujan,Seksi D,Nasi Putih,Ikan Tongkol,Sayur Nangka,Sup Jagung,32.13,69.6,14.9,5.57,30.55
+2025-06-15,Makan Siang,Hujan,Seksi A,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Sayur Lodeh,49.05,38.02,52.67,53.64,48.35
+2025-06-15,Makan Siang,Hujan,Seksi B,Nasi Putih,Ikan Tongkol,Kangkung,Sayur Lodeh,21.65,11.0,77.24,9.89,29.94
+2025-06-15,Makan Siang,Hujan,Seksi C,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,64.28,67.87,50.98,80.33,65.87
+2025-06-15,Makan Siang,Hujan,Seksi D,Nasi Putih,Telur Balado,Kangkung,Sup Tomat,64.88,60.12,30.43,54.38,52.45
+2025-06-15,Sarapan,Cerah,Seksi A,Nasi Merah,Ayam Goreng,Bayam,Soto Ayam,41.03,29.27,34.82,40.83,36.49
+2025-06-15,Sarapan,Hujan,Seksi B,Nasi Uduk,,Capcay,Soto Ayam,50.9,,22.11,60.26,44.42
+2025-06-15,Sarapan,Cerah,Seksi C,,,,Sayur Lodeh,,,,66.94,66.94
+2025-06-15,Sarapan,Berawan,Seksi D,Nasi Putih,Telur Balado,,Sup Tomat,30.13,72.81,,17.94,40.29
+2025-06-16,Makan Malam,Berawan,Seksi A,Nasi Putih,Ikan Lele,Sayur Nangka,Sup Tomat,24.9,36.67,13.21,9.01,20.95
+2025-06-16,Makan Malam,Cerah,Seksi B,Nasi Uduk,Tahu Bacem,Kangkung,Soto Ayam,54.69,38.51,53.86,46.62,48.42
+2025-06-16,Makan Malam,Berawan,Seksi C,Nasi Putih,Ayam Goreng,Sayur Nangka,Sup Tomat,39.61,3.8,57.14,19.79,30.08
+2025-06-16,Makan Malam,Hujan,Seksi D,Nasi Merah,Tahu Bacem,Sayur Nangka,Sayur Lodeh,8.86,53.25,5.94,61.31,32.34
+2025-06-16,Makan Siang,Cerah,Seksi A,Nasi Merah,Telur Balado,Sayur Nangka,Sayur Lodeh,45.5,13.13,33.02,9.09,25.18
+2025-06-16,Makan Siang,Hujan,Seksi B,Nasi Merah,Ikan Tongkol,,Soto Ayam,35.46,37.04,,3.33,25.28
+2025-06-16,Makan Siang,Cerah,Seksi C,Nasi Uduk,Tempe Goreng,Capcay,Sup Jagung,22.67,44.34,72.56,61.2,50.19
+2025-06-16,Makan Siang,Cerah,Seksi D,Nasi Putih,Ikan Lele,Tumis Kacang Panjang,Sup Jagung,7.97,64.67,36.93,64.68,43.56
+2025-06-16,Sarapan,Berawan,Seksi A,Nasi Merah,,Tumis Kacang Panjang,Soto Ayam,53.08,,24.01,28.85,35.31
+2025-06-16,Sarapan,Hujan,Seksi B,Nasi Putih,Ikan Tongkol,Tumis Kacang Panjang,Sayur Lodeh,10.85,69.6,20.13,34.1,33.67
+2025-06-16,Sarapan,Hujan,Seksi C,Nasi Uduk,Ikan Lele,Sayur Nangka,Sup Tomat,6.62,75.68,10.2,33.05,31.39
+2025-06-16,Sarapan,Hujan,Seksi D,Nasi Uduk,,Capcay,Soto Ayam,42.97,,66.57,27.22,45.59
+2025-06-17,Makan Malam,Berawan,Seksi A,Nasi Putih,Telur Balado,Bayam,Sayur Lodeh,32.84,41.49,70.06,5.81,37.55
+2025-06-17,Makan Malam,Berawan,Seksi B,Nasi Putih,Telur Balado,Kangkung,Soto Ayam,28.19,32.96,43.3,33.56,34.5
+2025-06-17,Makan Malam,Hujan,Seksi C,Nasi Merah,Tempe Goreng,,Sup Jagung,61.04,6.73,,41.73,36.5
+2025-06-17,Makan Malam,Berawan,Seksi D,Nasi Merah,Ikan Tongkol,Capcay,Sayur Lodeh,4.88,23.02,50.31,36.52,28.68
+2025-06-17,Makan Siang,Berawan,Seksi A,Nasi Uduk,Telur Balado,Bayam,Sup Tomat,17.99,25.07,13.53,5.36,15.49
+2025-06-17,Makan Siang,Berawan,Seksi B,Nasi Putih,Ayam Goreng,Capcay,Soto Ayam,42.68,44.44,61.17,37.16,46.36
+2025-06-17,Makan Siang,Berawan,Seksi C,Nasi Putih,Ayam Goreng,Kangkung,Soto Ayam,55.86,38.9,9.72,36.61,35.27
+2025-06-17,Makan Siang,Berawan,Seksi D,Nasi Merah,,Kangkung,Soto Ayam,60.18,,55.97,57.62,57.92
+2025-06-17,Sarapan,Hujan,Seksi A,Nasi Merah,Ikan Lele,Sayur Nangka,Sup Tomat,12.76,21.6,66.97,21.62,30.74
+2025-06-17,Sarapan,Cerah,Seksi B,Nasi Putih,,Sayur Nangka,Sayur Lodeh,9.29,,1.67,60.88,23.95
+2025-06-17,Sarapan,Berawan,Seksi C,Nasi Putih,Ikan Lele,Capcay,Sayur Lodeh,9.65,12.44,19.79,14.66,14.13
+2025-06-17,Sarapan,Cerah,Seksi D,Nasi Putih,Telur Balado,Bayam,Sup Tomat,38.17,4.5,2.21,53.58,24.62
+2025-06-18,Makan Malam,Berawan,Seksi A,Nasi Uduk,Tahu Bacem,Tumis Kacang Panjang,Sayur Lodeh,24.23,12.8,24.86,42.59,26.12
+2025-06-18,Makan Malam,Cerah,Seksi B,Nasi Uduk,Ikan Tongkol,Kangkung,Sup Jagung,51.08,66.62,46.66,63.23,56.9
+2025-06-18,Makan Malam,Cerah,Seksi C,Nasi Putih,Telur Balado,,,35.89,34.54,,,35.22
+2025-06-18,Makan Malam,Berawan,Seksi D,Nasi Uduk,Tempe Goreng,Capcay,Soto Ayam,39.86,22.22,8.16,68.06,34.58
+2025-06-18,Makan Siang,Cerah,Seksi A,Nasi Uduk,Tempe Goreng,Capcay,Sup Jagung,25.03,10.88,34.54,49.19,29.91
+2025-06-18,Makan Siang,Berawan,Seksi B,Nasi Putih,Ikan Tongkol,Bayam,Sayur Lodeh,22.39,14.6,71.52,5.48,28.5
+2025-06-18,Makan Siang,Berawan,Seksi C,Nasi Uduk,Ayam Goreng,Sayur Nangka,Sayur Lodeh,55.66,8.63,7.34,48.75,30.1
+2025-06-18,Makan Siang,Berawan,Seksi D,Nasi Merah,Ayam Goreng,Sayur Nangka,Sayur Lodeh,51.71,56.15,43.68,46.57,49.53
+2025-06-18,Sarapan,Berawan,Seksi A,Nasi Uduk,,Tumis Kacang Panjang,Soto Ayam,22.81,,36.29,30.77,29.96
+2025-06-18,Sarapan,Cerah,Seksi B,Nasi Uduk,Ikan Tongkol,Capcay,Sup Tomat,35.49,9.28,45.97,56.99,36.93
+2025-06-18,Sarapan,Hujan,Seksi C,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Sup Tomat,46.73,64.07,60.2,18.43,47.36
+2025-06-18,Sarapan,Berawan,Seksi D,Nasi Merah,Ikan Tongkol,Sayur Nangka,Sayur Lodeh,28.34,22.14,22.31,35.53,27.08
+2025-06-19,Makan Malam,Berawan,Seksi A,Nasi Uduk,Ikan Tongkol,,Sayur Lodeh,6.48,6.82,,42.47,18.59
+2025-06-19,Makan Malam,Hujan,Seksi B,Nasi Putih,Tahu Bacem,Bayam,Soto Ayam,43.42,24.28,47.38,33.7,37.2
+2025-06-19,Makan Malam,Cerah,Seksi C,Nasi Putih,Ayam Goreng,Kangkung,Sup Tomat,25.82,25.31,50.07,9.24,27.61
+2025-06-19,Makan Malam,Berawan,Seksi D,Nasi Uduk,Telur Balado,Kangkung,Sup Jagung,26.82,25.38,55.34,34.64,35.54
+2025-06-19,Makan Siang,Berawan,Seksi A,,Ikan Lele,Bayam,,,2.08,55.54,,28.81
+2025-06-19,Makan Siang,Cerah,Seksi B,Nasi Putih,Ayam Goreng,Capcay,Sayur Lodeh,24.07,15.75,40.82,3.63,21.07
+2025-06-19,Makan Siang,Berawan,Seksi C,Nasi Putih,Telur Balado,Tumis Kacang Panjang,Sup Jagung,52.66,16.45,32.43,23.69,31.31
+2025-06-19,Makan Siang,Cerah,Seksi D,Nasi Merah,Tempe Goreng,Bayam,Soto Ayam,23.26,55.4,51.99,38.35,42.25
+2025-06-19,Sarapan,Berawan,Seksi A,Nasi Putih,Telur Balado,Tumis Kacang Panjang,Sup Tomat,25.71,73.99,42.11,64.14,51.49
+2025-06-19,Sarapan,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Bayam,,49.02,82.57,62.94,,64.84
+2025-06-19,Sarapan,Cerah,Seksi C,,Tahu Bacem,Capcay,Sayur Lodeh,,4.35,72.2,60.55,45.7
+2025-06-19,Sarapan,Hujan,Seksi D,Nasi Merah,,Kangkung,Sayur Lodeh,19.5,,44.47,23.1,29.02
+2025-06-20,Makan Malam,Berawan,Seksi A,Nasi Putih,Ayam Goreng,,Sup Jagung,36.18,69.55,,7.25,37.66
+2025-06-20,Makan Malam,Berawan,Seksi B,Nasi Merah,,Capcay,Soto Ayam,49.59,,47.46,40.64,45.9
+2025-06-20,Makan Malam,Hujan,Seksi C,Nasi Merah,Ayam Goreng,,Sayur Lodeh,24.0,30.62,,22.64,25.75
+2025-06-20,Makan Malam,Cerah,Seksi D,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,11.73,50.49,8.63,32.91,25.94
+2025-06-20,Makan Siang,Cerah,Seksi A,Nasi Merah,Telur Balado,Capcay,Soto Ayam,50.79,63.98,6.97,62.7,46.11
+2025-06-20,Makan Siang,Cerah,Seksi B,,Tempe Goreng,Kangkung,,,3.21,58.5,,30.86
+2025-06-20,Makan Siang,Cerah,Seksi C,Nasi Putih,Tahu Bacem,Sayur Nangka,,33.37,43.56,45.72,,40.88
+2025-06-20,Makan Siang,Cerah,Seksi D,Nasi Putih,Tahu Bacem,Sayur Nangka,Sayur Lodeh,7.95,3.47,22.65,65.96,25.01
+2025-06-20,Sarapan,Cerah,Seksi A,Nasi Uduk,Tempe Goreng,Capcay,Soto Ayam,40.46,6.35,30.54,39.63,29.24
+2025-06-20,Sarapan,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Bayam,Sup Tomat,1.9,23.41,16.22,12.77,13.58
+2025-06-20,Sarapan,Hujan,Seksi C,Nasi Putih,Ikan Lele,Kangkung,Sayur Lodeh,15.73,27.49,1.77,50.81,23.95
+2025-06-20,Sarapan,Berawan,Seksi D,Nasi Merah,Ikan Lele,Kangkung,Sayur Lodeh,12.05,37.76,52.13,38.81,35.19
+2025-06-21,Makan Malam,Berawan,Seksi A,Nasi Merah,Telur Balado,Capcay,Sayur Lodeh,4.48,73.08,7.43,54.67,34.92
+2025-06-21,Makan Malam,Hujan,Seksi B,Nasi Merah,Telur Balado,Kangkung,Sup Tomat,52.77,45.74,42.02,30.7,42.81
+2025-06-21,Makan Malam,Hujan,Seksi C,Nasi Uduk,Ikan Lele,Bayam,Sup Tomat,33.29,79.44,63.24,31.72,51.92
+2025-06-21,Makan Malam,Cerah,Seksi D,Nasi Putih,Ikan Tongkol,Bayam,Soto Ayam,46.67,54.38,26.09,40.43,41.89
+2025-06-21,Makan Siang,Hujan,Seksi A,Nasi Uduk,Ikan Lele,Capcay,Sayur Lodeh,29.75,84.49,47.6,48.05,52.47
+2025-06-21,Makan Siang,Hujan,Seksi B,Nasi Uduk,Telur Balado,,Sup Jagung,39.25,82.95,,11.29,44.5
+2025-06-21,Makan Siang,Cerah,Seksi C,Nasi Merah,Telur Balado,Capcay,Sup Tomat,6.11,43.16,26.16,23.24,24.67
+2025-06-21,Makan Siang,Berawan,Seksi D,Nasi Uduk,Ikan Lele,Capcay,Sup Tomat,4.87,44.97,24.96,35.59,27.6
+2025-06-21,Sarapan,Berawan,Seksi A,Nasi Merah,Telur Balado,Kangkung,Sup Tomat,51.18,26.04,56.66,58.46,48.08
+2025-06-21,Sarapan,Berawan,Seksi B,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Soto Ayam,52.98,22.58,11.71,16.26,25.88
+2025-06-21,Sarapan,Cerah,Seksi C,,Ikan Lele,Capcay,Soto Ayam,,73.8,51.56,13.45,46.27
+2025-06-21,Sarapan,Cerah,Seksi D,,Tempe Goreng,Bayam,Soto Ayam,,38.59,52.41,50.0,47.0
+2025-06-22,Makan Malam,Hujan,Seksi A,Nasi Uduk,Tempe Goreng,,,65.85,54.49,,,60.17
+2025-06-22,Makan Malam,Hujan,Seksi B,Nasi Putih,Telur Balado,Capcay,Sup Tomat,62.09,26.09,25.06,54.22,41.86
+2025-06-22,Makan Malam,Berawan,Seksi C,Nasi Putih,Telur Balado,Sayur Nangka,Soto Ayam,56.98,65.0,54.88,48.06,56.23
+2025-06-22,Makan Malam,Berawan,Seksi D,Nasi Uduk,Ayam Goreng,Capcay,Sup Tomat,45.77,39.24,42.41,32.49,39.98
+2025-06-22,Makan Siang,Cerah,Seksi A,Nasi Uduk,Ayam Goreng,,Sup Jagung,20.8,55.19,,51.5,42.5
+2025-06-22,Makan Siang,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Bayam,Sup Tomat,4.93,9.95,43.46,23.24,20.4
+2025-06-22,Makan Siang,Berawan,Seksi C,Nasi Merah,Telur Balado,Bayam,Soto Ayam,51.34,60.69,65.89,60.41,59.58
+2025-06-22,Makan Siang,Hujan,Seksi D,Nasi Merah,Ayam Goreng,Capcay,Sup Jagung,22.01,48.52,12.08,25.24,26.96
+2025-06-22,Sarapan,Berawan,Seksi A,Nasi Merah,Ayam Goreng,Sayur Nangka,Sayur Lodeh,9.7,6.23,9.34,71.93,24.3
+2025-06-22,Sarapan,Berawan,Seksi B,Nasi Uduk,Ikan Tongkol,Kangkung,Sup Tomat,25.25,57.51,38.59,12.84,33.55
+2025-06-22,Sarapan,Berawan,Seksi C,Nasi Merah,Ikan Lele,Bayam,Soto Ayam,15.25,40.54,30.95,40.74,31.87
+2025-06-22,Sarapan,Cerah,Seksi D,,Ikan Tongkol,Tumis Kacang Panjang,Sup Jagung,,34.65,21.38,30.22,28.75
+2025-06-23,Makan Malam,Hujan,Seksi A,,Telur Balado,Capcay,Sup Tomat,,26.69,66.67,37.5,43.62
+2025-06-23,Makan Malam,Hujan,Seksi B,Nasi Putih,Ayam Goreng,Tumis Kacang Panjang,Sup Jagung,56.7,37.11,74.29,76.64,61.18
+2025-06-23,Makan Malam,Berawan,Seksi C,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Sup Tomat,30.93,24.42,24.91,40.06,30.08
+2025-06-23,Makan Malam,Berawan,Seksi D,Nasi Putih,Telur Balado,Bayam,,68.22,62.22,57.82,,62.75
+2025-06-23,Makan Siang,Hujan,Seksi A,Nasi Merah,Tahu Bacem,Capcay,Soto Ayam,53.77,12.23,31.25,11.35,27.15
+2025-06-23,Makan Siang,Berawan,Seksi B,Nasi Putih,Ikan Tongkol,Kangkung,Sup Tomat,48.15,67.71,52.59,12.82,45.32
+2025-06-23,Makan Siang,Hujan,Seksi C,,Telur Balado,Sayur Nangka,Sup Jagung,,35.76,44.06,17.14,32.32
+2025-06-23,Makan Siang,Hujan,Seksi D,Nasi Uduk,Telur Balado,Kangkung,Soto Ayam,29.92,24.79,53.7,29.87,34.57
+2025-06-23,Sarapan,Berawan,Seksi A,Nasi Putih,Ayam Goreng,Capcay,Sup Tomat,25.03,30.82,14.33,18.64,22.2
+2025-06-23,Sarapan,Hujan,Seksi B,Nasi Merah,Tahu Bacem,Bayam,Sup Jagung,53.44,39.49,16.69,12.4,30.51
+2025-06-23,Sarapan,Cerah,Seksi C,Nasi Merah,Telur Balado,,Sup Jagung,5.49,73.23,,52.43,43.72
+2025-06-23,Sarapan,Hujan,Seksi D,Nasi Putih,Ayam Goreng,Bayam,Sup Tomat,49.94,68.58,3.56,24.17,36.56
+2025-06-24,Makan Malam,Berawan,Seksi A,Nasi Uduk,Tahu Bacem,,,9.44,51.08,,,30.26
+2025-06-24,Makan Malam,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Bayam,,6.42,24.95,54.84,,28.74
+2025-06-24,Makan Malam,Berawan,Seksi C,Nasi Uduk,Ayam Goreng,Kangkung,Sayur Lodeh,48.54,45.59,9.89,21.95,31.49
+2025-06-24,Makan Malam,Berawan,Seksi D,Nasi Uduk,Tahu Bacem,Tumis Kacang Panjang,Sup Jagung,19.9,6.32,35.7,59.38,30.33
+2025-06-24,Makan Siang,Berawan,Seksi A,,,Kangkung,Sayur Lodeh,,,5.97,33.46,19.72
+2025-06-24,Makan Siang,Berawan,Seksi B,Nasi Uduk,Telur Balado,,Sayur Lodeh,14.29,71.92,,3.37,29.86
+2025-06-24,Makan Siang,Berawan,Seksi C,,Ikan Lele,Capcay,Sup Jagung,,65.37,53.42,64.19,60.99
+2025-06-24,Makan Siang,Cerah,Seksi D,Nasi Uduk,Tahu Bacem,Capcay,Soto Ayam,9.67,23.34,56.12,46.8,33.98
+2025-06-24,Sarapan,Hujan,Seksi A,Nasi Uduk,Ikan Lele,Capcay,,16.38,49.77,56.88,,41.01
+2025-06-24,Sarapan,Berawan,Seksi B,Nasi Putih,Tahu Bacem,Bayam,Sup Tomat,7.72,63.38,58.41,18.92,37.11
+2025-06-24,Sarapan,Hujan,Seksi C,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,Soto Ayam,53.33,23.88,66.28,10.75,38.56
+2025-06-24,Sarapan,Hujan,Seksi D,Nasi Putih,Telur Balado,Sayur Nangka,,31.95,92.04,14.93,,46.31
+2025-06-25,Makan Malam,Hujan,Seksi A,Nasi Merah,Tahu Bacem,Kangkung,Sayur Lodeh,24.4,5.97,44.62,66.61,35.4
+2025-06-25,Makan Malam,Cerah,Seksi B,Nasi Putih,,Capcay,Soto Ayam,10.84,,31.82,44.94,29.2
+2025-06-25,Makan Malam,Berawan,Seksi C,Nasi Merah,Tahu Bacem,Sayur Nangka,Sup Jagung,40.71,70.83,5.22,52.49,42.31
+2025-06-25,Makan Malam,Cerah,Seksi D,Nasi Merah,Ikan Lele,Sayur Nangka,Sup Jagung,30.08,24.52,4.32,17.06,18.99
+2025-06-25,Makan Siang,Cerah,Seksi A,Nasi Uduk,Tempe Goreng,Tumis Kacang Panjang,Sayur Lodeh,33.25,39.85,80.72,35.38,47.3
+2025-06-25,Makan Siang,Hujan,Seksi B,Nasi Uduk,Telur Balado,Kangkung,Sup Jagung,23.13,34.63,41.53,72.53,42.96
+2025-06-25,Makan Siang,Hujan,Seksi C,Nasi Uduk,Ayam Goreng,,Soto Ayam,18.08,3.27,,24.49,15.28
+2025-06-25,Makan Siang,Cerah,Seksi D,Nasi Uduk,Ikan Lele,,Soto Ayam,43.82,58.56,,54.57,52.32
+2025-06-25,Sarapan,Cerah,Seksi A,Nasi Merah,Tahu Bacem,Bayam,Soto Ayam,29.58,10.67,70.83,39.68,37.69
+2025-06-25,Sarapan,Berawan,Seksi B,Nasi Merah,Tahu Bacem,Bayam,Sup Tomat,2.03,45.11,18.56,10.08,18.94
+2025-06-25,Sarapan,Hujan,Seksi C,Nasi Merah,Tempe Goreng,Sayur Nangka,,28.39,52.09,21.26,,33.91
+2025-06-25,Sarapan,Hujan,Seksi D,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Sup Jagung,41.69,7.85,61.23,5.54,29.08
+2025-06-26,Makan Malam,Cerah,Seksi A,Nasi Merah,Tahu Bacem,Capcay,Sayur Lodeh,18.24,52.59,30.37,55.86,39.26
+2025-06-26,Makan Malam,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Tumis Kacang Panjang,Sup Tomat,21.59,5.73,72.07,25.52,31.23
+2025-06-26,Makan Malam,Hujan,Seksi C,Nasi Merah,Tempe Goreng,Capcay,,60.48,25.13,61.64,,49.08
+2025-06-26,Makan Malam,Hujan,Seksi D,Nasi Putih,Tempe Goreng,,Sup Tomat,5.73,49.69,,52.13,35.85
+2025-06-26,Makan Siang,Berawan,Seksi A,Nasi Putih,Ayam Goreng,Kangkung,Sayur Lodeh,54.3,32.36,69.87,34.24,47.69
+2025-06-26,Makan Siang,Hujan,Seksi B,Nasi Putih,Ikan Tongkol,Sayur Nangka,Sup Jagung,32.69,81.95,36.07,50.38,50.27
+2025-06-26,Makan Siang,Cerah,Seksi C,Nasi Putih,Tempe Goreng,Bayam,,42.21,7.95,50.0,,33.39
+2025-06-26,Makan Siang,Hujan,Seksi D,Nasi Uduk,Ikan Tongkol,Capcay,Soto Ayam,31.66,28.35,6.47,53.78,30.06
+2025-06-26,Sarapan,Hujan,Seksi A,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,3.59,83.39,37.9,69.04,48.48
+2025-06-26,Sarapan,Hujan,Seksi B,Nasi Merah,Telur Balado,Capcay,Sayur Lodeh,33.82,19.34,50.53,13.67,29.34
+2025-06-26,Sarapan,Hujan,Seksi C,Nasi Putih,Ikan Tongkol,Sayur Nangka,Sayur Lodeh,26.06,61.31,66.26,21.71,43.84
+2025-06-26,Sarapan,Berawan,Seksi D,Nasi Merah,Tempe Goreng,Bayam,Sup Tomat,8.77,33.75,62.73,57.36,40.65
+2025-06-27,Makan Malam,Hujan,Seksi A,Nasi Putih,Ikan Lele,Capcay,Sup Jagung,29.15,10.16,62.39,29.0,32.67
+2025-06-27,Makan Malam,Berawan,Seksi B,,Tempe Goreng,Kangkung,Sayur Lodeh,,45.24,6.87,51.96,34.69
+2025-06-27,Makan Malam,Hujan,Seksi C,Nasi Putih,Telur Balado,Bayam,Sayur Lodeh,57.53,26.76,24.0,6.31,28.65
+2025-06-27,Makan Malam,Cerah,Seksi D,Nasi Uduk,Ikan Lele,Bayam,,38.71,76.94,58.57,,58.07
+2025-06-27,Makan Siang,Cerah,Seksi A,Nasi Uduk,Telur Balado,Bayam,Sup Tomat,40.76,48.12,29.37,49.18,41.86
+2025-06-27,Makan Siang,Berawan,Seksi B,Nasi Putih,Ikan Tongkol,Kangkung,,16.79,12.34,59.29,,29.47
+2025-06-27,Makan Siang,Hujan,Seksi C,Nasi Merah,Telur Balado,Kangkung,,22.22,43.51,18.78,,28.17
+2025-06-27,Makan Siang,Hujan,Seksi D,Nasi Merah,,Sayur Nangka,Sayur Lodeh,28.73,,20.24,58.55,35.84
+2025-06-27,Sarapan,Hujan,Seksi A,Nasi Uduk,,Capcay,Sup Tomat,47.44,,10.93,44.64,34.34
+2025-06-27,Sarapan,Berawan,Seksi B,Nasi Putih,Tempe Goreng,Capcay,,45.75,5.09,5.77,,18.87
+2025-06-27,Sarapan,Hujan,Seksi C,Nasi Uduk,Ikan Lele,Bayam,,27.03,37.71,47.29,,37.34
+2025-06-27,Sarapan,Berawan,Seksi D,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,Sup Tomat,45.98,73.08,27.08,63.58,52.43
+2025-06-28,Makan Malam,Berawan,Seksi A,Nasi Uduk,Tempe Goreng,Sayur Nangka,Soto Ayam,25.08,77.82,4.88,11.45,29.81
+2025-06-28,Makan Malam,Berawan,Seksi B,Nasi Uduk,Ayam Goreng,,Sup Tomat,10.83,13.25,,50.56,24.88
+2025-06-28,Makan Malam,Hujan,Seksi C,Nasi Putih,Telur Balado,Sayur Nangka,Soto Ayam,21.2,67.38,64.42,67.03,55.01
+2025-06-28,Makan Malam,Hujan,Seksi D,,Tahu Bacem,Kangkung,,,46.66,43.75,,45.2
+2025-06-28,Makan Siang,Berawan,Seksi A,Nasi Uduk,Ayam Goreng,Kangkung,,63.05,60.64,33.84,,52.51
+2025-06-28,Makan Siang,Cerah,Seksi B,Nasi Putih,Tempe Goreng,Bayam,Soto Ayam,47.64,8.58,77.64,50.94,46.2
+2025-06-28,Makan Siang,Berawan,Seksi C,Nasi Uduk,Tahu Bacem,Bayam,Sup Tomat,27.22,60.39,24.09,64.99,44.17
+2025-06-28,Makan Siang,Hujan,Seksi D,Nasi Uduk,Tempe Goreng,Capcay,Sayur Lodeh,49.68,53.74,13.25,64.4,45.27
+2025-06-28,Sarapan,Cerah,Seksi A,Nasi Uduk,Ikan Tongkol,Kangkung,Soto Ayam,52.31,60.87,63.54,37.92,53.66
+2025-06-28,Sarapan,Cerah,Seksi B,Nasi Putih,Telur Balado,Bayam,Sup Tomat,8.27,18.15,11.05,60.89,24.59
+2025-06-28,Sarapan,Berawan,Seksi C,Nasi Uduk,Telur Balado,Bayam,Sup Jagung,2.6,55.86,25.5,65.37,37.33
+2025-06-28,Sarapan,Cerah,Seksi D,Nasi Putih,Ayam Goreng,Capcay,Sup Jagung,37.74,51.07,6.96,26.21,30.5
+2025-06-29,Makan Malam,Berawan,Seksi A,Nasi Merah,Tahu Bacem,Bayam,Soto Ayam,13.19,46.37,20.9,46.77,31.81
+2025-06-29,Makan Malam,Berawan,Seksi B,Nasi Putih,Telur Balado,Sayur Nangka,Soto Ayam,48.68,79.7,66.39,10.04,51.2
+2025-06-29,Makan Malam,Berawan,Seksi C,Nasi Putih,Ikan Tongkol,Kangkung,Sup Jagung,25.43,53.77,22.43,35.36,34.25
+2025-06-29,Makan Malam,Cerah,Seksi D,Nasi Putih,Ikan Lele,Capcay,Soto Ayam,16.73,18.82,9.34,21.2,16.52
+2025-06-29,Makan Siang,Hujan,Seksi A,,Telur Balado,Kangkung,Sup Jagung,,64.87,28.88,52.69,48.81
+2025-06-29,Makan Siang,Cerah,Seksi B,Nasi Uduk,Tahu Bacem,Sayur Nangka,Sup Tomat,32.23,55.61,21.93,74.49,46.06
+2025-06-29,Makan Siang,Cerah,Seksi C,Nasi Merah,Ikan Tongkol,Sayur Nangka,Sup Jagung,28.07,66.12,51.03,20.42,41.41
+2025-06-29,Makan Siang,Cerah,Seksi D,Nasi Uduk,Ayam Goreng,Bayam,Soto Ayam,6.34,5.6,30.57,34.02,19.13
+2025-06-29,Sarapan,Berawan,Seksi A,Nasi Putih,Telur Balado,Capcay,Sayur Lodeh,22.44,51.13,34.18,12.06,29.95
+2025-06-29,Sarapan,Hujan,Seksi B,Nasi Uduk,Telur Balado,,Sup Jagung,58.88,12.54,,54.34,41.92
+2025-06-29,Sarapan,Berawan,Seksi C,Nasi Uduk,Tempe Goreng,Capcay,Soto Ayam,38.71,67.25,41.51,58.97,51.61
+2025-06-29,Sarapan,Berawan,Seksi D,Nasi Merah,,,Sup Jagung,3.15,,,47.03,25.09
+2025-06-30,Makan Malam,Cerah,Seksi A,Nasi Merah,Ikan Tongkol,Capcay,Sup Jagung,35.12,17.8,45.69,6.18,26.2
+2025-06-30,Makan Malam,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Sayur Nangka,Sayur Lodeh,34.97,66.15,21.09,62.19,46.1
+2025-06-30,Makan Malam,Cerah,Seksi C,Nasi Uduk,Tahu Bacem,,,42.98,11.06,,,27.02
+2025-06-30,Makan Malam,Berawan,Seksi D,,Telur Balado,Tumis Kacang Panjang,,,27.08,62.83,,44.96
+2025-06-30,Makan Siang,Cerah,Seksi A,Nasi Merah,Ikan Tongkol,Bayam,Soto Ayam,68.27,21.26,25.28,4.97,29.94
+2025-06-30,Makan Siang,Berawan,Seksi B,Nasi Uduk,Ikan Tongkol,Bayam,Soto Ayam,33.33,65.48,44.85,31.79,43.86
+2025-06-30,Makan Siang,Cerah,Seksi C,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,Sup Tomat,37.97,61.59,35.53,56.59,47.92
+2025-06-30,Makan Siang,Berawan,Seksi D,Nasi Uduk,Telur Balado,Capcay,Sup Jagung,48.87,63.26,30.19,28.57,42.72
+2025-06-30,Sarapan,Cerah,Seksi A,Nasi Putih,Tempe Goreng,Sayur Nangka,Sup Jagung,25.42,56.52,19.76,60.19,40.47
+2025-06-30,Sarapan,Cerah,Seksi B,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Sup Jagung,11.5,26.81,38.2,20.38,24.22
+2025-06-30,Sarapan,Berawan,Seksi C,Nasi Uduk,Telur Balado,Bayam,Soto Ayam,45.02,41.78,35.31,32.73,38.71
+2025-06-30,Sarapan,Cerah,Seksi D,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,Soto Ayam,21.44,3.69,70.18,35.54,32.71
+2025-07-01,Makan Malam,Hujan,Seksi A,Nasi Merah,Tahu Bacem,Tumis Kacang Panjang,,45.18,72.49,48.51,,55.39
+2025-07-01,Makan Malam,Berawan,Seksi B,Nasi Merah,Telur Balado,Sayur Nangka,Soto Ayam,39.05,18.43,50.72,49.61,39.45
+2025-07-01,Makan Malam,Berawan,Seksi C,Nasi Merah,Tahu Bacem,Sayur Nangka,Sup Jagung,53.69,12.22,48.25,3.94,29.52
+2025-07-01,Makan Malam,Berawan,Seksi D,Nasi Merah,Tempe Goreng,Bayam,Sayur Lodeh,56.68,12.55,2.45,23.43,23.78
+2025-07-01,Makan Siang,Berawan,Seksi A,Nasi Uduk,Ikan Tongkol,Capcay,Sup Tomat,21.5,68.87,41.76,52.35,46.12
+2025-07-01,Makan Siang,Berawan,Seksi B,Nasi Uduk,Tahu Bacem,Capcay,Sup Jagung,18.89,61.01,30.6,47.95,39.61
+2025-07-01,Makan Siang,Berawan,Seksi C,Nasi Uduk,Tempe Goreng,Tumis Kacang Panjang,Sup Jagung,63.97,43.4,55.25,57.03,54.91
+2025-07-01,Makan Siang,Cerah,Seksi D,Nasi Merah,Ikan Tongkol,Kangkung,Sup Tomat,42.47,3.53,31.4,73.0,37.6
+2025-07-01,Sarapan,Hujan,Seksi A,,Tahu Bacem,Bayam,Sup Tomat,,49.05,40.93,5.17,31.72
+2025-07-01,Sarapan,Cerah,Seksi B,Nasi Putih,Tahu Bacem,Kangkung,Sayur Lodeh,8.57,26.29,40.13,34.11,27.28
+2025-07-01,Sarapan,Hujan,Seksi C,Nasi Merah,Ikan Tongkol,Tumis Kacang Panjang,Sup Tomat,34.69,37.73,22.83,41.28,34.13
+2025-07-01,Sarapan,Cerah,Seksi D,,Tahu Bacem,Sayur Nangka,,,91.16,51.45,,71.31
+2025-07-02,Makan Malam,Hujan,Seksi A,Nasi Merah,Ayam Goreng,Bayam,Sup Tomat,21.48,25.89,63.85,58.39,42.4
+2025-07-02,Makan Malam,Berawan,Seksi B,Nasi Uduk,,Sayur Nangka,Soto Ayam,20.08,,54.29,31.26,35.21
+2025-07-02,Makan Malam,Berawan,Seksi C,Nasi Merah,Ikan Lele,Kangkung,,58.89,60.0,66.95,,61.95
+2025-07-02,Makan Malam,Hujan,Seksi D,Nasi Putih,Telur Balado,Sayur Nangka,Sup Jagung,18.98,29.67,50.0,27.61,31.56
+2025-07-02,Makan Siang,Cerah,Seksi A,Nasi Uduk,Ikan Lele,Sayur Nangka,Soto Ayam,23.77,32.0,59.24,47.08,40.52
+2025-07-02,Makan Siang,Cerah,Seksi B,,Tahu Bacem,Tumis Kacang Panjang,Soto Ayam,,51.32,50.41,15.16,38.96
+2025-07-02,Makan Siang,Cerah,Seksi C,Nasi Uduk,Tempe Goreng,Capcay,Sup Jagung,18.63,54.84,19.45,69.18,40.53
+2025-07-02,Makan Siang,Berawan,Seksi D,Nasi Putih,Ikan Lele,,Sup Jagung,20.47,26.62,,58.58,35.22
+2025-07-02,Sarapan,Hujan,Seksi A,Nasi Merah,Telur Balado,Tumis Kacang Panjang,Sup Tomat,10.45,52.17,28.55,63.31,38.62
+2025-07-02,Sarapan,Hujan,Seksi B,Nasi Putih,Ikan Tongkol,Sayur Nangka,Sayur Lodeh,60.5,87.43,49.53,5.75,50.8
+2025-07-02,Sarapan,Hujan,Seksi C,,Tahu Bacem,Kangkung,Soto Ayam,,21.5,23.7,46.98,30.73
+2025-07-02,Sarapan,Hujan,Seksi D,,,Kangkung,Soto Ayam,,,12.32,67.5,39.91
+2025-07-03,Makan Malam,Berawan,Seksi A,Nasi Merah,Telur Balado,Sayur Nangka,Sup Jagung,38.14,40.48,50.77,72.04,50.36
+2025-07-03,Makan Malam,Hujan,Seksi B,Nasi Merah,Telur Balado,Sayur Nangka,,63.03,15.48,58.01,,45.51
+2025-07-03,Makan Malam,Hujan,Seksi C,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,Sayur Lodeh,56.63,97.27,28.51,41.0,55.85
+2025-07-03,Makan Malam,Cerah,Seksi D,Nasi Putih,Ikan Lele,Sayur Nangka,Sup Tomat,55.18,79.24,58.44,71.66,66.13
+2025-07-03,Makan Siang,Hujan,Seksi A,Nasi Merah,Ikan Tongkol,Kangkung,Sup Jagung,42.79,9.55,52.01,2.16,26.63
+2025-07-03,Makan Siang,Hujan,Seksi B,,Ikan Lele,Tumis Kacang Panjang,Sup Jagung,,78.02,32.55,75.73,62.1
+2025-07-03,Makan Siang,Berawan,Seksi C,Nasi Putih,Ikan Tongkol,,Sup Jagung,53.72,46.83,,69.55,56.7
+2025-07-03,Makan Siang,Hujan,Seksi D,Nasi Merah,Tempe Goreng,Capcay,Sup Jagung,23.55,52.16,61.07,6.75,35.88
+2025-07-03,Sarapan,Berawan,Seksi A,Nasi Uduk,Telur Balado,Sayur Nangka,,26.71,20.36,36.68,,27.92
+2025-07-03,Sarapan,Cerah,Seksi B,,Tempe Goreng,Capcay,Sayur Lodeh,,69.6,47.89,11.22,42.9
+2025-07-03,Sarapan,Hujan,Seksi C,Nasi Putih,Tempe Goreng,Sayur Nangka,Sayur Lodeh,40.41,51.11,18.91,46.49,39.23
+2025-07-03,Sarapan,Cerah,Seksi D,Nasi Merah,,Tumis Kacang Panjang,Soto Ayam,32.93,,5.19,34.8,24.31
+2025-07-04,Makan Malam,Berawan,Seksi A,,Tahu Bacem,Sayur Nangka,Sup Jagung,,18.22,51.63,64.11,44.65
+2025-07-04,Makan Malam,Cerah,Seksi B,Nasi Putih,Telur Balado,Sayur Nangka,Sup Tomat,19.63,58.9,2.43,42.58,30.88
+2025-07-04,Makan Malam,Berawan,Seksi C,Nasi Putih,Tahu Bacem,Kangkung,,40.07,5.9,10.71,,18.89
+2025-07-04,Makan Malam,Cerah,Seksi D,Nasi Uduk,Tahu Bacem,Tumis Kacang Panjang,Sayur Lodeh,25.9,38.04,66.03,50.5,45.12
+2025-07-04,Makan Siang,Hujan,Seksi A,Nasi Uduk,Ikan Tongkol,Capcay,Sup Tomat,13.67,66.85,60.8,42.48,45.95
+2025-07-04,Makan Siang,Hujan,Seksi B,Nasi Uduk,Ayam Goreng,Sayur Nangka,Sup Jagung,48.41,14.55,62.68,63.29,47.23
+2025-07-04,Makan Siang,Cerah,Seksi C,Nasi Putih,,,Sup Tomat,58.37,,,50.3,54.33
+2025-07-04,Makan Siang,Cerah,Seksi D,Nasi Uduk,Ikan Lele,Sayur Nangka,Sup Jagung,11.58,14.23,27.04,21.71,18.64
+2025-07-04,Sarapan,Cerah,Seksi A,Nasi Putih,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,2.14,42.42,9.92,70.39,31.22
+2025-07-04,Sarapan,Cerah,Seksi B,Nasi Merah,Ikan Tongkol,Capcay,Sayur Lodeh,18.37,96.3,38.55,38.18,47.85
+2025-07-04,Sarapan,Hujan,Seksi C,Nasi Merah,Ikan Lele,Kangkung,Sup Tomat,55.95,70.81,33.85,14.21,43.71
+2025-07-04,Sarapan,Berawan,Seksi D,Nasi Uduk,Ikan Lele,Sayur Nangka,Sayur Lodeh,7.89,16.07,34.11,18.28,19.09
+2025-07-05,Makan Malam,Hujan,Seksi A,,Ayam Goreng,Sayur Nangka,Sup Jagung,,50.86,8.53,33.68,31.02
+2025-07-05,Makan Malam,Hujan,Seksi B,Nasi Merah,Ayam Goreng,Kangkung,Sup Tomat,48.1,44.19,32.67,35.08,40.01
+2025-07-05,Makan Malam,Cerah,Seksi C,Nasi Uduk,Tahu Bacem,Tumis Kacang Panjang,Sup Jagung,4.31,42.25,55.86,50.7,38.28
+2025-07-05,Makan Malam,Cerah,Seksi D,Nasi Putih,Telur Balado,Tumis Kacang Panjang,Sup Jagung,23.08,63.17,48.51,37.76,43.13
+2025-07-05,Makan Siang,Hujan,Seksi A,Nasi Merah,Telur Balado,Sayur Nangka,Sayur Lodeh,16.6,68.84,62.84,7.76,39.01
+2025-07-05,Makan Siang,Hujan,Seksi B,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,Sayur Lodeh,30.29,66.73,6.07,39.5,35.65
+2025-07-05,Makan Siang,Hujan,Seksi C,Nasi Uduk,Ayam Goreng,Capcay,Sup Jagung,4.88,48.77,34.96,43.89,33.12
+2025-07-05,Makan Siang,Hujan,Seksi D,,Ayam Goreng,Capcay,,,25.0,35.81,,30.4
+2025-07-05,Sarapan,Hujan,Seksi A,,,,Soto Ayam,,,,20.13,20.13
+2025-07-05,Sarapan,Hujan,Seksi B,Nasi Merah,Telur Balado,,Sup Jagung,39.12,22.94,,13.3,25.12
+2025-07-05,Sarapan,Cerah,Seksi C,Nasi Merah,Telur Balado,,Sayur Lodeh,52.96,50.58,,40.32,47.95
+2025-07-05,Sarapan,Hujan,Seksi D,Nasi Putih,Ikan Lele,Sayur Nangka,Sup Tomat,33.52,53.01,47.72,15.77,37.5
+2025-07-06,Makan Malam,Berawan,Seksi A,Nasi Merah,Tempe Goreng,Sayur Nangka,Sup Tomat,42.29,52.96,36.92,59.42,47.9
+2025-07-06,Makan Malam,Cerah,Seksi B,Nasi Merah,Tahu Bacem,,Sayur Lodeh,17.77,31.97,,71.28,40.34
+2025-07-06,Makan Malam,Cerah,Seksi C,Nasi Putih,Ikan Tongkol,Capcay,,43.82,9.34,54.93,,36.03
+2025-07-06,Makan Malam,Hujan,Seksi D,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Sup Tomat,43.55,87.2,2.86,15.04,37.16
+2025-07-06,Makan Siang,Berawan,Seksi A,Nasi Uduk,Tempe Goreng,,Sup Jagung,51.29,82.7,,52.83,62.27
+2025-07-06,Makan Siang,Hujan,Seksi B,Nasi Putih,Ayam Goreng,Bayam,Sup Tomat,40.83,53.94,43.02,26.16,40.99
+2025-07-06,Makan Siang,Hujan,Seksi C,Nasi Uduk,Tahu Bacem,Capcay,Sup Jagung,13.02,46.99,38.65,46.69,36.34
+2025-07-06,Makan Siang,Hujan,Seksi D,Nasi Uduk,Ayam Goreng,Capcay,Sup Tomat,16.19,2.13,2.81,25.74,11.72
+2025-07-06,Sarapan,Berawan,Seksi A,Nasi Uduk,Tahu Bacem,Capcay,Sayur Lodeh,4.19,26.96,6.06,63.96,25.29
+2025-07-06,Sarapan,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Sayur Nangka,Soto Ayam,59.54,8.78,77.74,3.28,37.34
+2025-07-06,Sarapan,Cerah,Seksi C,Nasi Merah,Telur Balado,Tumis Kacang Panjang,Sup Tomat,26.02,77.09,61.5,65.81,57.6
+2025-07-06,Sarapan,Hujan,Seksi D,Nasi Merah,Tempe Goreng,Capcay,,45.21,33.54,66.13,,48.29
+2025-07-07,Makan Malam,Cerah,Seksi A,Nasi Uduk,Tempe Goreng,,Sup Jagung,61.17,60.43,,24.13,48.58
+2025-07-07,Makan Malam,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Tumis Kacang Panjang,Sup Tomat,26.52,12.13,25.7,62.6,31.74
+2025-07-07,Makan Malam,Cerah,Seksi C,Nasi Uduk,Ikan Tongkol,Bayam,,32.53,63.96,20.44,,38.98
+2025-07-07,Makan Malam,Berawan,Seksi D,Nasi Putih,Ikan Lele,,Soto Ayam,46.18,71.01,,80.0,65.73
+2025-07-07,Makan Siang,Hujan,Seksi A,Nasi Uduk,Tempe Goreng,Capcay,,39.82,52.8,27.11,,39.91
+2025-07-07,Makan Siang,Berawan,Seksi B,Nasi Uduk,Telur Balado,Bayam,Sup Tomat,9.76,53.35,14.97,22.33,25.1
+2025-07-07,Makan Siang,Berawan,Seksi C,Nasi Merah,Tempe Goreng,Sayur Nangka,,4.6,82.04,69.01,,51.88
+2025-07-07,Makan Siang,Hujan,Seksi D,Nasi Uduk,Tempe Goreng,Bayam,Sup Jagung,38.1,32.69,40.22,73.19,46.05
+2025-07-07,Sarapan,Berawan,Seksi A,Nasi Putih,Tahu Bacem,Kangkung,Soto Ayam,7.54,5.01,45.84,48.37,26.69
+2025-07-07,Sarapan,Berawan,Seksi B,Nasi Putih,Ikan Lele,Capcay,Sup Tomat,3.83,60.75,27.56,17.24,27.34
+2025-07-07,Sarapan,Cerah,Seksi C,Nasi Putih,,Kangkung,Soto Ayam,15.03,,5.3,37.3,19.21
+2025-07-07,Sarapan,Berawan,Seksi D,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sayur Lodeh,19.59,60.03,52.2,21.25,38.27
+2025-07-08,Makan Malam,Hujan,Seksi A,Nasi Merah,Ikan Lele,Bayam,Sup Jagung,33.94,58.73,25.35,37.69,38.93
+2025-07-08,Makan Malam,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Bayam,Sup Jagung,21.81,24.64,32.67,39.2,29.58
+2025-07-08,Makan Malam,Hujan,Seksi C,Nasi Merah,Telur Balado,Capcay,Sayur Lodeh,7.99,75.31,39.22,68.9,47.86
+2025-07-08,Makan Malam,Hujan,Seksi D,Nasi Uduk,Telur Balado,Capcay,Soto Ayam,64.06,31.63,30.96,44.69,42.84
+2025-07-08,Makan Siang,Berawan,Seksi A,Nasi Uduk,Telur Balado,Bayam,Sayur Lodeh,51.34,40.69,31.01,60.22,45.82
+2025-07-08,Makan Siang,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Bayam,Sayur Lodeh,22.09,85.54,2.34,66.81,44.2
+2025-07-08,Makan Siang,Hujan,Seksi C,Nasi Merah,Ayam Goreng,Bayam,Sayur Lodeh,53.98,10.28,75.87,33.65,43.44
+2025-07-08,Makan Siang,Berawan,Seksi D,Nasi Putih,Ikan Tongkol,Kangkung,,15.0,55.23,14.75,,28.33
+2025-07-08,Sarapan,Cerah,Seksi A,Nasi Putih,,Tumis Kacang Panjang,Soto Ayam,38.45,,19.69,15.62,24.59
+2025-07-08,Sarapan,Berawan,Seksi B,,Telur Balado,Kangkung,Sup Tomat,,83.54,66.2,7.97,52.57
+2025-07-08,Sarapan,Hujan,Seksi C,Nasi Putih,Ayam Goreng,,Soto Ayam,44.3,15.21,,42.55,34.02
+2025-07-08,Sarapan,Berawan,Seksi D,Nasi Uduk,Ikan Lele,Bayam,Sayur Lodeh,37.33,81.72,12.8,58.21,47.52
+2025-07-09,Makan Malam,Cerah,Seksi A,Nasi Putih,Telur Balado,Bayam,Soto Ayam,28.53,65.38,16.14,46.73,39.2
+2025-07-09,Makan Malam,Berawan,Seksi B,Nasi Putih,Telur Balado,Kangkung,Sup Jagung,1.73,47.43,30.93,42.59,30.67
+2025-07-09,Makan Malam,Berawan,Seksi C,Nasi Putih,Tahu Bacem,Sayur Nangka,Sup Tomat,44.4,45.48,35.09,40.16,41.28
+2025-07-09,Makan Malam,Berawan,Seksi D,Nasi Uduk,Telur Balado,,Soto Ayam,1.75,51.47,,39.04,30.75
+2025-07-09,Makan Siang,Berawan,Seksi A,Nasi Putih,Ikan Lele,Kangkung,,40.7,46.13,11.99,,32.94
+2025-07-09,Makan Siang,Hujan,Seksi B,Nasi Merah,Ikan Tongkol,Capcay,,12.11,60.1,41.5,,37.9
+2025-07-09,Makan Siang,Hujan,Seksi C,Nasi Merah,,Capcay,Sup Jagung,32.97,,6.49,4.23,14.56
+2025-07-09,Makan Siang,Cerah,Seksi D,Nasi Merah,Ayam Goreng,Sayur Nangka,Sup Jagung,48.41,68.45,50.07,50.86,54.45
+2025-07-09,Sarapan,Cerah,Seksi A,Nasi Merah,Ikan Lele,Kangkung,Soto Ayam,16.3,15.38,19.55,62.73,28.49
+2025-07-09,Sarapan,Hujan,Seksi B,Nasi Uduk,Telur Balado,Kangkung,Sup Jagung,33.99,31.95,13.28,23.4,25.66
+2025-07-09,Sarapan,Hujan,Seksi C,Nasi Merah,Telur Balado,,Soto Ayam,23.79,67.75,,49.63,47.06
+2025-07-09,Sarapan,Hujan,Seksi D,Nasi Merah,Tahu Bacem,Kangkung,Sup Jagung,44.25,19.6,56.19,62.78,45.7
+2025-07-10,Makan Malam,Berawan,Seksi A,Nasi Uduk,Tempe Goreng,Kangkung,Soto Ayam,24.94,73.78,45.77,64.18,52.17
+2025-07-10,Makan Malam,Berawan,Seksi B,Nasi Uduk,Tempe Goreng,Tumis Kacang Panjang,Sup Jagung,7.18,43.11,4.59,15.22,17.52
+2025-07-10,Makan Malam,Cerah,Seksi C,Nasi Merah,Telur Balado,,Soto Ayam,50.29,77.12,,5.29,44.23
+2025-07-10,Makan Malam,Hujan,Seksi D,Nasi Putih,Tempe Goreng,,,5.72,78.25,,,41.98
+2025-07-10,Makan Siang,Hujan,Seksi A,,Telur Balado,Tumis Kacang Panjang,Sayur Lodeh,,56.05,64.96,17.39,46.13
+2025-07-10,Makan Siang,Cerah,Seksi B,Nasi Uduk,Ayam Goreng,Capcay,,46.0,61.42,51.81,,53.08
+2025-07-10,Makan Siang,Cerah,Seksi C,Nasi Putih,Tahu Bacem,Kangkung,Sup Jagung,48.11,10.55,27.92,37.92,31.12
+2025-07-10,Makan Siang,Hujan,Seksi D,Nasi Putih,Ikan Tongkol,Kangkung,Sup Jagung,5.23,2.79,13.49,37.56,14.77
+2025-07-10,Sarapan,Cerah,Seksi A,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Sup Tomat,17.92,82.88,2.5,62.96,41.56
+2025-07-10,Sarapan,Berawan,Seksi B,Nasi Uduk,Ayam Goreng,Sayur Nangka,Sup Jagung,47.69,68.99,65.14,7.84,47.42
+2025-07-10,Sarapan,Berawan,Seksi C,,Telur Balado,Sayur Nangka,Sup Jagung,,13.83,14.42,40.98,23.08
+2025-07-10,Sarapan,Hujan,Seksi D,Nasi Putih,Tempe Goreng,Capcay,Soto Ayam,47.5,25.09,26.49,31.13,32.55
+2025-07-11,Makan Malam,Cerah,Seksi A,Nasi Merah,Ikan Lele,Capcay,Soto Ayam,32.47,28.79,61.57,33.59,39.1
+2025-07-11,Makan Malam,Cerah,Seksi B,Nasi Putih,Tahu Bacem,,,48.38,54.84,,,51.61
+2025-07-11,Makan Malam,Berawan,Seksi C,Nasi Merah,Tahu Bacem,,Sayur Lodeh,46.14,65.63,,13.48,41.75
+2025-07-11,Makan Malam,Hujan,Seksi D,,,Tumis Kacang Panjang,Sayur Lodeh,,,48.69,21.8,35.24
+2025-07-11,Makan Siang,Berawan,Seksi A,Nasi Merah,Tempe Goreng,Capcay,Sayur Lodeh,9.84,96.67,52.22,32.73,47.86
+2025-07-11,Makan Siang,Cerah,Seksi B,Nasi Merah,Ikan Tongkol,Tumis Kacang Panjang,Sayur Lodeh,65.63,6.84,31.86,65.47,42.45
+2025-07-11,Makan Siang,Cerah,Seksi C,Nasi Merah,Tempe Goreng,Kangkung,Sup Tomat,22.18,76.03,65.21,29.74,48.29
+2025-07-11,Makan Siang,Hujan,Seksi D,Nasi Putih,Ikan Tongkol,Bayam,Soto Ayam,48.69,4.19,21.4,64.08,34.59
+2025-07-11,Sarapan,Berawan,Seksi A,Nasi Merah,Ayam Goreng,Kangkung,,3.59,82.16,24.81,,36.85
+2025-07-11,Sarapan,Berawan,Seksi B,Nasi Merah,,Kangkung,Sup Tomat,34.06,,55.49,32.03,40.53
+2025-07-11,Sarapan,Berawan,Seksi C,Nasi Putih,Ikan Tongkol,Tumis Kacang Panjang,Sup Tomat,5.72,13.82,17.7,63.01,25.06
+2025-07-11,Sarapan,Cerah,Seksi D,Nasi Putih,Ikan Tongkol,Kangkung,Sup Tomat,25.67,71.27,24.82,56.63,44.6
+2025-07-12,Makan Malam,Cerah,Seksi A,,Ikan Tongkol,,Sup Jagung,,19.82,,42.88,31.35
+2025-07-12,Makan Malam,Berawan,Seksi B,Nasi Putih,Tahu Bacem,Capcay,,38.89,18.03,10.21,,22.38
+2025-07-12,Makan Malam,Hujan,Seksi C,,,Bayam,Sup Jagung,,,45.97,52.13,49.05
+2025-07-12,Makan Malam,Berawan,Seksi D,Nasi Merah,Tahu Bacem,,Soto Ayam,22.47,32.95,,57.62,37.68
+2025-07-12,Makan Siang,Cerah,Seksi A,,Ayam Goreng,Capcay,Sup Tomat,,29.99,7.31,69.75,35.68
+2025-07-12,Makan Siang,Hujan,Seksi B,Nasi Merah,Ayam Goreng,Kangkung,Soto Ayam,51.53,75.7,46.1,15.22,47.14
+2025-07-12,Makan Siang,Hujan,Seksi C,Nasi Uduk,Ikan Tongkol,Capcay,,27.9,12.13,22.51,,20.85
+2025-07-12,Makan Siang,Hujan,Seksi D,Nasi Putih,Tempe Goreng,Kangkung,Soto Ayam,4.76,34.95,29.43,39.46,27.15
+2025-07-12,Sarapan,Berawan,Seksi A,Nasi Uduk,Ikan Lele,Capcay,Soto Ayam,7.79,1.91,23.64,23.6,14.24
+2025-07-12,Sarapan,Berawan,Seksi B,Nasi Uduk,Ikan Lele,Sayur Nangka,,19.29,11.19,13.95,,14.81
+2025-07-12,Sarapan,Cerah,Seksi C,,Ikan Lele,Capcay,Sayur Lodeh,,30.09,3.07,26.68,19.95
+2025-07-12,Sarapan,Berawan,Seksi D,,Tempe Goreng,Sayur Nangka,Sup Tomat,,51.18,24.82,31.0,35.67
+2025-07-13,Makan Malam,Hujan,Seksi A,Nasi Uduk,Ikan Tongkol,,Sayur Lodeh,42.61,18.61,,49.86,37.03
+2025-07-13,Makan Malam,Cerah,Seksi B,Nasi Uduk,Telur Balado,Kangkung,Sup Tomat,44.26,6.79,66.53,40.83,39.6
+2025-07-13,Makan Malam,Hujan,Seksi C,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,,28.26,41.02,73.41,,47.56
+2025-07-13,Makan Malam,Berawan,Seksi D,Nasi Merah,Ikan Lele,Sayur Nangka,Soto Ayam,32.06,63.83,25.27,56.84,44.5
+2025-07-13,Makan Siang,Hujan,Seksi A,Nasi Merah,Ikan Lele,Capcay,Sup Jagung,8.82,42.75,44.18,40.86,34.15
+2025-07-13,Makan Siang,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Kangkung,Sup Tomat,44.73,46.82,78.97,36.88,51.85
+2025-07-13,Makan Siang,Hujan,Seksi C,Nasi Putih,Ayam Goreng,Kangkung,Soto Ayam,50.21,35.05,25.04,53.61,40.98
+2025-07-13,Makan Siang,Cerah,Seksi D,Nasi Uduk,Telur Balado,Sayur Nangka,Sup Tomat,52.49,58.22,29.96,37.39,44.52
+2025-07-13,Sarapan,Hujan,Seksi A,Nasi Merah,Tahu Bacem,Bayam,Soto Ayam,58.32,12.38,25.26,74.76,42.68
+2025-07-13,Sarapan,Cerah,Seksi B,Nasi Putih,Tempe Goreng,Sayur Nangka,Sup Tomat,12.84,23.77,79.57,65.1,45.32
+2025-07-13,Sarapan,Berawan,Seksi C,Nasi Uduk,Ikan Tongkol,Kangkung,Sup Tomat,19.59,58.4,40.75,42.38,40.28
+2025-07-13,Sarapan,Hujan,Seksi D,Nasi Uduk,Ayam Goreng,Sayur Nangka,Sup Tomat,15.73,31.7,62.79,30.3,35.13
+2025-07-14,Makan Malam,Cerah,Seksi A,Nasi Uduk,Ikan Tongkol,Capcay,Sup Tomat,9.44,31.71,31.28,14.62,21.76
+2025-07-14,Makan Malam,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Sayur Nangka,Sup Tomat,28.86,37.1,34.51,55.89,39.09
+2025-07-14,Makan Malam,Berawan,Seksi C,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Soto Ayam,21.17,26.84,60.12,9.43,29.39
+2025-07-14,Makan Malam,Berawan,Seksi D,Nasi Merah,Ikan Tongkol,Bayam,,56.57,51.82,45.24,,51.21
+2025-07-14,Makan Siang,Hujan,Seksi A,Nasi Merah,Tempe Goreng,Tumis Kacang Panjang,,32.46,40.18,36.98,,36.54
+2025-07-14,Makan Siang,Cerah,Seksi B,Nasi Putih,Tempe Goreng,Sayur Nangka,Soto Ayam,31.32,33.67,57.48,47.0,42.37
+2025-07-14,Makan Siang,Berawan,Seksi C,Nasi Uduk,Ayam Goreng,Bayam,Sup Jagung,29.28,32.37,3.18,9.84,18.67
+2025-07-14,Makan Siang,Cerah,Seksi D,Nasi Uduk,Ikan Lele,Kangkung,Sup Tomat,30.48,81.39,10.58,71.36,48.45
+2025-07-14,Sarapan,Cerah,Seksi A,Nasi Uduk,,Capcay,Sayur Lodeh,34.43,,7.76,50.46,30.88
+2025-07-14,Sarapan,Cerah,Seksi B,Nasi Uduk,,Kangkung,Sup Tomat,37.47,,41.66,4.2,27.78
+2025-07-14,Sarapan,Cerah,Seksi C,Nasi Putih,Ikan Lele,Tumis Kacang Panjang,Sup Tomat,56.23,48.86,32.44,56.82,48.59
+2025-07-14,Sarapan,Hujan,Seksi D,Nasi Merah,,Sayur Nangka,Sup Jagung,67.93,,2.34,18.66,29.64
+2025-07-15,Makan Malam,Berawan,Seksi A,Nasi Putih,Tahu Bacem,Bayam,Sup Jagung,34.37,35.57,59.14,50.08,44.79
+2025-07-15,Makan Malam,Hujan,Seksi B,Nasi Putih,Ikan Lele,Tumis Kacang Panjang,Sayur Lodeh,51.45,68.59,20.42,50.41,47.72
+2025-07-15,Makan Malam,Berawan,Seksi C,Nasi Uduk,Tempe Goreng,Sayur Nangka,Sup Jagung,6.82,12.03,10.37,23.43,13.16
+2025-07-15,Makan Malam,Cerah,Seksi D,Nasi Putih,Tempe Goreng,,Sup Jagung,11.39,56.73,,27.89,32.0
+2025-07-15,Makan Siang,Hujan,Seksi A,,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,,20.9,51.08,55.92,42.63
+2025-07-15,Makan Siang,Berawan,Seksi B,Nasi Merah,Telur Balado,Capcay,Soto Ayam,4.91,11.09,64.17,14.05,23.56
+2025-07-15,Makan Siang,Cerah,Seksi C,Nasi Putih,Ikan Tongkol,Tumis Kacang Panjang,Sayur Lodeh,20.61,41.05,21.96,61.59,36.3
+2025-07-15,Makan Siang,Cerah,Seksi D,Nasi Putih,,Sayur Nangka,,34.05,,42.26,,38.16
+2025-07-15,Sarapan,Cerah,Seksi A,Nasi Uduk,Ikan Tongkol,,Sayur Lodeh,65.17,25.44,,12.45,34.35
+2025-07-15,Sarapan,Berawan,Seksi B,,Ikan Lele,,Sayur Lodeh,,82.33,,33.49,57.91
+2025-07-15,Sarapan,Berawan,Seksi C,Nasi Merah,Tahu Bacem,Kangkung,,11.79,47.58,32.89,,30.75
+2025-07-15,Sarapan,Cerah,Seksi D,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,Soto Ayam,41.25,17.46,47.39,30.09,34.05
+2025-07-16,Makan Malam,Cerah,Seksi A,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Soto Ayam,48.07,61.8,35.27,8.77,38.48
+2025-07-16,Makan Malam,Berawan,Seksi B,Nasi Uduk,Ayam Goreng,Kangkung,Sayur Lodeh,7.53,62.5,56.19,29.5,38.93
+2025-07-16,Makan Malam,Berawan,Seksi C,Nasi Uduk,Ikan Tongkol,,Sayur Lodeh,45.94,4.57,,40.17,30.23
+2025-07-16,Makan Malam,Cerah,Seksi D,Nasi Putih,Ikan Tongkol,Bayam,Sup Tomat,67.35,9.74,53.88,49.48,45.11
+2025-07-16,Makan Siang,Hujan,Seksi A,,Ikan Tongkol,,Soto Ayam,,91.98,,41.14,66.56
+2025-07-16,Makan Siang,Hujan,Seksi B,Nasi Putih,Telur Balado,Capcay,Sayur Lodeh,49.36,36.21,54.03,32.59,43.05
+2025-07-16,Makan Siang,Cerah,Seksi C,,Telur Balado,Tumis Kacang Panjang,,,3.79,47.93,,25.86
+2025-07-16,Makan Siang,Hujan,Seksi D,Nasi Uduk,Telur Balado,Sayur Nangka,Sup Jagung,20.37,48.66,14.05,36.06,29.78
+2025-07-16,Sarapan,Berawan,Seksi A,Nasi Uduk,Ikan Tongkol,,Soto Ayam,10.47,35.8,,42.18,29.48
+2025-07-16,Sarapan,Hujan,Seksi B,Nasi Putih,,Bayam,Sayur Lodeh,44.53,,73.96,44.76,54.42
+2025-07-16,Sarapan,Berawan,Seksi C,Nasi Uduk,Ikan Lele,Sayur Nangka,Sayur Lodeh,31.37,11.43,24.85,36.49,26.04
+2025-07-16,Sarapan,Hujan,Seksi D,Nasi Putih,,Tumis Kacang Panjang,,4.57,,2.24,,3.4
+2025-07-17,Makan Malam,Berawan,Seksi A,Nasi Merah,Tempe Goreng,Tumis Kacang Panjang,Soto Ayam,55.29,77.74,67.97,9.14,52.54
+2025-07-17,Makan Malam,Hujan,Seksi B,Nasi Putih,Tahu Bacem,Bayam,Soto Ayam,56.44,24.0,51.73,54.52,46.67
+2025-07-17,Makan Malam,Hujan,Seksi C,,Tahu Bacem,Kangkung,Sup Jagung,,59.62,37.71,38.65,45.33
+2025-07-17,Makan Malam,Berawan,Seksi D,Nasi Merah,Ikan Tongkol,Bayam,Soto Ayam,17.19,38.94,33.09,47.41,34.16
+2025-07-17,Makan Siang,Cerah,Seksi A,Nasi Merah,Tahu Bacem,Sayur Nangka,Sayur Lodeh,12.51,21.85,5.5,24.14,16.0
+2025-07-17,Makan Siang,Berawan,Seksi B,Nasi Uduk,Tahu Bacem,Kangkung,,17.9,51.21,26.91,,32.01
+2025-07-17,Makan Siang,Berawan,Seksi C,Nasi Uduk,Ikan Lele,Kangkung,Sup Jagung,19.79,26.01,61.96,75.85,45.9
+2025-07-17,Makan Siang,Berawan,Seksi D,Nasi Putih,,Capcay,,44.9,,63.25,,54.08
+2025-07-17,Sarapan,Berawan,Seksi A,Nasi Merah,Telur Balado,Capcay,Soto Ayam,18.48,75.08,30.18,26.16,37.47
+2025-07-17,Sarapan,Berawan,Seksi B,Nasi Merah,,,Soto Ayam,49.28,,,53.5,51.39
+2025-07-17,Sarapan,Berawan,Seksi C,Nasi Uduk,Telur Balado,Kangkung,Sup Tomat,15.4,71.78,37.63,27.83,38.16
+2025-07-17,Sarapan,Hujan,Seksi D,Nasi Merah,Ikan Lele,Sayur Nangka,Soto Ayam,43.24,46.99,13.52,12.77,29.13
+2025-07-18,Makan Malam,Hujan,Seksi A,Nasi Putih,Tahu Bacem,Kangkung,Sup Tomat,8.91,85.66,32.19,1.59,32.09
+2025-07-18,Makan Malam,Hujan,Seksi B,Nasi Putih,Tempe Goreng,Sayur Nangka,Sup Tomat,55.76,18.89,51.26,11.01,34.23
+2025-07-18,Makan Malam,Hujan,Seksi C,Nasi Merah,Ayam Goreng,Sayur Nangka,,37.57,14.04,66.43,,39.35
+2025-07-18,Makan Malam,Hujan,Seksi D,Nasi Uduk,Tahu Bacem,Capcay,Sup Tomat,41.32,19.47,28.36,58.98,37.03
+2025-07-18,Makan Siang,Berawan,Seksi A,Nasi Putih,Tempe Goreng,,Soto Ayam,31.55,16.76,,17.78,22.03
+2025-07-18,Makan Siang,Cerah,Seksi B,,Ikan Tongkol,Tumis Kacang Panjang,,,81.09,27.46,,54.28
+2025-07-18,Makan Siang,Berawan,Seksi C,Nasi Putih,Telur Balado,,Sayur Lodeh,36.84,35.84,,44.79,39.16
+2025-07-18,Makan Siang,Hujan,Seksi D,Nasi Putih,Ikan Lele,,Sup Tomat,4.72,11.43,,31.46,15.87
+2025-07-18,Sarapan,Cerah,Seksi A,Nasi Putih,Ayam Goreng,Capcay,Soto Ayam,59.76,8.99,40.09,21.19,32.51
+2025-07-18,Sarapan,Berawan,Seksi B,Nasi Merah,Ayam Goreng,Capcay,Sup Jagung,53.42,36.73,62.8,22.64,43.9
+2025-07-18,Sarapan,Berawan,Seksi C,Nasi Merah,Tahu Bacem,Capcay,,1.35,76.13,59.42,,45.63
+2025-07-18,Sarapan,Hujan,Seksi D,Nasi Merah,Ayam Goreng,Capcay,Sup Tomat,29.78,54.47,28.14,6.54,29.73
+2025-07-19,Makan Malam,Cerah,Seksi A,Nasi Merah,Tahu Bacem,Sayur Nangka,Sup Jagung,41.75,44.93,46.08,52.65,46.35
+2025-07-19,Makan Malam,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Kangkung,,10.05,35.87,45.89,,30.6
+2025-07-19,Makan Malam,Berawan,Seksi C,Nasi Putih,Tahu Bacem,Bayam,Sup Jagung,6.36,9.42,52.86,38.24,26.72
+2025-07-19,Makan Malam,Hujan,Seksi D,Nasi Uduk,Ikan Tongkol,Capcay,Soto Ayam,22.76,85.46,21.16,10.35,34.93
+2025-07-19,Makan Siang,Cerah,Seksi A,Nasi Uduk,Ikan Lele,Bayam,,28.44,11.49,5.73,,15.22
+2025-07-19,Makan Siang,Berawan,Seksi B,Nasi Merah,Ikan Lele,Kangkung,Sup Jagung,47.18,11.36,23.43,69.28,37.81
+2025-07-19,Makan Siang,Cerah,Seksi C,Nasi Merah,Ayam Goreng,Bayam,Sup Jagung,9.31,67.07,61.13,12.08,37.4
+2025-07-19,Makan Siang,Berawan,Seksi D,Nasi Uduk,,Sayur Nangka,Sayur Lodeh,56.8,,36.54,1.87,31.74
+2025-07-19,Sarapan,Berawan,Seksi A,Nasi Uduk,Telur Balado,Bayam,Sup Tomat,10.17,33.01,20.41,51.84,28.86
+2025-07-19,Sarapan,Cerah,Seksi B,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,Soto Ayam,16.4,63.65,54.78,1.78,34.15
+2025-07-19,Sarapan,Hujan,Seksi C,Nasi Putih,Ikan Tongkol,Kangkung,Soto Ayam,28.91,11.4,15.28,46.35,25.48
+2025-07-19,Sarapan,Berawan,Seksi D,Nasi Putih,Ayam Goreng,Capcay,Sup Tomat,1.77,56.98,57.75,78.91,48.85
+2025-07-20,Makan Malam,Berawan,Seksi A,Nasi Putih,Tempe Goreng,Capcay,Soto Ayam,51.26,2.91,5.61,20.78,20.14
+2025-07-20,Makan Malam,Hujan,Seksi B,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Sayur Lodeh,3.82,7.66,60.15,36.13,26.94
+2025-07-20,Makan Malam,Cerah,Seksi C,Nasi Merah,Ikan Tongkol,Bayam,Sup Jagung,43.86,39.02,30.44,45.04,39.59
+2025-07-20,Makan Malam,Berawan,Seksi D,Nasi Putih,Tempe Goreng,Sayur Nangka,,6.47,52.0,49.21,,35.89
+2025-07-20,Makan Siang,Hujan,Seksi A,Nasi Uduk,Tahu Bacem,Kangkung,Soto Ayam,55.91,38.01,9.69,35.56,34.79
+2025-07-20,Makan Siang,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Kangkung,,37.53,44.54,80.96,,54.34
+2025-07-20,Makan Siang,Berawan,Seksi C,Nasi Merah,Tempe Goreng,Bayam,,56.73,11.85,71.64,,46.74
+2025-07-20,Makan Siang,Cerah,Seksi D,Nasi Uduk,Ikan Lele,Bayam,Sayur Lodeh,22.5,50.74,54.78,75.28,50.82
+2025-07-20,Sarapan,Hujan,Seksi A,Nasi Merah,Ayam Goreng,Bayam,Soto Ayam,19.95,8.24,44.53,40.59,28.33
+2025-07-20,Sarapan,Hujan,Seksi B,Nasi Uduk,Telur Balado,Tumis Kacang Panjang,Sup Tomat,38.99,67.59,56.31,55.12,54.5
+2025-07-20,Sarapan,Cerah,Seksi C,Nasi Merah,,Kangkung,Soto Ayam,39.5,,43.93,42.98,42.14
+2025-07-20,Sarapan,Hujan,Seksi D,,Tempe Goreng,Tumis Kacang Panjang,Sup Jagung,,29.58,5.17,72.23,35.66
+2025-07-21,Makan Malam,Berawan,Seksi A,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,,19.29,73.51,51.25,,48.02
+2025-07-21,Makan Malam,Cerah,Seksi B,Nasi Uduk,Telur Balado,Kangkung,,52.87,21.28,6.03,,26.73
+2025-07-21,Makan Malam,Cerah,Seksi C,Nasi Putih,Ikan Lele,Kangkung,Sup Jagung,37.09,8.5,36.52,23.97,26.52
+2025-07-21,Makan Malam,Hujan,Seksi D,Nasi Putih,Tempe Goreng,Bayam,Sayur Lodeh,35.32,42.79,28.57,21.03,31.93
+2025-07-21,Makan Siang,Cerah,Seksi A,Nasi Merah,Telur Balado,Bayam,Sup Jagung,32.86,48.73,22.28,62.06,41.48
+2025-07-21,Makan Siang,Cerah,Seksi B,Nasi Merah,Ikan Tongkol,Capcay,Sup Jagung,44.14,11.04,50.64,45.97,37.95
+2025-07-21,Makan Siang,Cerah,Seksi C,Nasi Putih,Tahu Bacem,Sayur Nangka,Sup Jagung,10.42,78.33,36.94,63.96,47.41
+2025-07-21,Makan Siang,Cerah,Seksi D,Nasi Merah,Telur Balado,Kangkung,Soto Ayam,50.07,17.13,11.98,53.11,33.07
+2025-07-21,Sarapan,Hujan,Seksi A,Nasi Uduk,Ayam Goreng,Sayur Nangka,,22.5,42.72,17.74,,27.65
+2025-07-21,Sarapan,Hujan,Seksi B,Nasi Merah,Ayam Goreng,Capcay,Sayur Lodeh,38.5,39.64,48.93,53.44,45.13
+2025-07-21,Sarapan,Berawan,Seksi C,Nasi Uduk,Tempe Goreng,,Sup Tomat,43.27,6.57,,52.42,34.09
+2025-07-21,Sarapan,Berawan,Seksi D,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sup Tomat,54.91,7.44,7.45,31.86,25.42
+2025-07-22,Makan Malam,Hujan,Seksi A,Nasi Merah,Ikan Lele,Kangkung,Sup Jagung,56.38,32.63,39.63,1.78,32.61
+2025-07-22,Makan Malam,Cerah,Seksi B,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sayur Lodeh,13.79,44.14,22.39,49.45,32.44
+2025-07-22,Makan Malam,Cerah,Seksi C,Nasi Putih,Ayam Goreng,Sayur Nangka,Sayur Lodeh,30.94,49.67,35.74,61.07,44.36
+2025-07-22,Makan Malam,Berawan,Seksi D,Nasi Merah,Ayam Goreng,Sayur Nangka,Sayur Lodeh,13.64,72.51,58.21,19.79,41.04
+2025-07-22,Makan Siang,Hujan,Seksi A,Nasi Putih,Ikan Lele,,Sup Jagung,24.29,25.42,,59.9,36.54
+2025-07-22,Makan Siang,Hujan,Seksi B,Nasi Uduk,Tahu Bacem,Bayam,Sup Jagung,19.17,8.79,25.46,32.16,21.39
+2025-07-22,Makan Siang,Berawan,Seksi C,Nasi Putih,Telur Balado,Kangkung,Soto Ayam,63.93,18.35,66.01,78.81,56.78
+2025-07-22,Makan Siang,Cerah,Seksi D,Nasi Putih,Ikan Tongkol,,Sayur Lodeh,59.18,7.02,,24.07,30.09
+2025-07-22,Sarapan,Berawan,Seksi A,Nasi Merah,,Kangkung,Sayur Lodeh,7.08,,46.67,18.32,24.02
+2025-07-22,Sarapan,Berawan,Seksi B,Nasi Merah,Ikan Tongkol,Sayur Nangka,Sayur Lodeh,33.86,5.66,60.14,16.33,29.0
+2025-07-22,Sarapan,Cerah,Seksi C,Nasi Putih,Ikan Tongkol,Kangkung,Sup Tomat,29.83,29.51,11.04,71.58,35.49
+2025-07-22,Sarapan,Hujan,Seksi D,Nasi Uduk,,Kangkung,Soto Ayam,60.91,,73.75,48.25,60.97
+2025-07-23,Makan Malam,Cerah,Seksi A,Nasi Merah,,Kangkung,Soto Ayam,56.44,,19.25,26.71,34.13
+2025-07-23,Makan Malam,Berawan,Seksi B,Nasi Merah,Ikan Tongkol,Bayam,Sayur Lodeh,53.39,63.83,48.62,25.3,47.78
+2025-07-23,Makan Malam,Berawan,Seksi C,,Tahu Bacem,Bayam,Soto Ayam,,8.35,14.83,58.51,27.23
+2025-07-23,Makan Malam,Cerah,Seksi D,Nasi Merah,,,Sup Tomat,33.3,,,35.47,34.38
+2025-07-23,Makan Siang,Berawan,Seksi A,Nasi Uduk,Telur Balado,Kangkung,Sup Jagung,62.22,52.18,7.1,76.32,49.46
+2025-07-23,Makan Siang,Cerah,Seksi B,Nasi Putih,Telur Balado,,Sup Jagung,57.62,43.66,,29.24,43.51
+2025-07-23,Makan Siang,Cerah,Seksi C,Nasi Putih,,Bayam,Soto Ayam,59.66,,8.27,10.33,26.09
+2025-07-23,Makan Siang,Hujan,Seksi D,Nasi Uduk,Tahu Bacem,Bayam,,46.98,7.41,40.97,,31.79
+2025-07-23,Sarapan,Berawan,Seksi A,Nasi Putih,Ayam Goreng,Sayur Nangka,Soto Ayam,1.54,33.92,18.73,26.43,20.16
+2025-07-23,Sarapan,Hujan,Seksi B,Nasi Uduk,Ikan Lele,Bayam,Sayur Lodeh,52.69,70.51,63.72,1.76,47.17
+2025-07-23,Sarapan,Berawan,Seksi C,Nasi Uduk,Ayam Goreng,Kangkung,,45.6,81.61,57.1,,61.44
+2025-07-23,Sarapan,Hujan,Seksi D,Nasi Merah,Ikan Tongkol,Sayur Nangka,Sup Tomat,32.03,22.32,40.81,6.1,25.32
+2025-07-24,Makan Malam,Hujan,Seksi A,Nasi Uduk,Tahu Bacem,Bayam,Soto Ayam,9.09,71.75,26.97,45.64,38.36
+2025-07-24,Makan Malam,Hujan,Seksi B,Nasi Merah,,Bayam,Sayur Lodeh,39.09,,17.79,60.0,38.96
+2025-07-24,Makan Malam,Cerah,Seksi C,Nasi Putih,Ikan Tongkol,Capcay,Sup Jagung,2.81,6.84,70.62,32.24,28.13
+2025-07-24,Makan Malam,Cerah,Seksi D,Nasi Merah,Ikan Lele,Kangkung,Soto Ayam,8.28,84.67,60.55,26.67,45.04
+2025-07-24,Makan Siang,Berawan,Seksi A,Nasi Merah,Tempe Goreng,Capcay,Sup Tomat,22.09,47.64,52.21,21.92,35.97
+2025-07-24,Makan Siang,Hujan,Seksi B,Nasi Merah,,Capcay,Sayur Lodeh,58.72,,31.71,33.24,41.22
+2025-07-24,Makan Siang,Berawan,Seksi C,,Telur Balado,Sayur Nangka,Soto Ayam,,19.7,32.51,54.52,35.58
+2025-07-24,Makan Siang,Hujan,Seksi D,Nasi Uduk,Tahu Bacem,Bayam,Soto Ayam,9.48,2.35,54.72,63.03,32.39
+2025-07-24,Sarapan,Hujan,Seksi A,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Soto Ayam,27.07,51.12,78.28,16.12,43.15
+2025-07-24,Sarapan,Hujan,Seksi B,,Tahu Bacem,Capcay,Soto Ayam,,22.88,9.41,13.96,15.42
+2025-07-24,Sarapan,Hujan,Seksi C,Nasi Merah,Ayam Goreng,,Sayur Lodeh,43.8,60.94,,4.13,36.29
+2025-07-24,Sarapan,Berawan,Seksi D,Nasi Putih,Telur Balado,Sayur Nangka,Soto Ayam,57.46,29.48,8.37,16.6,27.98
+2025-07-25,Makan Malam,Hujan,Seksi A,Nasi Putih,Ayam Goreng,,Sup Jagung,28.99,84.94,,30.58,48.17
+2025-07-25,Makan Malam,Berawan,Seksi B,Nasi Putih,Ikan Tongkol,Bayam,Sup Jagung,11.0,31.14,16.01,74.58,33.18
+2025-07-25,Makan Malam,Berawan,Seksi C,Nasi Merah,Ikan Tongkol,Bayam,Sayur Lodeh,47.62,6.18,67.57,42.1,40.87
+2025-07-25,Makan Malam,Hujan,Seksi D,Nasi Putih,Telur Balado,Capcay,Sup Tomat,52.8,90.25,61.34,7.63,53.0
+2025-07-25,Makan Siang,Cerah,Seksi A,Nasi Putih,Ikan Tongkol,Tumis Kacang Panjang,Sup Tomat,20.61,37.0,39.6,5.82,25.76
+2025-07-25,Makan Siang,Hujan,Seksi B,Nasi Putih,Telur Balado,Bayam,,16.39,12.22,18.0,,15.54
+2025-07-25,Makan Siang,Berawan,Seksi C,Nasi Putih,Ayam Goreng,Kangkung,,37.38,55.29,67.17,,53.28
+2025-07-25,Makan Siang,Hujan,Seksi D,Nasi Merah,Tempe Goreng,Tumis Kacang Panjang,Sup Tomat,58.03,76.76,28.31,39.07,50.54
+2025-07-25,Sarapan,Berawan,Seksi A,Nasi Putih,Tempe Goreng,Capcay,Soto Ayam,4.07,34.6,12.78,37.16,22.15
+2025-07-25,Sarapan,Cerah,Seksi B,Nasi Uduk,Ayam Goreng,Bayam,Sup Jagung,54.85,36.96,3.22,54.08,37.28
+2025-07-25,Sarapan,Cerah,Seksi C,Nasi Putih,Ayam Goreng,Kangkung,Soto Ayam,12.27,21.02,13.6,19.34,16.56
+2025-07-25,Sarapan,Hujan,Seksi D,Nasi Putih,Ikan Lele,Kangkung,Sup Tomat,59.62,3.98,42.24,18.36,31.05
+2025-07-26,Makan Malam,Hujan,Seksi A,Nasi Putih,Tahu Bacem,Bayam,Sup Jagung,1.15,70.12,15.5,12.05,24.7
+2025-07-26,Makan Malam,Hujan,Seksi B,Nasi Merah,Tahu Bacem,,,51.28,89.32,,,70.3
+2025-07-26,Makan Malam,Cerah,Seksi C,,Ayam Goreng,Sayur Nangka,Soto Ayam,,52.29,62.03,56.46,56.93
+2025-07-26,Makan Malam,Berawan,Seksi D,Nasi Uduk,,Capcay,Sayur Lodeh,47.65,,62.55,26.96,45.72
+2025-07-26,Makan Siang,Cerah,Seksi A,Nasi Uduk,Telur Balado,Sayur Nangka,Sayur Lodeh,62.14,4.34,45.43,74.06,46.49
+2025-07-26,Makan Siang,Cerah,Seksi B,Nasi Uduk,Ayam Goreng,,Sup Jagung,37.68,53.36,,71.18,54.07
+2025-07-26,Makan Siang,Berawan,Seksi C,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Sup Tomat,61.73,36.91,23.3,33.07,38.75
+2025-07-26,Makan Siang,Berawan,Seksi D,Nasi Merah,Tahu Bacem,Sayur Nangka,,7.26,17.87,14.7,,13.28
+2025-07-26,Sarapan,Hujan,Seksi A,,Ikan Lele,Sayur Nangka,Soto Ayam,,20.49,56.01,64.2,46.9
+2025-07-26,Sarapan,Berawan,Seksi B,Nasi Merah,Tempe Goreng,Kangkung,Soto Ayam,4.76,72.91,17.88,58.62,38.54
+2025-07-26,Sarapan,Hujan,Seksi C,Nasi Uduk,,Bayam,Sup Jagung,45.78,,55.54,56.31,52.54
+2025-07-26,Sarapan,Hujan,Seksi D,Nasi Merah,Ayam Goreng,Kangkung,Soto Ayam,10.87,49.67,53.57,54.49,42.15
+2025-07-27,Makan Malam,Hujan,Seksi A,Nasi Merah,Ikan Tongkol,Capcay,Sup Tomat,33.96,90.72,10.87,57.08,48.16
+2025-07-27,Makan Malam,Berawan,Seksi B,Nasi Putih,Telur Balado,Bayam,Sup Tomat,14.68,80.1,14.22,67.99,44.25
+2025-07-27,Makan Malam,Berawan,Seksi C,Nasi Uduk,Tempe Goreng,Bayam,Soto Ayam,7.26,67.87,46.95,68.84,47.73
+2025-07-27,Makan Malam,Hujan,Seksi D,Nasi Merah,,Capcay,,27.29,,17.84,,22.56
+2025-07-27,Makan Siang,Hujan,Seksi A,Nasi Uduk,Ikan Tongkol,Sayur Nangka,Sup Jagung,33.22,14.98,21.0,55.25,31.11
+2025-07-27,Makan Siang,Cerah,Seksi B,Nasi Merah,Tempe Goreng,Kangkung,Sup Tomat,8.23,73.4,63.08,72.74,54.36
+2025-07-27,Makan Siang,Hujan,Seksi C,Nasi Putih,Tempe Goreng,Capcay,,26.17,90.04,64.57,,60.26
+2025-07-27,Makan Siang,Cerah,Seksi D,Nasi Putih,,Capcay,Sup Jagung,35.59,,75.74,17.96,43.1
+2025-07-27,Sarapan,Berawan,Seksi A,Nasi Merah,Ikan Tongkol,Kangkung,Sup Jagung,55.66,31.58,7.86,19.92,28.76
+2025-07-27,Sarapan,Cerah,Seksi B,Nasi Merah,Telur Balado,,Sup Tomat,9.92,14.72,,57.02,27.22
+2025-07-27,Sarapan,Berawan,Seksi C,Nasi Merah,Ikan Tongkol,Tumis Kacang Panjang,Soto Ayam,61.04,53.07,13.77,69.99,49.47
+2025-07-27,Sarapan,Cerah,Seksi D,Nasi Uduk,Ikan Lele,Sayur Nangka,Soto Ayam,49.44,76.99,65.24,16.76,52.11
+2025-07-28,Makan Malam,Cerah,Seksi A,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sayur Lodeh,55.86,13.5,74.09,12.38,38.96
+2025-07-28,Makan Malam,Hujan,Seksi B,Nasi Uduk,Ikan Tongkol,,Soto Ayam,7.09,17.43,,51.54,25.35
+2025-07-28,Makan Malam,Berawan,Seksi C,Nasi Putih,Telur Balado,Sayur Nangka,Sup Tomat,42.42,53.18,21.94,18.73,34.07
+2025-07-28,Makan Malam,Hujan,Seksi D,,,Bayam,Soto Ayam,,,39.3,63.55,51.42
+2025-07-28,Makan Siang,Hujan,Seksi A,Nasi Putih,Tahu Bacem,Kangkung,Sup Jagung,5.74,63.38,22.27,26.02,29.35
+2025-07-28,Makan Siang,Berawan,Seksi B,Nasi Merah,,,Soto Ayam,54.71,,,24.94,39.83
+2025-07-28,Makan Siang,Cerah,Seksi C,Nasi Putih,Ikan Lele,Tumis Kacang Panjang,Sup Jagung,41.05,48.6,61.64,8.7,40.0
+2025-07-28,Makan Siang,Berawan,Seksi D,Nasi Uduk,Telur Balado,Bayam,Sayur Lodeh,33.63,60.15,38.12,3.26,33.79
+2025-07-28,Sarapan,Cerah,Seksi A,Nasi Putih,Tempe Goreng,Bayam,Sup Jagung,16.25,9.17,1.58,28.43,13.86
+2025-07-28,Sarapan,Cerah,Seksi B,Nasi Merah,Telur Balado,Kangkung,Sup Jagung,46.53,83.05,63.38,33.2,56.54
+2025-07-28,Sarapan,Hujan,Seksi C,,Ikan Lele,Bayam,,,42.12,9.74,,25.93
+2025-07-28,Sarapan,Berawan,Seksi D,Nasi Uduk,Ayam Goreng,Sayur Nangka,Sayur Lodeh,60.81,62.79,45.84,12.15,45.4
+2025-07-29,Makan Malam,Berawan,Seksi A,,Ikan Lele,Capcay,Soto Ayam,,58.4,38.97,53.96,50.44
+2025-07-29,Makan Malam,Hujan,Seksi B,Nasi Uduk,Ikan Lele,Sayur Nangka,,49.58,42.57,39.42,,43.86
+2025-07-29,Makan Malam,Cerah,Seksi C,Nasi Uduk,Telur Balado,Sayur Nangka,Sup Tomat,29.07,71.99,37.16,7.54,36.44
+2025-07-29,Makan Malam,Hujan,Seksi D,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sup Jagung,53.24,58.44,32.9,72.62,54.3
+2025-07-29,Makan Siang,Hujan,Seksi A,Nasi Putih,Telur Balado,Kangkung,Sup Tomat,6.47,50.0,14.64,65.58,34.17
+2025-07-29,Makan Siang,Berawan,Seksi B,,Telur Balado,Sayur Nangka,,,40.57,19.31,,29.94
+2025-07-29,Makan Siang,Berawan,Seksi C,Nasi Uduk,Ikan Lele,Sayur Nangka,,15.43,21.23,6.12,,14.26
+2025-07-29,Makan Siang,Cerah,Seksi D,Nasi Merah,Ayam Goreng,Capcay,Soto Ayam,42.66,9.59,26.61,43.44,30.58
+2025-07-29,Sarapan,Hujan,Seksi A,Nasi Putih,Ayam Goreng,Capcay,Sup Jagung,11.9,30.81,36.3,24.14,25.79
+2025-07-29,Sarapan,Hujan,Seksi B,Nasi Uduk,Tahu Bacem,Sayur Nangka,Sayur Lodeh,40.19,47.28,14.67,3.45,26.4
+2025-07-29,Sarapan,Hujan,Seksi C,Nasi Merah,Ikan Tongkol,Tumis Kacang Panjang,Sup Tomat,11.62,22.34,6.95,55.37,24.07
+2025-07-29,Sarapan,Berawan,Seksi D,Nasi Putih,,Bayam,Sayur Lodeh,17.99,,32.13,43.1,31.07
+2025-07-30,Makan Malam,Berawan,Seksi A,Nasi Putih,,Tumis Kacang Panjang,Soto Ayam,41.27,,65.55,63.77,56.86
+2025-07-30,Makan Malam,Berawan,Seksi B,Nasi Uduk,Ayam Goreng,Kangkung,,34.88,8.95,24.08,,22.64
+2025-07-30,Makan Malam,Cerah,Seksi C,Nasi Uduk,,Kangkung,Sup Tomat,22.08,,26.44,38.51,29.01
+2025-07-30,Makan Malam,Berawan,Seksi D,Nasi Putih,Ikan Tongkol,Kangkung,Sup Tomat,40.1,5.01,19.08,13.09,19.32
+2025-07-30,Makan Siang,Hujan,Seksi A,Nasi Merah,Ayam Goreng,Capcay,Sup Jagung,18.81,79.17,71.67,6.15,43.95
+2025-07-30,Makan Siang,Hujan,Seksi B,Nasi Merah,Telur Balado,Tumis Kacang Panjang,Sup Jagung,28.37,39.65,27.69,22.8,29.63
+2025-07-30,Makan Siang,Cerah,Seksi C,Nasi Uduk,Tahu Bacem,Sayur Nangka,Sup Jagung,29.58,63.11,53.38,47.44,48.38
+2025-07-30,Makan Siang,Hujan,Seksi D,Nasi Merah,Ayam Goreng,Sayur Nangka,Sup Jagung,30.57,34.62,30.91,12.83,27.23
+2025-07-30,Sarapan,Cerah,Seksi A,Nasi Uduk,Ikan Tongkol,Capcay,Sup Jagung,56.94,54.55,41.48,10.38,40.84
+2025-07-30,Sarapan,Berawan,Seksi B,Nasi Merah,Ikan Lele,Bayam,Sup Jagung,45.74,14.12,64.57,61.13,46.39
+2025-07-30,Sarapan,Berawan,Seksi C,Nasi Merah,Tahu Bacem,Capcay,,50.06,14.34,27.89,,30.76
+2025-07-30,Sarapan,Hujan,Seksi D,Nasi Merah,Tahu Bacem,Sayur Nangka,Sup Jagung,25.08,95.41,47.6,64.07,58.04
+2025-07-31,Makan Malam,Hujan,Seksi A,,,Kangkung,,,,38.62,,38.62
+2025-07-31,Makan Malam,Hujan,Seksi B,Nasi Uduk,Ayam Goreng,Capcay,Sayur Lodeh,48.19,70.0,3.35,13.85,33.85
+2025-07-31,Makan Malam,Hujan,Seksi C,Nasi Putih,Tahu Bacem,Capcay,Sup Jagung,47.39,83.17,17.48,32.5,45.14
+2025-07-31,Makan Malam,Berawan,Seksi D,Nasi Merah,Tahu Bacem,Tumis Kacang Panjang,Sayur Lodeh,52.75,62.06,18.0,62.26,48.77
+2025-07-31,Makan Siang,Berawan,Seksi A,Nasi Uduk,Tahu Bacem,Bayam,Sayur Lodeh,49.04,12.67,74.92,32.66,42.32
+2025-07-31,Makan Siang,Berawan,Seksi B,Nasi Uduk,Ayam Goreng,Kangkung,Soto Ayam,48.94,21.55,29.56,49.24,37.32
+2025-07-31,Makan Siang,Cerah,Seksi C,Nasi Uduk,Ikan Lele,Kangkung,Sup Jagung,12.3,22.14,55.72,46.62,34.2
+2025-07-31,Makan Siang,Hujan,Seksi D,Nasi Putih,Telur Balado,Capcay,Sup Tomat,44.06,72.74,55.01,41.46,53.32
+2025-07-31,Sarapan,Cerah,Seksi A,Nasi Merah,Tempe Goreng,Kangkung,Sup Tomat,36.24,51.78,3.73,55.89,36.91
+2025-07-31,Sarapan,Berawan,Seksi B,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Soto Ayam,21.1,25.1,49.93,62.72,39.71
+2025-07-31,Sarapan,Cerah,Seksi C,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,Sup Jagung,59.13,3.03,67.05,23.51,38.18
+2025-07-31,Sarapan,Cerah,Seksi D,Nasi Uduk,Telur Balado,Capcay,Sup Tomat,16.74,41.63,53.1,7.29,29.69
+2025-08-01,Makan Malam,Cerah,Seksi A,Nasi Uduk,Tahu Bacem,Kangkung,Sayur Lodeh,16.38,62.73,21.33,74.58,43.76
+2025-08-01,Makan Malam,Cerah,Seksi B,Nasi Merah,,Kangkung,Soto Ayam,39.3,,31.24,23.75,31.43
+2025-08-01,Makan Malam,Cerah,Seksi C,Nasi Uduk,,Capcay,Soto Ayam,18.71,,48.31,63.01,43.34
+2025-08-01,Makan Malam,Cerah,Seksi D,Nasi Merah,Telur Balado,Tumis Kacang Panjang,Sup Jagung,25.25,10.27,39.73,50.53,31.44
+2025-08-01,Makan Siang,Cerah,Seksi A,Nasi Putih,Ikan Tongkol,Kangkung,Sup Tomat,10.06,48.82,77.65,58.82,48.84
+2025-08-01,Makan Siang,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Kangkung,Sayur Lodeh,42.03,63.69,19.32,34.59,39.91
+2025-08-01,Makan Siang,Hujan,Seksi C,Nasi Putih,Ikan Lele,Capcay,Sup Tomat,2.56,65.01,58.75,2.27,32.15
+2025-08-01,Makan Siang,Hujan,Seksi D,Nasi Merah,Tempe Goreng,Tumis Kacang Panjang,Sayur Lodeh,51.0,46.98,50.5,1.84,37.58
+2025-08-01,Sarapan,Berawan,Seksi A,Nasi Putih,,,Sup Tomat,30.53,,,4.04,17.28
+2025-08-01,Sarapan,Hujan,Seksi B,Nasi Merah,Ikan Tongkol,,Soto Ayam,25.94,44.33,,60.19,43.49
+2025-08-01,Sarapan,Cerah,Seksi C,Nasi Uduk,Ayam Goreng,Kangkung,Soto Ayam,33.98,34.35,11.51,57.14,34.24
+2025-08-01,Sarapan,Hujan,Seksi D,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Soto Ayam,47.3,61.38,23.7,25.38,39.44
+2025-08-02,Makan Malam,Cerah,Seksi A,Nasi Merah,Telur Balado,Sayur Nangka,Sup Tomat,43.01,21.1,35.65,62.9,40.66
+2025-08-02,Makan Malam,Berawan,Seksi B,,Telur Balado,Tumis Kacang Panjang,Sup Jagung,,59.58,36.69,58.4,51.56
+2025-08-02,Makan Malam,Cerah,Seksi C,Nasi Merah,Ikan Lele,Sayur Nangka,Sayur Lodeh,59.86,64.09,14.08,9.31,36.84
+2025-08-02,Makan Malam,Cerah,Seksi D,Nasi Merah,Ikan Lele,Capcay,Sayur Lodeh,9.46,23.83,63.24,48.48,36.25
+2025-08-02,Makan Siang,Berawan,Seksi A,Nasi Uduk,Ayam Goreng,Bayam,Sayur Lodeh,57.82,75.28,63.97,40.75,59.46
+2025-08-02,Makan Siang,Cerah,Seksi B,Nasi Uduk,Ikan Tongkol,Kangkung,Soto Ayam,40.63,63.94,52.23,44.25,50.26
+2025-08-02,Makan Siang,Cerah,Seksi C,,Tempe Goreng,Sayur Nangka,Sup Tomat,,25.14,27.46,26.53,26.38
+2025-08-02,Makan Siang,Berawan,Seksi D,,Ikan Tongkol,Bayam,Sup Tomat,,54.17,39.94,15.35,36.49
+2025-08-02,Sarapan,Cerah,Seksi A,Nasi Merah,Telur Balado,Capcay,Soto Ayam,54.3,34.59,53.52,39.79,45.55
+2025-08-02,Sarapan,Cerah,Seksi B,Nasi Putih,Telur Balado,Sayur Nangka,Sup Tomat,20.77,10.52,5.14,80.85,29.32
+2025-08-02,Sarapan,Cerah,Seksi C,Nasi Putih,Tahu Bacem,Tumis Kacang Panjang,Sup Tomat,44.08,64.96,18.5,46.37,43.48
+2025-08-02,Sarapan,Berawan,Seksi D,Nasi Putih,Tahu Bacem,Capcay,,60.57,31.14,12.15,,34.62
+2025-08-03,Makan Malam,Berawan,Seksi A,Nasi Uduk,Ayam Goreng,Sayur Nangka,Soto Ayam,53.26,42.13,45.25,14.22,38.72
+2025-08-03,Makan Malam,Berawan,Seksi B,Nasi Uduk,Ikan Lele,Kangkung,Sup Jagung,44.28,2.04,18.8,55.51,30.16
+2025-08-03,Makan Malam,Cerah,Seksi C,Nasi Merah,Telur Balado,Kangkung,Sup Tomat,12.11,55.88,32.34,63.89,41.06
+2025-08-03,Makan Malam,Cerah,Seksi D,Nasi Uduk,Ayam Goreng,Kangkung,Soto Ayam,6.98,55.94,52.72,32.35,37.0
+2025-08-03,Makan Siang,Cerah,Seksi A,Nasi Merah,Ikan Tongkol,Kangkung,Sup Jagung,5.08,68.62,41.06,59.67,43.61
+2025-08-03,Makan Siang,Berawan,Seksi B,Nasi Uduk,,Capcay,Sup Tomat,22.75,,4.98,64.41,30.71
+2025-08-03,Makan Siang,Cerah,Seksi C,,Ikan Tongkol,Bayam,Soto Ayam,,17.22,33.76,43.99,31.66
+2025-08-03,Makan Siang,Cerah,Seksi D,,Tempe Goreng,Sayur Nangka,Sup Jagung,,39.73,24.89,48.59,37.74
+2025-08-03,Sarapan,Cerah,Seksi A,,Ayam Goreng,Sayur Nangka,Soto Ayam,,54.19,22.72,7.32,28.08
+2025-08-03,Sarapan,Cerah,Seksi B,Nasi Putih,Ikan Lele,Kangkung,Soto Ayam,24.7,74.7,26.4,65.67,47.87
+2025-08-03,Sarapan,Berawan,Seksi C,Nasi Merah,Telur Balado,Kangkung,Sup Jagung,24.12,24.17,20.45,69.43,34.54
+2025-08-03,Sarapan,Berawan,Seksi D,,,,Sup Tomat,,,,76.05,76.05
+2025-08-04,Makan Malam,Cerah,Seksi A,Nasi Uduk,,Capcay,Sayur Lodeh,23.8,,60.3,11.47,31.86
+2025-08-04,Makan Malam,Cerah,Seksi B,Nasi Uduk,Ikan Lele,Sayur Nangka,Sup Tomat,43.53,45.1,13.29,28.4,32.58
+2025-08-04,Makan Malam,Berawan,Seksi C,Nasi Uduk,Ikan Lele,Capcay,Sup Jagung,42.29,4.52,62.59,19.88,32.32
+2025-08-04,Makan Malam,Cerah,Seksi D,Nasi Putih,Ayam Goreng,Capcay,,36.96,6.17,63.15,,35.43
+2025-08-04,Makan Siang,Cerah,Seksi A,Nasi Putih,Ayam Goreng,Tumis Kacang Panjang,Sup Jagung,37.34,13.29,53.91,19.65,31.05
+2025-08-04,Makan Siang,Hujan,Seksi B,,,Sayur Nangka,Sup Jagung,,,47.04,23.34,35.19
+2025-08-04,Makan Siang,Berawan,Seksi C,Nasi Putih,Telur Balado,Bayam,Sup Jagung,55.97,75.0,24.15,60.35,53.87
+2025-08-04,Makan Siang,Berawan,Seksi D,Nasi Putih,Ikan Lele,Sayur Nangka,Sup Tomat,24.87,17.44,74.22,69.38,46.48
+2025-08-04,Sarapan,Berawan,Seksi A,Nasi Merah,Ayam Goreng,Kangkung,Sup Tomat,63.8,28.7,3.7,13.5,27.42
+2025-08-04,Sarapan,Berawan,Seksi B,Nasi Merah,Tempe Goreng,,Sayur Lodeh,23.95,2.53,,60.14,28.87
+2025-08-04,Sarapan,Cerah,Seksi C,Nasi Uduk,Tempe Goreng,Capcay,Sup Jagung,14.57,54.63,47.81,21.26,34.57
+2025-08-04,Sarapan,Berawan,Seksi D,,Telur Balado,Kangkung,Soto Ayam,,26.76,9.37,26.47,20.87
+2025-08-05,Makan Malam,Cerah,Seksi A,Nasi Merah,Tempe Goreng,Tumis Kacang Panjang,,57.87,27.0,1.49,,28.79
+2025-08-05,Makan Malam,Cerah,Seksi B,Nasi Putih,Ikan Tongkol,Bayam,Soto Ayam,61.85,75.09,44.42,10.56,47.98
+2025-08-05,Makan Malam,Cerah,Seksi C,,Ayam Goreng,Sayur Nangka,Sup Tomat,,51.89,57.12,9.77,39.59
+2025-08-05,Makan Malam,Berawan,Seksi D,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Sayur Lodeh,18.85,21.73,77.19,21.0,34.69
+2025-08-05,Makan Siang,Berawan,Seksi A,Nasi Uduk,Tahu Bacem,Tumis Kacang Panjang,Soto Ayam,59.32,9.27,49.32,9.39,31.83
+2025-08-05,Makan Siang,Cerah,Seksi B,,Ikan Lele,Bayam,Sup Jagung,,9.02,15.05,13.62,12.56
+2025-08-05,Makan Siang,Berawan,Seksi C,Nasi Uduk,Ikan Lele,Capcay,Sayur Lodeh,16.61,50.47,17.11,52.67,34.22
+2025-08-05,Makan Siang,Cerah,Seksi D,Nasi Merah,Ikan Tongkol,,Soto Ayam,21.09,4.97,,17.42,14.49
+2025-08-05,Sarapan,Berawan,Seksi A,,Tempe Goreng,Tumis Kacang Panjang,Soto Ayam,,3.94,54.04,28.01,28.66
+2025-08-05,Sarapan,Cerah,Seksi B,Nasi Merah,Ikan Lele,Tumis Kacang Panjang,Soto Ayam,24.81,50.36,34.57,13.89,30.91
+2025-08-05,Sarapan,Cerah,Seksi C,,Telur Balado,Sayur Nangka,Soto Ayam,,58.64,24.23,50.91,44.59
+2025-08-05,Sarapan,Cerah,Seksi D,Nasi Uduk,Tahu Bacem,Sayur Nangka,Sayur Lodeh,40.7,28.23,44.3,10.5,30.93
+2025-08-06,Makan Malam,Cerah,Seksi A,Nasi Putih,Ayam Goreng,Capcay,Sup Jagung,59.75,13.25,28.96,48.3,37.56
+2025-08-06,Makan Malam,Cerah,Seksi B,Nasi Uduk,Tempe Goreng,Kangkung,Sayur Lodeh,53.59,66.02,16.36,31.97,41.98
+2025-08-06,Makan Malam,Berawan,Seksi C,Nasi Uduk,,Sayur Nangka,,22.63,,45.34,,33.98
+2025-08-06,Makan Malam,Cerah,Seksi D,Nasi Uduk,Tahu Bacem,,Soto Ayam,69.47,11.47,,10.47,30.47
+2025-08-06,Makan Siang,Cerah,Seksi A,Nasi Putih,Telur Balado,Kangkung,,40.28,80.73,7.58,,42.86
+2025-08-06,Makan Siang,Berawan,Seksi B,Nasi Uduk,Telur Balado,,Soto Ayam,11.59,39.24,,19.25,23.36
+2025-08-06,Makan Siang,Berawan,Seksi C,Nasi Merah,,Kangkung,Sup Tomat,23.63,,65.05,48.31,45.66
+2025-08-06,Makan Siang,Cerah,Seksi D,Nasi Merah,Ayam Goreng,Bayam,Soto Ayam,53.26,11.5,57.45,5.42,31.91
+2025-08-06,Sarapan,Cerah,Seksi A,Nasi Putih,Telur Balado,,Soto Ayam,27.18,9.26,,4.01,13.48
+2025-08-06,Sarapan,Cerah,Seksi B,Nasi Uduk,,Tumis Kacang Panjang,,21.38,,23.76,,22.57
+2025-08-06,Sarapan,Hujan,Seksi C,Nasi Putih,Ikan Lele,Capcay,Sup Tomat,7.52,72.35,4.34,64.99,37.3
+2025-08-06,Sarapan,Cerah,Seksi D,Nasi Putih,Ikan Lele,Kangkung,Sup Tomat,46.53,13.91,28.37,36.36,31.29
+2025-08-07,Makan Malam,Cerah,Seksi A,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sup Tomat,55.88,6.12,14.93,53.99,32.73
+2025-08-07,Makan Malam,Cerah,Seksi B,Nasi Uduk,,Bayam,Sup Jagung,27.77,,31.5,56.28,38.52
+2025-08-07,Makan Malam,Cerah,Seksi C,Nasi Merah,,,Sayur Lodeh,26.41,,,10.93,18.67
+2025-08-07,Makan Malam,Cerah,Seksi D,Nasi Uduk,Ayam Goreng,Tumis Kacang Panjang,Sup Jagung,32.56,56.41,9.13,27.11,31.3
+2025-08-07,Makan Siang,Cerah,Seksi A,Nasi Uduk,,Kangkung,Sup Jagung,15.37,,43.66,28.97,29.33
+2025-08-07,Makan Siang,Cerah,Seksi B,Nasi Uduk,Telur Balado,Tumis Kacang Panjang,Sup Jagung,46.83,42.58,62.61,6.09,39.53
+2025-08-07,Makan Siang,Berawan,Seksi C,Nasi Putih,,Bayam,Sup Jagung,38.78,,59.83,58.02,52.21
+2025-08-07,Makan Siang,Cerah,Seksi D,,Ayam Goreng,Tumis Kacang Panjang,,,9.0,38.03,,23.52
+2025-08-07,Sarapan,Berawan,Seksi A,Nasi Putih,Tahu Bacem,Sayur Nangka,Sup Tomat,23.87,5.71,21.23,21.27,18.02
+2025-08-07,Sarapan,Hujan,Seksi B,Nasi Putih,Ikan Tongkol,Capcay,Soto Ayam,44.04,49.49,60.69,43.73,49.49
+2025-08-07,Sarapan,Berawan,Seksi C,Nasi Putih,Telur Balado,Capcay,,32.76,93.32,44.36,,56.81
+2025-08-07,Sarapan,Cerah,Seksi D,Nasi Merah,Telur Balado,Capcay,Sayur Lodeh,30.75,54.64,7.83,52.85,36.52
+2025-08-08,Makan Malam,Cerah,Seksi A,Nasi Merah,Telur Balado,Kangkung,,45.73,9.1,42.33,,32.39
+2025-08-08,Makan Malam,Berawan,Seksi B,Nasi Uduk,Tempe Goreng,Bayam,Sayur Lodeh,66.48,33.22,31.88,62.58,48.54
+2025-08-08,Makan Malam,Cerah,Seksi C,,Ayam Goreng,Kangkung,Sayur Lodeh,,11.25,27.27,63.91,34.14
+2025-08-08,Makan Malam,Cerah,Seksi D,Nasi Putih,,Capcay,Soto Ayam,48.22,,63.5,34.07,48.6
+2025-08-08,Makan Siang,Cerah,Seksi A,Nasi Putih,Ikan Lele,Sayur Nangka,Soto Ayam,33.89,63.12,53.8,8.92,39.93
+2025-08-08,Makan Siang,Cerah,Seksi B,Nasi Uduk,Tahu Bacem,Kangkung,Soto Ayam,48.42,17.05,25.21,56.81,36.87
+2025-08-08,Makan Siang,Cerah,Seksi C,Nasi Merah,,Tumis Kacang Panjang,Sup Jagung,67.93,,35.0,46.7,49.88
+2025-08-08,Makan Siang,Berawan,Seksi D,Nasi Merah,,Capcay,Sup Tomat,4.2,,10.6,46.22,20.34
+2025-08-08,Sarapan,Cerah,Seksi A,Nasi Merah,Telur Balado,Capcay,Soto Ayam,32.95,1.66,8.53,41.69,21.21
+2025-08-08,Sarapan,Cerah,Seksi B,Nasi Merah,,,Sup Jagung,40.76,,,16.77,28.76
+2025-08-08,Sarapan,Hujan,Seksi C,Nasi Uduk,Tempe Goreng,Kangkung,Sayur Lodeh,40.6,76.53,28.36,6.08,37.89
+2025-08-08,Sarapan,Hujan,Seksi D,Nasi Putih,Ikan Tongkol,,Sayur Lodeh,14.95,36.24,,41.05,30.75
+2025-08-09,Makan Malam,Berawan,Seksi A,Nasi Uduk,Tahu Bacem,Bayam,,39.73,69.23,48.12,,52.36
+2025-08-09,Makan Malam,Cerah,Seksi B,Nasi Merah,Ikan Tongkol,Bayam,Soto Ayam,37.96,19.85,44.51,20.38,30.67
+2025-08-09,Makan Malam,Cerah,Seksi C,Nasi Uduk,Ikan Tongkol,Tumis Kacang Panjang,,22.4,51.91,66.53,,46.95
+2025-08-09,Makan Malam,Berawan,Seksi D,Nasi Merah,Ayam Goreng,Tumis Kacang Panjang,,64.78,49.14,51.47,,55.13
+2025-08-09,Makan Siang,Hujan,Seksi A,Nasi Uduk,,Bayam,Sayur Lodeh,35.64,,38.59,26.05,33.43
+2025-08-09,Makan Siang,Berawan,Seksi B,,,Bayam,,,,61.64,,61.64
+2025-08-09,Makan Siang,Cerah,Seksi C,Nasi Merah,Ikan Tongkol,Tumis Kacang Panjang,Soto Ayam,59.95,80.46,31.14,9.7,45.31
+2025-08-09,Makan Siang,Cerah,Seksi D,Nasi Uduk,Ikan Lele,Capcay,Soto Ayam,23.66,64.89,55.85,20.13,41.13
+2025-08-09,Sarapan,Berawan,Seksi A,Nasi Merah,Ikan Tongkol,Sayur Nangka,Sayur Lodeh,39.83,70.44,10.44,35.93,39.16
+2025-08-09,Sarapan,Cerah,Seksi B,Nasi Putih,Tempe Goreng,Tumis Kacang Panjang,Soto Ayam,35.95,6.06,66.86,59.38,42.06
+2025-08-09,Sarapan,Hujan,Seksi C,Nasi Uduk,Tempe Goreng,Capcay,Sayur Lodeh,31.46,49.52,75.2,13.27,42.36
+2025-08-09,Sarapan,Cerah,Seksi D,,Telur Balado,,Sup Tomat,,55.51,,28.94,42.22
+2025-08-10,Makan Malam,Hujan,Seksi A,Nasi Merah,Tempe Goreng,Tumis Kacang Panjang,Soto Ayam,15.33,64.91,60.3,24.12,41.16
+2025-08-10,Makan Malam,Cerah,Seksi B,Nasi Merah,Ikan Tongkol,Kangkung,Sayur Lodeh,37.88,88.05,26.21,61.97,53.53
+2025-08-10,Makan Malam,Berawan,Seksi C,Nasi Uduk,Tempe Goreng,Capcay,Sayur Lodeh,55.96,26.94,43.36,2.61,32.22
+2025-08-10,Makan Malam,Hujan,Seksi D,Nasi Uduk,Ikan Tongkol,Sayur Nangka,Sup Jagung,16.32,53.22,55.51,69.43,48.62
+2025-08-10,Makan Siang,Hujan,Seksi A,Nasi Putih,Ayam Goreng,Capcay,Sayur Lodeh,49.87,15.34,20.46,18.68,26.09
+2025-08-10,Makan Siang,Berawan,Seksi B,Nasi Uduk,Telur Balado,Tumis Kacang Panjang,Soto Ayam,58.64,67.18,23.77,56.07,51.42
+2025-08-10,Makan Siang,Cerah,Seksi C,Nasi Putih,,Bayam,Sup Tomat,3.58,,7.73,67.55,26.29
+2025-08-10,Makan Siang,Cerah,Seksi D,Nasi Uduk,,Bayam,Sayur Lodeh,42.18,,49.28,45.6,45.69
+2025-08-10,Sarapan,Cerah,Seksi A,Nasi Merah,Ikan Tongkol,Sayur Nangka,Sup Jagung,9.53,29.8,34.95,47.85,30.53
+2025-08-10,Sarapan,Hujan,Seksi B,Nasi Uduk,Tahu Bacem,Capcay,Sayur Lodeh,47.87,42.57,51.93,68.84,52.8
+2025-08-10,Sarapan,Cerah,Seksi C,Nasi Uduk,Ikan Lele,Bayam,Sup Jagung,21.4,72.16,67.11,41.96,50.66
+2025-08-10,Sarapan,Cerah,Seksi D,,Telur Balado,Sayur Nangka,Sup Jagung,,12.7,48.08,16.49,25.76

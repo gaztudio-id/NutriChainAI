@@ -1,216 +1,423 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok {{ num }} - {{ meta.title }}</title>
-    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
-    <!-- Theme Manager JS -->
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
-    <!-- Shared Design System CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .work-container {
-            border: 2px dashed var(--color-primary-70);
-            background-color: var(--color-workspace-bg);
-            border-radius: var(--rounded-sm);
-            padding: var(--spacing-lg);
-            text-align: center;
-            margin-top: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+{% extends 'partials/base_kelompok.html' %}
+{% block workspace %}
+<div class="feature-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-        /* Modal dialog overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(18, 10, 89, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-card {
-            background-color: var(--color-surface);
-            border-radius: var(--rounded-sm);
-            border: 1px solid var(--color-secondary);
-            padding: 24px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-card {
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-
-                <!-- Dynamic Island Navbar -->
-    <div class="dynamic-island-container">
-        <div class="dynamic-island-nav">
-            <!-- Left links -->
-            <div class="nav-links-left">
-                <a href="/" class="nav-link-item">Home</a>
-                <a href="/about" class="nav-link-item">Tentang</a>
+    <!-- Row 0: Dataset Panel -->
+    <div class="card" style="padding: 20px;">
+        <div class="detail-info-label" style="margin-bottom: 8px;">Sumber Data &amp; Dataset</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div style="font-size: 13px; color: var(--color-primary-60);">
+                Status Aktif: <strong id="k4-dataset-status">Memuat...</strong>
             </div>
-            
-            <!-- Center Logo -->
-            <a href="/" class="brand-name-center">
-                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
-                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
-            </a>
-            
-            <!-- Right links -->
-            <div class="nav-links-right">
-                <a href="/dashboard" class="nav-link-item">Dashboard</a>
-                <a href="/status" class="nav-link-item active-page">Status Model</a>
+        </div>
+        <form id="k4-upload-form" onsubmit="uploadDatasetK4(event)" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <input type="file" id="k4-file-input" accept=".csv" class="form-input" style="max-width: 250px;" required>
+            <button type="submit" class="btn btn-primary" style="min-height: auto; padding: 10px 20px;">Upload &amp; Forecast Baru</button>
+            <button type="button" id="k4-reset-btn" onclick="resetDatasetK4()" class="btn btn-secondary" style="min-height: auto; padding: 10px 20px; display: none;">Reset ke Default</button>
+        </form>
+    </div>
+    
+    <!-- Row 1: KPI Metrics -->
+    <div class="detail-info-grid">
+        <div class="card" style="padding: 16px; text-align: center;">
+            <div class="detail-info-label">Total Mention</div>
+            <div class="headline-md" style="margin-top: 8px;" id="k4-mention">-</div>
+        </div>
+        <div class="card" style="padding: 16px; text-align: center;">
+            <div class="detail-info-label" style="color: var(--color-success);">Sentimen Positif</div>
+            <div class="headline-md" style="margin-top: 8px; color: var(--color-success);" id="k4-pos">-</div>
+        </div>
+        <div class="card" style="padding: 16px; text-align: center;">
+            <div class="detail-info-label" style="color: var(--color-error);">Sentimen Negatif</div>
+            <div class="headline-md" style="margin-top: 8px; color: var(--color-error);" id="k4-neg">-</div>
+        </div>
+        <div class="card" style="padding: 16px; text-align: center;">
+            <div class="detail-info-label">Netral</div>
+            <div class="headline-md" style="margin-top: 8px;" id="k4-neutral">-</div>
+        </div>
+        <div class="card" style="padding: 16px; text-align: center;">
+            <div class="detail-info-label">Akurasi Model</div>
+            <div class="headline-md" style="margin-top: 8px;" id="k4-accuracy">-</div>
+        </div>
+    </div>
+
+    <!-- Row 2: Charts (Positif & Negatif) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px;">Tren &amp; Forecast Sentimen Positif (CNN-LSTM)</div>
+            <div style="position: relative; height: 220px; width: 100%;">
+                <canvas id="k4-chart-pos"></canvas>
+            </div>
+        </div>
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px;">Tren &amp; Forecast Sentimen Negatif (CNN-LSTM)</div>
+            <div style="position: relative; height: 220px; width: 100%;">
+                <canvas id="k4-chart-neg"></canvas>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container" style="max-width: 1100px;">
-        <section style="padding-top: var(--spacing-md);">
-            
-            <div class="flex-between">
-                <div>
-                    <h2 class="headline-md" style="margin-top: 8px;">Kelompok {{ num }}: {{ meta.title }}</h2>
-                    <p class="body-sm" style="margin-top: 4px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
-                </div>
-                
-                <div>
-                    {% if date %}
-                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Alur</a>
-                    {% else %}
-                        <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Cover</a>
-                    {% endif %}
+    <!-- Row 3: Donut Chart & Kata Kunci -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px;">Distribusi Sentimen Terbaru</div>
+            <div style="position: relative; height: 200px; width: 100%; display: flex; justify-content: center;">
+                <canvas id="k4-chart-donut" style="max-width: 200px; max-height: 200px;"></canvas>
+            </div>
+        </div>
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px;">Kata Kunci Paling Banyak Dibahas</div>
+            <div id="k4-topics-list" style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Topics list loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 4: Forecast Table & Recent Comments -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px;">Forecast Harian (3 Hari Ke Depan)</div>
+            <div style="max-height: 280px; overflow-y: auto;">
+                <table class="gizi-table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Positif</th>
+                            <th>Negatif</th>
+                            <th>Tren</th>
+                        </tr>
+                    </thead>
+                    <tbody id="k4-forecast-table-body">
+                        <tr><td colspan="4" style="text-align: center; color: var(--color-primary-60);">Menghitung proyeksi model...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px;">Komentar / Postingan Terbaru</div>
+            <div id="k4-comments-list" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+                <!-- Comments list loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 5: Simulator Panel -->
+    <div class="card" style="padding: 20px;">
+        <div class="detail-info-label" style="margin-bottom: 8px;">Panel Simulasi Prediksi Kustom (Deret Waktu 14 Hari)</div>
+        <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: 16px;">
+            Modifikasi nilai persentase sentimen positif/negatif untuk 14 hari terakhir di bawah ini, lalu klik tombol untuk menguji respon model CNN-LSTM untuk hari ke-15.
+        </p>
+        <form id="k4-simulator-form" onsubmit="runCustomForecastK4(event)">
+            <div id="k4-simulator-inputs" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                <!-- Inputs generated dynamically -->
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <button type="submit" class="btn btn-primary">Prediksi Hari Ke-15</button>
+                <div id="k4-sim-result" style="display: none; gap: 16px; background: var(--color-workspace-bg); padding: 8px 16px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); font-size: 13px; font-weight: 700;">
+                    <div>Positif: <span id="k4-sim-pos-res" style="color: var(--color-success);">-</span></div>
+                    <div>Negatif: <span id="k4-sim-neg-res" style="color: var(--color-error);">-</span></div>
                 </div>
             </div>
+        </form>
+    </div>
 
-            <!-- Operational Status Banner -->
-            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
-                <div class="flex-between">
-                    <div>
-                        <span class="body-sm">Status Kegiatan Sesi Tanggal: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong>:</span>
-                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
-                            {% if status == 'completed' %}
-                                <span style="color: var(--color-success);">Telah Diselesaikan</span>
-                            {% else %}
-                                <span style="color: var(--color-primary-60);">Menunggu Pelaksanaan</span>
-                            {% endif %}
-                        </h4>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+let dashboardData = null;
+let chartPos = null;
+let chartNeg = null;
+let chartDonut = null;
+
+async function loadK4() {
+    try {
+        const res = await fetch('/kelompok-4/api/dashboard');
+        dashboardData = await res.json();
+        
+        // Update dataset status
+        const ds = dashboardData.dataset_info;
+        document.getElementById('k4-dataset-status').textContent = ds.filename + ' (' + ds.type.toUpperCase() + ')';
+        document.getElementById('k4-reset-btn').style.display = ds.type === 'custom' ? 'inline-block' : 'none';
+        
+        // Update KPIs
+        document.getElementById('k4-mention').textContent = dashboardData.metrics.total_mention.toLocaleString();
+        document.getElementById('k4-pos').textContent = dashboardData.metrics.latest_pos;
+        document.getElementById('k4-neg').textContent = dashboardData.metrics.latest_neg;
+        document.getElementById('k4-neutral').textContent = dashboardData.metrics.latest_neu;
+        document.getElementById('k4-accuracy').textContent = dashboardData.metrics.model_accuracy + ' (F1: ' + dashboardData.metrics.f1_score + ')';
+        
+        // Render Line Charts
+        renderLineCharts();
+        
+        // Render Donut Chart
+        renderDonutChart();
+        
+        // Render Topics list
+        let topicsHtml = '';
+        dashboardData.topics.forEach(t => {
+            topicsHtml += `
+                <div style="margin-bottom: 8px;">
+                    <div class="flex-between" style="font-size: 12px; margin-bottom: 4px;">
+                        <span><strong>${t.keyword}</strong></span>
+                        <span>${t.count} db</span>
                     </div>
-                    {% if date %}
-                        {% if status == 'completed' %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Ubah Hasil Harian</a>
-                        {% else %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Selesaikan Tugas Harian</a>
-                        {% endif %}
-                    {% endif %}
+                    <div class="confidence-bar-container" style="height: 6px; margin: 0;">
+                        <div class="confidence-bar-fill" style="width: ${t.count}%; background-color: var(--color-primary);"></div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Blank Workspace Area for Kelompok Developers -->
-            <div class="work-container">
-                <h3 class="headline-sm" style="color: var(--color-primary-60); margin-bottom: 8px;">Workspace Kelompok 4</h3>
-                <p class="body-sm" style="max-width: 500px;">
-                    Tempat pengerjaan Front End &amp; Integrasi Deep Learning Model oleh Kelompok 4.
-                </p>
-
-                <div style="text-align: left; background-color: var(--color-code-bg); border: 1px solid var(--color-secondary); padding: 16px; border-radius: var(--rounded-sm); width: 100%; margin-top: var(--spacing-md); font-family: monospace; font-size: 13px;">
-                    <!-- TODO: Kelompok 4 Developer: Masukkan search keywords input / charts container untuk sentimen medsos di sini -->
-                    <span style="color: #656d78;">&lt;!-- Masukkan Kode UI Front End Kelompok 4 di Sini --&gt;</span>
+            `;
+        });
+        document.getElementById('k4-topics-list').innerHTML = topicsHtml;
+        
+        // Render Forecast Table
+        let tableHtml = '';
+        let prevPos = dashboardData.history.pos_smooth[dashboardData.history.pos_smooth.length - 1];
+        dashboardData.forecast.dates_display.forEach((d, idx) => {
+            const curPos = dashboardData.forecast.pos[idx];
+            const curNeg = dashboardData.forecast.neg[idx];
+            let trend = '→ Stabil';
+            let color = 'var(--color-primary-60)';
+            if (curPos - prevPos > 0.5) {
+                trend = '↑ Naik';
+                color = 'var(--color-success)';
+            } else if (curPos - prevPos < -0.5) {
+                trend = '↓ Turun';
+                color = 'var(--color-error)';
+            }
+            prevPos = curPos;
+            tableHtml += `
+                <tr>
+                    <td><strong>${d}</strong></td>
+                    <td style="color: var(--color-success); font-weight: 700;">${curPos.toFixed(1)}%</td>
+                    <td style="color: var(--color-error); font-weight: 700;">${curNeg.toFixed(1)}%</td>
+                    <td style="color: ${color}; font-weight: 700;">${trend}</td>
+                </tr>
+            `;
+        });
+        document.getElementById('k4-forecast-table-body').innerHTML = tableHtml;
+        
+        // Render comments feed
+        let commentsHtml = '';
+        dashboardData.recent_comments.forEach(c => {
+            const isPos = c.sentiment === 'Positif';
+            const color = isPos ? 'var(--color-success)' : (c.sentiment === 'Negatif' ? 'var(--color-error)' : 'var(--color-primary-60)');
+            commentsHtml += `
+                <div style="border-bottom: 1px solid var(--color-secondary); padding-bottom: 8px;">
+                    <div class="flex-between" style="font-size: 11px; margin-bottom: 4px;">
+                        <span><strong>${c.platform}</strong> · ${c.date}</span>
+                        <span style="color: ${color}; font-weight: 700;">${c.sentiment}</span>
+                    </div>
+                    <p class="body-sm" style="color: var(--color-primary-60); line-height: 1.4; margin: 0; font-style: italic;">"${c.text}"</p>
                 </div>
-            </div>
-
-            <!-- Technical Instructions Collapsible -->
-            <details class="tech-details">
-                <summary>💡 Petunjuk Integrasi Backend (Kelompok 4 Developer)</summary>
-                <div class="tech-content">
-&lt;!--
-Langkah Integrasi Backend Python Flask:
-1. Pastikan mengimpor model NLP Anda (CNN-LSTM & Word Tokenizer).
-2. Edit file app.py utama:
-   a. Buat route POST/GET untuk scrape data Twitter/TikTok atau input teks.
-   b. Lakukan pembersihan teks (cleaning), tokenisasi, padding, dan prediksi sentimen.
-   c. Tampilkan chart / rasio sentimen positif-negatif di template ini.
---&gt;
-                </div>
-            </details>
-
-        </section>
-    </div>
-
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
-                </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
-                </p>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- Alert Modal: Confirm Step Completion -->
-    <div class="modal-overlay" id="confirm-task-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Konfirmasi Penyelesaian</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                Apakah Anda yakin ingin menyimpan langkah ini untuk sesi tanggal <strong>{{ date }}</strong>?
-            </p>
-            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST" id="complete-task-form">
-                <div class="form-group" style="text-align: left; margin-top: 12px;">
-                    <label class="form-label" for="custom-result" style="font-size: 13px;">Detail Hasil Operasional (Hasil Model):</label>
-                    <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="border-radius: 8px; resize: vertical; font-size: 13px; font-family: inherit; width: 100%; box-sizing: border-box;">{{ result }}</textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Ya, Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function openTaskModal() {
-            document.getElementById('confirm-task-modal').classList.add('active');
+            `;
+        });
+        document.getElementById('k4-comments-list').innerHTML = commentsHtml || '<div class="body-sm" style="text-align: center; color: var(--color-primary-60);">Belum ada komentar.</div>';
+        
+        if (document.getElementById('custom-result')) {
+            document.getElementById('custom-result').value = `Sentimen Medsos: ${dashboardData.metrics.latest_pos} Positif, ${dashboardData.metrics.latest_neg} Negatif. Respon positif stabil.`;
         }
-        function closeTaskModal() {
-            document.getElementById('confirm-task-modal').classList.remove('active');
-        }
-        function confirmCompleteTask(event) {
-            event.preventDefault();
-            openTaskModal();
-        }
-    </script>
+        
+        // Init simulator inputs
+        initSimulator();
+        
+    } catch (e) {
+        console.error(e);
+    }
+}
 
-</body>
-</html>
+function renderLineCharts() {
+    const labels = [...dashboardData.history.dates_display, ...dashboardData.forecast.dates_display];
+    
+    // Positif Chart
+    const ctxPos = document.getElementById('k4-chart-pos').getContext('2d');
+    if (chartPos) chartPos.destroy();
+    
+    const posActual = [...dashboardData.history.pos_smooth, ...Array(dashboardData.forecast.pos.length).fill(null)];
+    const posFore = [...Array(dashboardData.history.pos_smooth.length - 1).fill(null), dashboardData.history.pos_smooth[dashboardData.history.pos_smooth.length - 1], ...dashboardData.forecast.pos];
+    
+    chartPos = new Chart(ctxPos, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Aktual (%)',
+                    data: posActual,
+                    borderColor: '#306E00',
+                    backgroundColor: 'rgba(48,110,0,0.05)',
+                    tension: 0.2,
+                    fill: true
+                },
+                {
+                    label: 'Proyeksi (%)',
+                    data: posFore,
+                    borderColor: '#1F5EAB',
+                    borderDash: [5, 5],
+                    tension: 0.2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } },
+            scales: { y: { min: 0, max: 100 } }
+        }
+    });
+
+    // Negatif Chart
+    const ctxNeg = document.getElementById('k4-chart-neg').getContext('2d');
+    if (chartNeg) chartNeg.destroy();
+    
+    const negActual = [...dashboardData.history.neg_smooth, ...Array(dashboardData.forecast.neg.length).fill(null)];
+    const negFore = [...Array(dashboardData.history.neg_smooth.length - 1).fill(null), dashboardData.history.neg_smooth[dashboardData.history.neg_smooth.length - 1], ...dashboardData.forecast.neg];
+    
+    chartNeg = new Chart(ctxNeg, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Aktual (%)',
+                    data: negActual,
+                    borderColor: '#D92D20',
+                    backgroundColor: 'rgba(217,45,32,0.05)',
+                    tension: 0.2,
+                    fill: true
+                },
+                {
+                    label: 'Proyeksi (%)',
+                    data: negFore,
+                    borderColor: '#EF8A8A',
+                    borderDash: [5, 5],
+                    tension: 0.2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } },
+            scales: { y: { min: 0, max: 100 } }
+        }
+    });
+}
+
+function renderDonutChart() {
+    const ctx = document.getElementById('k4-chart-donut').getContext('2d');
+    if (chartDonut) chartDonut.destroy();
+    
+    const donutData = dashboardData.history;
+    const latestPos = donutData.pos_smooth[donutData.pos_smooth.length - 1];
+    const latestNeg = donutData.neg_smooth[donutData.neg_smooth.length - 1];
+    const latestNeu = 100.0 - (latestPos + latestNeg);
+    
+    chartDonut = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Positif', 'Negatif', 'Netral'],
+            datasets: [{
+                data: [latestPos, latestNeg, latestNeu],
+                backgroundColor: ['#306E00', '#D92D20', '#A0A0B0'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } }
+        }
+    });
+}
+
+function initSimulator() {
+    const container = document.getElementById('k4-simulator-inputs');
+    container.innerHTML = '';
+    const pos = dashboardData.history.pos_smooth;
+    const neg = dashboardData.history.neg_smooth;
+    
+    // Gen 14 days input
+    const startIndex = pos.length - 14;
+    for (let i = 0; i < 14; i++) {
+        const idx = startIndex + i;
+        const dPos = pos[idx] ? pos[idx].toFixed(1) : '50.0';
+        const dNeg = neg[idx] ? neg[idx].toFixed(1) : '15.0';
+        
+        const wrapper = document.createElement('div');
+        wrapper.style.display = 'flex';
+        wrapper.style.flexDirection = 'column';
+        wrapper.style.gap = '4px';
+        wrapper.innerHTML = `
+            <div style="font-size:10px; font-weight:700; text-align:center; color: var(--color-primary-70);">H-${14 - i}</div>
+            <input type="number" step="0.1" min="0" max="100" class="sim-pos form-input" style="padding:4px; font-size:11px; text-align:center;" value="${dPos}">
+            <input type="number" step="0.1" min="0" max="100" class="sim-neg form-input" style="padding:4px; font-size:11px; text-align:center; margin-top:2px;" value="${dNeg}">
+        `;
+        container.appendChild(wrapper);
+    }
+}
+
+async function runCustomForecastK4(e) {
+    e.preventDefault();
+    const posInputs = document.querySelectorAll('.sim-pos');
+    const negInputs = document.querySelectorAll('.sim-neg');
+    const pos_history = [];
+    const neg_history = [];
+    for (let i = 0; i < 14; i++) {
+        pos_history.push(parseFloat(posInputs[i].value) || 0);
+        neg_history.push(parseFloat(negInputs[i].value) || 0);
+    }
+    
+    const res = await fetch('/kelompok-4/api/custom-forecast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pos_history, neg_history })
+    });
+    const result = await res.json();
+    
+    document.getElementById('k4-sim-result').style.display = 'flex';
+    document.getElementById('k4-sim-pos-res').textContent = result.next_pos.toFixed(1) + '%';
+    document.getElementById('k4-sim-neg-res').textContent = result.next_neg.toFixed(1) + '%';
+
+    if (document.getElementById('custom-result')) {
+        document.getElementById('custom-result').value = `Proyeksi Sentimen Simulator (Hari Berikutnya): Positif ${result.next_pos.toFixed(1)}%, Negatif ${result.next_neg.toFixed(1)}%`;
+    }
+}
+
+async function uploadDatasetK4(e) {
+    e.preventDefault();
+    const fileInput = document.getElementById('k4-file-input');
+    if (!fileInput.files[0]) return;
+    
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    
+    const res = await fetch('/kelompok-4/api/upload-dataset', {
+        method: 'POST',
+        body: formData
+    });
+    const result = await res.json();
+    
+    if (result.success) {
+        loadK4();
+        fileInput.value = '';
+    } else {
+        alert('Gagal mengunggah dataset: ' + result.error);
+    }
+}
+
+async function resetDatasetK4() {
+    const res = await fetch('/kelompok-4/api/reset-dataset', { method: 'POST' });
+    const result = await res.json();
+    if (result.success) {
+        loadK4();
+    }
+}
+
+loadK4();
+</script>
+{% endblock %}

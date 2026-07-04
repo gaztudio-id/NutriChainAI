@@ -120,61 +120,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for num, meta in KELOMPOK_METADATA.items() %}
                         <tr>
-                            <td><strong>Kelompok 1</strong></td>
-                            <td>Analisis Kandungan Gizi Makanan (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
+                            <td><strong>Kelompok {{ num }}</strong></td>
+                            <td>{{ meta.title }} ({{ meta.phase }})</td>
+                            <td>
+                                {% if MODEL_STATUS[num] %}
+                                    <span class="status-badge status-active">Aktif</span>
+                                {% else %}
+                                    <span class="status-badge" style="background-color: rgba(217, 45, 32, 0.1); color: var(--color-error); border: 1px solid rgba(217, 45, 32, 0.2);">Tidak Aktif</span>
+                                {% endif %}
+                            </td>
                         </tr>
-                        <tr>
-                            <td><strong>Kelompok 2</strong></td>
-                            <td>Rekomendasi Menu Makanan (Fase 1: Perencanaan Menu &amp; Logistik)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 3</strong></td>
-                            <td>Prediksi Kesukaan Menu MBG (Fase 1: Perencanaan Menu &amp; Logistik)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 4</strong></td>
-                            <td>Analisis Sentimen Medsos (Fase 5: Pemantauan Opini Publik)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 5</strong></td>
-                            <td>Deteksi Kontaminasi Benda Asing Makro (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 6</strong></td>
-                            <td>Analisis Sentimen Komentar YouTube (Fase 5: Pemantauan Opini Publik)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 7</strong></td>
-                            <td>Deteksi Sisa Makanan Piring Kotor (Fase 4: Evaluasi Pasca-Konsumsi)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 8</strong></td>
-                            <td>Deteksi Kelengkapan Menu Tray (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 9</strong></td>
-                            <td>Prediksi Kebutuhan Distribusi (Fase 1: Perencanaan Menu &amp; Logistik)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 10</strong></td>
-                            <td>Kelayakan Gizi &amp; Benda Asing Mikro (Fase 3: Perakitan &amp; Keamanan Pangan)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelompok 11</strong></td>
-                            <td>Sortir Kualitas Kesegaran Bahan Baku (Fase 2: Pemeriksaan Kualitas Bahan Baku)</td>
-                            <td><span class="status-badge status-active">Aktif</span></td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

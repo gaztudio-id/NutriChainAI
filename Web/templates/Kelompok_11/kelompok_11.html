@@ -1,216 +1,528 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok {{ num }} - {{ meta.title }}</title>
-    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
-    <!-- Theme Manager JS -->
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
-    <!-- Shared Design System CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .work-container {
-            border: 2px dashed var(--color-primary-70);
-            background-color: var(--color-workspace-bg);
-            border-radius: var(--rounded-sm);
-            padding: var(--spacing-lg);
-            text-align: center;
-            margin-top: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+{% extends 'partials/base_kelompok.html' %}
+{% block workspace %}
+<div class="feature-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-        /* Modal dialog overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(18, 10, 89, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-card {
-            background-color: var(--color-surface);
-            border-radius: var(--rounded-sm);
-            border: 1px solid var(--color-secondary);
-            padding: 24px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-card {
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-
-                <!-- Dynamic Island Navbar -->
-    <div class="dynamic-island-container">
-        <div class="dynamic-island-nav">
-            <!-- Left links -->
-            <div class="nav-links-left">
-                <a href="/" class="nav-link-item">Home</a>
-                <a href="/about" class="nav-link-item">Tentang</a>
-            </div>
-            
-            <!-- Center Logo -->
-            <a href="/" class="brand-name-center">
-                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
-                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
-            </a>
-            
-            <!-- Right links -->
-            <div class="nav-links-right">
-                <a href="/dashboard" class="nav-link-item">Dashboard</a>
-                <a href="/status" class="nav-link-item active-page">Status Model</a>
-            </div>
-        </div>
+    <!-- Row 0: Tabs Navigation -->
+    <div style="display: flex; gap: 12px; border-bottom: 1px solid var(--color-secondary); padding-bottom: 8px;">
+        <button class="btn btn-primary" id="k11-tab-detect-btn" onclick="switchK11Tab('detect')" style="min-height: auto; padding: 6px 16px;">Detection Workspace</button>
+        <button class="btn btn-secondary" id="k11-tab-report-btn" onclick="switchK11Tab('report')" style="min-height: auto; padding: 6px 16px;">Model Training Report</button>
     </div>
 
-    <!-- Main Content -->
-    <div class="container" style="max-width: 1100px;">
-        <section style="padding-top: var(--spacing-md);">
+    <!-- TAB 1: DETECTION WORKSPACE -->
+    <div id="k11-tab-detect" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; align-items: start; flex-wrap: wrap;">
+        
+        <!-- Left Column: Camera, Controls, Stats, and History -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
             
-            <div class="flex-between">
-                <div>
-                    <h2 class="headline-md" style="margin-top: 8px;">Kelompok {{ num }}: {{ meta.title }}</h2>
-                    <p class="body-sm" style="margin-top: 4px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
-                </div>
+            <!-- Live Viewfinder Frame -->
+            <div id="k11-camera-frame" style="position: relative; background: #000; border-radius: var(--rounded-sm); aspect-ratio: 4/3; border: 2px solid var(--color-secondary); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s;">
+                <video id="k11-video" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+                <img id="k11-img" style="display: none; width: 100%; height: 100%; object-fit: contain;" alt="File preview">
+                <canvas id="k11-capture-canvas" style="display: none;"></canvas>
+                <canvas id="k11-overlay-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
                 
-                <div>
-                    {% if date %}
-                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Alur</a>
-                    {% else %}
-                        <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Cover</a>
-                    {% endif %}
+                <!-- Overlay Elements -->
+                <div id="k11-result-overlay" style="position: absolute; top: 16px; left: 16px; padding: 8px 16px; border-radius: 99px; font-size: 13px; font-weight: 700; background: rgba(18, 10, 89, 0.85); color: #FFF; border: 1px solid rgba(255,255,255,0.1); display: none;">-</div>
+                <div id="k11-scan-line" style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: rgba(13,148,136,0.5); display: none; animation: scanAnimK11 2s linear infinite;"></div>
+                <div id="k11-fps-badge" style="position: absolute; bottom: 12px; right: 12px; font-size: 11px; color: #FFF; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px;">— FPS</div>
+                
+                <div id="k11-loader" style="display: none; position: absolute; bottom: 12px; left: 12px; gap: 8px; align-items: center; font-size: 11px; color: #FFF; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px;">
+                    <div style="width: 10px; height: 10px; border: 2px solid #FFF; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    Menganalisis...
                 </div>
             </div>
 
-            <!-- Operational Status Banner -->
-            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
-                <div class="flex-between">
-                    <div>
-                        <span class="body-sm">Status Kegiatan Sesi Tanggal: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong>:</span>
-                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
-                            {% if status == 'completed' %}
-                                <span style="color: var(--color-success);">Telah Diselesaikan</span>
-                            {% else %}
-                                <span style="color: var(--color-primary-60);">Menunggu Pelaksanaan</span>
-                            {% endif %}
-                        </h4>
+            <!-- Style keyframes -->
+            <style>
+                @keyframes scanAnimK11 {
+                    0% { top: 0%; }
+                    50% { top: 100%; }
+                    100% { top: 0%; }
+                }
+                @keyframes spin {
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+
+            <!-- Camera Controls Buttons -->
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button id="k11-start-btn" onclick="startCameraK11()" class="btn btn-secondary" style="flex: 1; min-height: auto; padding: 10px;">Buka Kamera</button>
+                <button id="k11-stop-btn" onclick="stopCameraK11()" class="btn btn-secondary" style="min-height: auto; padding: 10px; display: none; border-color: var(--color-error); color: var(--color-error);">Stop Kamera</button>
+                <button onclick="document.getElementById('k11-file-input').click()" class="btn btn-primary" style="flex: 1; min-height: auto; padding: 10px;">Unggah Media</button>
+                <input type="file" id="k11-file-input" accept="image/*" style="display: none;" onchange="handleFileUploadK11(event)">
+            </div>
+
+            <!-- Stats grid -->
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Statistik Inspeksi Sesi Ini</div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-label" style="font-size: 9px;">Total Scan</div>
+                        <div class="detail-info-value" style="font-size: 16px; margin-top: 4px;" id="k11-total-scan">0</div>
                     </div>
-                    {% if date %}
-                        {% if status == 'completed' %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Ubah Hasil Harian</a>
-                        {% else %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Selesaikan Tugas Harian</a>
-                        {% endif %}
-                    {% endif %}
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-label" style="font-size: 9px;">Rerata Conf</div>
+                        <div class="detail-info-value" style="font-size: 16px; margin-top: 4px;" id="k11-avg-conf">—</div>
+                    </div>
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-label" style="font-size: 9px; color: var(--color-success);">Segar</div>
+                        <div class="detail-info-value" style="font-size: 16px; margin-top: 4px; color: var(--color-success);" id="k11-count-segar">0</div>
+                    </div>
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-label" style="font-size: 9px; color: var(--color-error);">Rusak</div>
+                        <div class="detail-info-value" style="font-size: 16px; margin-top: 4px; color: var(--color-error);" id="k11-count-tidak">0</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Blank Workspace Area for Kelompok Developers -->
-            <div class="work-container">
-                <h3 class="headline-sm" style="color: var(--color-primary-60); margin-bottom: 8px;">Workspace Kelompok 11</h3>
-                <p class="body-sm" style="max-width: 500px;">
-                    Tempat pengerjaan Front End &amp; Integrasi Deep Learning Model oleh Kelompok 11.
-                </p>
-
-                <div style="text-align: left; background-color: var(--color-code-bg); border: 1px solid var(--color-secondary); padding: 16px; border-radius: var(--rounded-sm); width: 100%; margin-top: var(--spacing-md); font-family: monospace; font-size: 13px;">
-                    <!-- TODO: Kelompok 11 Developer: Masukkan form upload gambar bahan baku basah & klasifikasi kesegaran MobileNetV2 di sini -->
-                    <span style="color: #656d78;">&lt;!-- Masukkan Kode UI Front End Kelompok 11 di Sini --&gt;</span>
+            <!-- History log table -->
+            <div class="card" style="padding: 20px;">
+                <div class="flex-between" style="border-bottom: 1px solid var(--color-secondary); padding-bottom: 8px; margin-bottom: 12px;">
+                    <div class="detail-info-label" style="margin: 0; font-weight: 700;">Riwayat Prediksi</div>
+                    <button class="btn btn-secondary" onclick="clearHistoryK11()" style="min-height: auto; padding: 2px 10px; font-size: 10px; border-color: var(--color-error); color: var(--color-error);">Reset</button>
+                </div>
+                <div id="k11-history-list" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                    <div style="font-size: 11px; color: var(--color-primary-60); text-align: center; padding: 20px 0;">Belum ada riwayat pemindaian.</div>
                 </div>
             </div>
 
-            <!-- Technical Instructions Collapsible -->
-            <details class="tech-details">
-                <summary>💡 Petunjuk Integrasi Backend (Kelompok 11 Developer)</summary>
-                <div class="tech-content">
-&lt;!--
-Langkah Integrasi Backend Python Flask:
-1. Pastikan mengimpor TensorFlow/PyTorch untuk model MobileNetV2 kesegaran Anda.
-2. Edit file app.py utama:
-   a. Buat route POST untuk menerima file gambar sayuran/buah mentah.
-   b. Jalankan inferensi klasifikasi model MobileNetV2.
-   c. Tampilkan label "Segar" vs "Layu/Busuk" beserta persentase kecocokan.
---&gt;
-                </div>
-            </details>
+        </div>
 
-        </section>
-    </div>
+        <!-- Right Column: Live prediction results details -->
+        <div class="card" style="padding: 20px; min-height: 380px;">
+            <div class="detail-info-label" style="margin-bottom: 16px; font-weight: 700; border-bottom: 1px solid var(--color-secondary); padding-bottom: 8px;">Hasil Analisis Model</div>
+            
+            <div id="k11-placeholder" style="text-align: center; color: var(--color-primary-60); padding: 80px 20px;">
+                Buka kamera atau unggah berkas gambar di sebelah kiri untuk mendeteksi tingkat kesegaran bahan pangan.
+            </div>
 
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
+            <div id="k11-details-content" style="display: none; margin-top: 16px;">
+                <div class="detail-info-grid" style="margin-bottom: 20px;">
+                    <div class="detail-info-item" style="grid-column: span 2; text-align: center; background: var(--color-workspace-bg); padding: 12px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary);">
+                        <div class="detail-info-label" style="font-size: 10px;">Klasifikasi Kesegaran</div>
+                        <div class="detail-info-value" id="k11-result-label" style="font-size: 20px; font-weight: 800; margin-top: 4px;">-</div>
+                    </div>
                 </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
-                </p>
+
+                <div class="detail-divider">
+                    <div class="flex-between" style="font-size: 12px; margin-bottom: 4px;">
+                        <span>Segar</span>
+                        <strong id="k11-segar-pct">-</strong>
+                    </div>
+                    <div class="confidence-bar-container" style="height: 6px; margin: 0;">
+                        <div class="confidence-bar-fill" id="k11-segar-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="detail-divider">
+                    <div class="flex-between" style="font-size: 12px; margin-bottom: 4px;">
+                        <span>Tidak Segar</span>
+                        <strong id="k11-tidak-pct">-</strong>
+                    </div>
+                    <div class="confidence-bar-container" style="height: 6px; margin: 0;">
+                        <div class="confidence-bar-fill" id="k11-tidak-bar" style="width: 0%; background-color: var(--color-error);"></div>
+                    </div>
+                </div>
+
+                <div class="detail-divider" style="margin-top: 20px;">
+                    <div class="flex-between" style="font-size: 12px; margin-bottom: 4px;">
+                        <span>KELAYAKAN KONSUMSI:</span>
+                        <strong id="k11-kelayakan-pct">-</strong>
+                    </div>
+                    <div class="confidence-bar-container" style="height: 6px; margin: 0;">
+                        <div class="confidence-bar-fill" id="k11-kelayakan-bar" style="width: 0%;"></div>
+                    </div>
+                    <div id="k11-kelayakan-badge" style="display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; margin-top: 8px;">Menunggu Analisis...</div>
+                </div>
+
+                <div class="detail-divider">
+                    <div class="detail-info-label">Rekomendasi Tindakan:</div>
+                    <div id="k11-advice-box" style="padding: 12px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); font-size: 12px; line-height: 1.5; font-weight: 500; margin-top: 8px;">
+                        Menunggu analisis bahan makanan untuk memberikan rekomendasi tindakan...
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
 
-
-    <!-- Alert Modal: Confirm Step Completion -->
-    <div class="modal-overlay" id="confirm-task-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Konfirmasi Penyelesaian</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                Apakah Anda yakin ingin menyimpan langkah ini untuk sesi tanggal <strong>{{ date }}</strong>?
-            </p>
-            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST" id="complete-task-form">
-                <div class="form-group" style="text-align: left; margin-top: 12px;">
-                    <label class="form-label" for="custom-result" style="font-size: 13px;">Detail Hasil Operasional (Hasil Model):</label>
-                    <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="border-radius: 8px; resize: vertical; font-size: 13px; font-family: inherit; width: 100%; box-sizing: border-box;">{{ result }}</textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Ya, Simpan</button>
-                </div>
-            </form>
-        </div>
     </div>
 
-    <script>
-        function openTaskModal() {
-            document.getElementById('confirm-task-modal').classList.add('active');
-        }
-        function closeTaskModal() {
-            document.getElementById('confirm-task-modal').classList.remove('active');
-        }
-        function confirmCompleteTask(event) {
-            event.preventDefault();
-            openTaskModal();
-        }
-    </script>
+    <!-- TAB 2: TRAINING REPORT -->
+    <div id="k11-tab-report" style="display: none; flex-direction: column; gap: 24px;">
+        
+        <div style="background: var(--color-workspace-bg); padding: 16px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary);">
+            <div style="font-size: 16px; font-weight: 700; color: var(--color-primary);">Kinerja Evaluasi MobileNetV2</div>
+            <div style="font-size: 11px; color: var(--color-primary-60); margin-top: 2px;">Metrik latihan model dengan 30 Epochs, Best Weights pada Epoch 28.</div>
+        </div>
 
-</body>
-</html>
+        <!-- Big metrics row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label">Validation Accuracy</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px; color: var(--color-success);">98.67%</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label">Validation Loss</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px; color: var(--color-primary);">0.0372</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label">Total Dataset Latih</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px;">64,627</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label">Konfigurasi optimizer</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 20px;">Adam (lr=0.0001)</div>
+            </div>
+        </div>
+
+        <!-- Visual curves charts images row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+            <div class="card" style="padding: 16px; text-align: center;">
+                <div class="detail-info-label" style="font-weight: 700; margin-bottom: 8px;">Grafik Akurasi Latihan &amp; Validasi</div>
+                <img src="/static/grafik_akurasi.png" style="max-height: 240px; max-width: 100%; display: block; margin: 0 auto; border-radius: var(--rounded-sm);" alt="Accuracy Curves" onerror="this.style.display='none'">
+                <div class="body-sm" style="color: var(--color-primary-60); margin-top: 8px;">Kurva akurasi epochs 1-30.</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center;">
+                <div class="detail-info-label" style="font-weight: 700; margin-bottom: 8px;">Grafik Loss Latihan &amp; Validasi</div>
+                <img src="/static/grafik_loss.png" style="max-height: 240px; max-width: 100%; display: block; margin: 0 auto; border-radius: var(--rounded-sm);" alt="Loss Curves" onerror="this.style.display='none'">
+                <div class="body-sm" style="color: var(--color-primary-60); margin-top: 8px;">Kurva loss epochs 1-30.</div>
+            </div>
+        </div>
+
+        <!-- Architecture table row -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex-wrap: wrap;">
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Informasi Arsitektur Model</div>
+                <div style="font-size: 12px; line-height: 1.8;">
+                    <div>• <strong>Base Model:</strong> MobileNetV2 (Pre-trained ImageNet)</div>
+                    <div>• <strong>Input Shape:</strong> 224 x 224 x 3 (RGB)</div>
+                    <div>• <strong>Custom Head:</strong> GlobalAveragePooling2D -> Dense 128 -> Dropout 0.5 -> Dense 1 (Sigmoid)</div>
+                    <div>• <strong>Output Layer:</strong> Klasifikasi Biner (Segar / Rusak)</div>
+                </div>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Konfigurasi Training</div>
+                <div style="font-size: 12px; line-height: 1.8;">
+                    <div>• <strong>Batch Size:</strong> 32</div>
+                    <div>• <strong>Max Epochs:</strong> 30</div>
+                    <div>• <strong>Early Stopping:</strong> Patience = 5</div>
+                    <div>• <strong>Augmentasi Data:</strong> Rotation, Width/Height Shift, Zoom, Horizontal Flip</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let streamK11 = null;
+let isRunningK11 = false;
+let intervalK11 = null;
+let isFetchingK11 = false;
+
+let totalScan = 0, countSegar = 0, countTidak = 0, confSum = 0;
+let lastFrameTime = performance.now();
+let frameCount = 0;
+
+function switchK11Tab(tab) {
+    const detectTab = document.getElementById('k11-tab-detect');
+    const reportTab = document.getElementById('k11-tab-report');
+    const detectBtn = document.getElementById('k11-tab-detect-btn');
+    const reportBtn = document.getElementById('k11-tab-report-btn');
+    
+    if (tab === 'detect') {
+        detectTab.style.display = 'grid';
+        reportTab.style.display = 'none';
+        detectBtn.className = 'btn btn-primary';
+        reportBtn.className = 'btn btn-secondary';
+    } else {
+        detectTab.style.display = 'none';
+        reportTab.style.display = 'flex';
+        detectBtn.className = 'btn btn-secondary';
+        reportBtn.className = 'btn btn-primary';
+        stopCameraK11();
+    }
+}
+
+async function startCameraK11() {
+    try {
+        if (streamK11) stopCameraK11();
+        
+        document.getElementById('k11-img').style.display = 'none';
+        const video = document.getElementById('k11-video');
+        video.style.display = 'block';
+        
+        streamK11 = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } } });
+        video.srcObject = streamK11;
+        await video.play();
+        
+        isRunningK11 = true;
+        document.getElementById('k11-start-btn').style.display = 'none';
+        document.getElementById('k11-stop-btn').style.display = 'inline-block';
+        document.getElementById('k11-scan-line').style.display = 'block';
+        
+        requestAnimationFrame(updateFPSK11);
+        intervalK11 = setInterval(runInferenceK11, 700);
+    } catch (e) {
+        alert('Tidak bisa mengakses kamera: ' + e.message);
+    }
+}
+
+function stopCameraK11() {
+    if (intervalK11) {
+        clearInterval(intervalK11);
+        intervalK11 = null;
+    }
+    if (streamK11) {
+        streamK11.getTracks().forEach(t => t.stop());
+        streamK11 = null;
+    }
+    const video = document.getElementById('k11-video');
+    video.srcObject = null;
+    video.style.display = 'none';
+    
+    isRunningK11 = false;
+    document.getElementById('k11-start-btn').style.display = 'inline-block';
+    document.getElementById('k11-stop-btn').style.display = 'none';
+    document.getElementById('k11-scan-line').style.display = 'none';
+    document.getElementById('k11-fps-badge').textContent = '— FPS';
+    
+    clearOverlayK11();
+}
+
+function updateFPSK11() {
+    if (!isRunningK11) return;
+    frameCount++;
+    const now = performance.now();
+    if (now - lastFrameTime >= 1000) {
+        document.getElementById('k11-fps-badge').textContent = frameCount + ' FPS';
+        frameCount = 0;
+        lastFrameTime = now;
+    }
+    requestAnimationFrame(updateFPSK11);
+}
+
+function handleFileUploadK11(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    stopCameraK11();
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        const img = document.getElementById('k11-img');
+        img.src = evt.target.result;
+        img.style.display = 'block';
+        
+        runFileInferenceK11(file);
+    }
+    reader.readAsDataURL(file);
+}
+
+async function runFileInferenceK11(file) {
+    const loader = document.getElementById('k11-loader');
+    loader.style.display = 'flex';
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+        const res = await fetch('/kelompok-11/predict_frame', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await res.json();
+        if (result.success) {
+            updateResultK11(result);
+            addToHistoryK11(result);
+            updateStatsK11(result);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+    loader.style.display = 'none';
+}
+
+async function runInferenceK11() {
+    if (isFetchingK11 || !isRunningK11) return;
+    
+    const video = document.getElementById('k11-video');
+    if (video.readyState < 2) return;
+    
+    const canvas = document.getElementById('k11-capture-canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    const base64Data = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+    
+    isFetchingK11 = true;
+    document.getElementById('k11-loader').style.display = 'flex';
+    
+    try {
+        const res = await fetch('/kelompok-11/predict_frame', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: base64Data })
+        });
+        const result = await res.json();
+        if (result.success && isRunningK11) {
+            updateResultK11(result);
+            drawBoundingBoxK11(video);
+            addToHistoryK11(result);
+            updateStatsK11(result);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+    isFetchingK11 = false;
+    document.getElementById('k11-loader').style.display = 'none';
+}
+
+function updateResultK11(res) {
+    document.getElementById('k11-placeholder').style.display = 'none';
+    document.getElementById('k11-details-content').style.display = 'block';
+    
+    const isSegar = res.label === 'segar';
+    const labelEl = document.getElementById('k11-result-label');
+    labelEl.textContent = res.label.toUpperCase().replace('_', ' ');
+    labelEl.style.color = isSegar ? 'var(--color-success)' : 'var(--color-error)';
+    
+    document.getElementById('k11-segar-pct').textContent = res.segar.toFixed(1) + '%';
+    document.getElementById('k11-segar-bar').style.width = res.segar + '%';
+    document.getElementById('k11-segar-bar').style.backgroundColor = isSegar ? 'var(--color-success)' : 'var(--color-primary-60)';
+    
+    document.getElementById('k11-tidak-pct').textContent = res.tidak.toFixed(1) + '%';
+    document.getElementById('k11-tidak-bar').style.width = res.tidak + '%';
+    
+    const val = res.kelayakan;
+    document.getElementById('k11-kelayakan-pct').textContent = val.toFixed(1) + '%';
+    
+    const kelBar = document.getElementById('k11-kelayakan-bar');
+    kelBar.style.width = val + '%';
+    
+    const kelBadge = document.getElementById('k11-kelayakan-badge');
+    kelBadge.textContent = res.kelayakan_status;
+    
+    const overlay = document.getElementById('k11-result-overlay');
+    overlay.textContent = `${res.label.toUpperCase().replace('_', ' ')} (${(isSegar ? res.segar : res.tidak).toFixed(1)}%)`;
+    overlay.style.display = 'block';
+    
+    const adviceEl = document.getElementById('k11-advice-box');
+    const cameraFrame = document.getElementById('k11-camera-frame');
+    
+    if (val >= 70.0) {
+        kelBadge.style.backgroundColor = 'rgba(13, 148, 136, 0.1)';
+        kelBadge.style.color = 'var(--color-success)';
+        kelBar.style.backgroundColor = 'var(--color-success)';
+        cameraFrame.style.borderColor = 'var(--color-success)';
+        
+        adviceEl.textContent = 'Bahan pangan sangat segar dan higienis. Layak langsung diolah untuk menu MBG atau disimpan dalam gudang pendingin.';
+        adviceEl.style.background = 'rgba(13, 148, 136, 0.05)';
+        adviceEl.style.borderColor = 'rgba(13, 148, 136, 0.2)';
+        adviceEl.style.color = 'var(--color-success)';
+    } else if (val >= 50.0) {
+        kelBadge.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+        kelBadge.style.color = 'var(--color-warn)';
+        kelBar.style.backgroundColor = 'var(--color-warn)';
+        cameraFrame.style.borderColor = 'var(--color-warn)';
+        
+        adviceEl.textContent = 'Bahan pangan menunjukkan tanda degradasi minor. Wajib dimasak matang segera (konsumsi hari ini) dan jangan disajikan mentah.';
+        adviceEl.style.background = 'rgba(245, 158, 11, 0.05)';
+        adviceEl.style.borderColor = 'rgba(245, 158, 11, 0.2)';
+        adviceEl.style.color = 'var(--color-warn)';
+    } else {
+        kelBadge.style.backgroundColor = 'rgba(217, 45, 32, 0.1)';
+        kelBadge.style.color = 'var(--color-error)';
+        kelBar.style.backgroundColor = 'var(--color-error)';
+        cameraFrame.style.borderColor = 'var(--color-error)';
+        
+        adviceEl.textContent = 'Terindikasi busuk/rusak. JANGAN DIOLAH UNTUK PROGRAM MBG! Segera pisahkan agar tidak mengontaminasi bahan pangan lainnya.';
+        adviceEl.style.background = 'rgba(217, 45, 32, 0.05)';
+        adviceEl.style.borderColor = 'rgba(217, 45, 32, 0.2)';
+        adviceEl.style.color = 'var(--color-error)';
+    }
+
+    if (document.getElementById('custom-result')) {
+        document.getElementById('custom-result').value = `Penerimaan Buah & Sayur: Klasifikasi ${res.label === 'segar' ? 'Segar' : 'Tidak Segar'} (Tingkat kesegaran: ${(res.segar).toFixed(1)}%).`;
+    }
+}
+
+function drawBoundingBoxK11(video) {
+    const overlay = document.getElementById('k11-overlay-canvas');
+    const rect = video.getBoundingClientRect();
+    overlay.width = rect.width;
+    overlay.height = rect.height;
+    
+    const ctx = overlay.getContext('2d');
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    
+    // Draw bounding box viewfinder border
+    ctx.strokeStyle = 'var(--color-primary)';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(10, 10, rect.width - 20, rect.height - 20);
+}
+
+function clearOverlayK11() {
+    const overlay = document.getElementById('k11-overlay-canvas');
+    const ctx = overlay.getContext('2d');
+    ctx.clearRect(0, 0, overlay.width, overlay.height);
+    document.getElementById('k11-result-overlay').style.display = 'none';
+    document.getElementById('k11-camera-frame').style.borderColor = 'var(--color-secondary)';
+}
+
+function addToHistoryK11(res) {
+    const isSegar = res.label === 'segar';
+    const conf = isSegar ? res.segar : res.tidak;
+    const color = isSegar ? 'var(--color-success)' : 'var(--color-error)';
+    const logTime = new Date().toLocaleTimeString('id-ID');
+    
+    const list = document.getElementById('k11-history-list');
+    if (list.textContent.includes('Belum ada')) list.innerHTML = '';
+    
+    const item = document.createElement('div');
+    item.className = 'flex-between';
+    item.style.borderBottom = '1px solid var(--color-secondary)';
+    item.style.paddingBottom = '4px';
+    item.style.fontSize = '12px';
+    item.innerHTML = `
+        <span><strong style="color: ${color};">${isSegar ? 'SEGAR' : 'RUSAK'}</strong> (${conf.toFixed(1)}%)</span>
+        <span style="color: var(--color-primary-60);">${logTime}</span>
+    `;
+    list.insertBefore(item, list.firstChild);
+    
+    if (list.children.length > 10) {
+        list.lastChild.remove();
+    }
+}
+
+function updateStatsK11(res) {
+    totalScan++;
+    const isSegar = res.label === 'segar';
+    if (isSegar) countSegar++; else countTidak++;
+    const activeConf = isSegar ? res.segar : res.tidak;
+    confSum += activeConf;
+    
+    document.getElementById('k11-total-scan').textContent = totalScan;
+    document.getElementById('k11-avg-conf').textContent = (confSum / totalScan).toFixed(1) + '%';
+    document.getElementById('k11-count-segar').textContent = countSegar;
+    document.getElementById('k11-count-tidak').textContent = countTidak;
+}
+
+function clearHistoryK11() {
+    document.getElementById('k11-history-list').innerHTML = '<div style="font-size: 11px; color: var(--color-primary-60); text-align: center; padding: 20px 0;">Belum ada riwayat pemindaian.</div>';
+    totalScan = 0; countSegar = 0; countTidak = 0; confSum = 0;
+    
+    document.getElementById('k11-total-scan').textContent = '0';
+    document.getElementById('k11-avg-conf').textContent = '—';
+    document.getElementById('k11-count-segar').textContent = '0';
+    document.getElementById('k11-count-tidak').textContent = '0';
+    
+    document.getElementById('k11-placeholder').style.display = 'block';
+    document.getElementById('k11-details-content').style.display = 'none';
+    clearOverlayK11();
+}
+</script>
+{% endblock %}

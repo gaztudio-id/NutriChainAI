@@ -1,216 +1,84 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok {{ num }} - {{ meta.title }}</title>
-    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
-    <!-- Theme Manager JS -->
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
-    <!-- Shared Design System CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .work-container {
-            border: 2px dashed var(--color-primary-70);
-            background-color: var(--color-workspace-bg);
-            border-radius: var(--rounded-sm);
-            padding: var(--spacing-lg);
-            text-align: center;
-            margin-top: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Modal dialog overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(18, 10, 89, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-card {
-            background-color: var(--color-surface);
-            border-radius: var(--rounded-sm);
-            border: 1px solid var(--color-secondary);
-            padding: 24px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-card {
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-
-                <!-- Dynamic Island Navbar -->
-    <div class="dynamic-island-container">
-        <div class="dynamic-island-nav">
-            <!-- Left links -->
-            <div class="nav-links-left">
-                <a href="/" class="nav-link-item">Home</a>
-                <a href="/about" class="nav-link-item">Tentang</a>
+{% extends 'partials/base_kelompok.html' %}
+{% block workspace %}
+<div class="feature-container">
+    <div class="card" style="padding: 20px;">
+        <div class="detail-info-label" style="margin-bottom: 12px;">Pilih Gambar Piring Pasca Konsumsi</div>
+        
+        <div class="upload-zone" onclick="document.getElementById('k7-file').click()">
+            <div class="upload-icon">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1z"/></svg>
             </div>
-            
-            <!-- Center Logo -->
-            <a href="/" class="brand-name-center">
-                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
-                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
-            </a>
-            
-            <!-- Right links -->
-            <div class="nav-links-right">
-                <a href="/dashboard" class="nav-link-item">Dashboard</a>
-                <a href="/status" class="nav-link-item active-page">Status Model</a>
-            </div>
+            <div class="upload-text" id="k7-upload-label">Pilih file gambar piring</div>
+            <div class="upload-hint">Format yang diterima: JPG, PNG, JPEG</div>
+            <input type="file" id="k7-file" accept="image/*" style="display: none;" onchange="previewK7()">
         </div>
+
+        <button onclick="detectK7()" class="btn btn-primary" style="margin-top: 16px; width: 100%;">Analisis Sisa Makanan</button>
     </div>
 
-    <!-- Main Content -->
-    <div class="container" style="max-width: 1100px;">
-        <section style="padding-top: var(--spacing-md);">
-            
-            <div class="flex-between">
-                <div>
-                    <h2 class="headline-md" style="margin-top: 8px;">Kelompok {{ num }}: {{ meta.title }}</h2>
-                    <p class="body-sm" style="margin-top: 4px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
-                </div>
-                
-                <div>
-                    {% if date %}
-                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Alur</a>
-                    {% else %}
-                        <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Cover</a>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Operational Status Banner -->
-            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
-                <div class="flex-between">
-                    <div>
-                        <span class="body-sm">Status Kegiatan Sesi Tanggal: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong>:</span>
-                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
-                            {% if status == 'completed' %}
-                                <span style="color: var(--color-success);">Telah Diselesaikan</span>
-                            {% else %}
-                                <span style="color: var(--color-primary-60);">Menunggu Pelaksanaan</span>
-                            {% endif %}
-                        </h4>
-                    </div>
-                    {% if date %}
-                        {% if status == 'completed' %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Ubah Hasil Harian</a>
-                        {% else %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Selesaikan Tugas Harian</a>
-                        {% endif %}
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Blank Workspace Area for Kelompok Developers -->
-            <div class="work-container">
-                <h3 class="headline-sm" style="color: var(--color-primary-60); margin-bottom: 8px;">Workspace Kelompok 7</h3>
-                <p class="body-sm" style="max-width: 500px;">
-                    Tempat pengerjaan Front End &amp; Integrasi Deep Learning Model oleh Kelompok 7.
-                </p>
-
-                <div style="text-align: left; background-color: var(--color-code-bg); border: 1px solid var(--color-secondary); padding: 16px; border-radius: var(--rounded-sm); width: 100%; margin-top: var(--spacing-md); font-family: monospace; font-size: 13px;">
-                    <!-- TODO: Kelompok 7 Developer: Masukkan form upload gambar piring kotor & penggolongan sisa makanan di sini -->
-                    <span style="color: #656d78;">&lt;!-- Masukkan Kode UI Front End Kelompok 7 di Sini --&gt;</span>
-                </div>
-            </div>
-
-            <!-- Technical Instructions Collapsible -->
-            <details class="tech-details">
-                <summary>💡 Petunjuk Integrasi Backend (Kelompok 7 Developer)</summary>
-                <div class="tech-content">
-&lt;!--
-Langkah Integrasi Backend Python Flask:
-1. Pastikan Anda mengimpor model Transfer Learning Anda (MobileNetV2/ResNet/dll).
-2. Edit file app.py utama:
-   a. Buat route POST untuk menerima file gambar piring kotor.
-   b. Jalankan inferensi klasifikasi piring kotor (Habis vs Sisa).
-   c. Simpan riwayat sisa makanan siswa ke log data harian.
---&gt;
-                </div>
-            </details>
-
-        </section>
+    <div class="preview-container">
+        <img id="k7-preview-img" class="preview-img" alt="Pratinjau piring kotor">
     </div>
 
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
-                </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
-                </p>
+    <div id="k7-result" class="result-box">
+        <div class="result-title">
+            Hasil Klasifikasi Tingkat Penerimaan
+        </div>
+        <div class="detail-info-grid" style="margin-top: 16px;">
+            <div class="detail-info-item">
+                <div class="detail-info-label">Status Penerimaan</div>
+                <div class="detail-info-value" id="k7-status">-</div>
+            </div>
+            <div class="detail-info-item">
+                <div class="detail-info-label">Tingkat Kepercayaan</div>
+                <div class="detail-info-value" id="k7-confidence">-</div>
             </div>
         </div>
-    </footer>
-
-
-    <!-- Alert Modal: Confirm Step Completion -->
-    <div class="modal-overlay" id="confirm-task-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Konfirmasi Penyelesaian</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                Apakah Anda yakin ingin menyimpan langkah ini untuk sesi tanggal <strong>{{ date }}</strong>?
-            </p>
-            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST" id="complete-task-form">
-                <div class="form-group" style="text-align: left; margin-top: 12px;">
-                    <label class="form-label" for="custom-result" style="font-size: 13px;">Detail Hasil Operasional (Hasil Model):</label>
-                    <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="border-radius: 8px; resize: vertical; font-size: 13px; font-family: inherit; width: 100%; box-sizing: border-box;">{{ result }}</textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Ya, Simpan</button>
-                </div>
-            </form>
+        <div class="detail-divider">
+            <div class="detail-info-label">Penjelasan Model</div>
+            <p class="detail-text-block" id="k7-desc">-</p>
         </div>
     </div>
+</div>
+{% endblock %}
 
-    <script>
-        function openTaskModal() {
-            document.getElementById('confirm-task-modal').classList.add('active');
-        }
-        function closeTaskModal() {
-            document.getElementById('confirm-task-modal').classList.remove('active');
-        }
-        function confirmCompleteTask(event) {
-            event.preventDefault();
-            openTaskModal();
-        }
-    </script>
+{% block extra_scripts %}
+<script>
+function previewK7() {
+    const file = document.getElementById('k7-file').files[0];
+    if (!file) return;
+    
+    document.getElementById('k7-upload-label').textContent = file.name;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = document.getElementById('k7-preview-img');
+        img.src = e.target.result;
+        img.style.display = 'inline-block';
+    }
+    reader.readAsDataURL(file);
+}
 
-</body>
-</html>
+async function detectK7() {
+    const file = document.getElementById('k7-file').files[0];
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const res = await fetch('/kelompok-7/predict', {
+        method: 'POST',
+        body: formData
+    });
+    const result = await res.json();
+    
+    document.getElementById('k7-result').style.display = 'block';
+    document.getElementById('k7-status').textContent = result.label;
+    document.getElementById('k7-confidence').textContent = result.confidence.toFixed(1) + '%';
+    document.getElementById('k7-desc').textContent = result.message;
+
+    if (document.getElementById('custom-result')) {
+        document.getElementById('custom-result').value = `Evaluasi Pasca-Konsumsi: Sisa piring terdeteksi ${result.label === 'MBG-Suka (Habis)' ? '5%' : '45%'}, Status Piring: ${result.label === 'MBG-Suka (Habis)' ? 'Habis' : 'Ada Sisa'}.`;
+    }
+}
+</script>
+{% endblock %}

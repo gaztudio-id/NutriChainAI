@@ -1,216 +1,422 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok {{ num }} - {{ meta.title }}</title>
-    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
-    <!-- Theme Manager JS -->
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
-    <!-- Shared Design System CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .work-container {
-            border: 2px dashed var(--color-primary-70);
-            background-color: var(--color-workspace-bg);
-            border-radius: var(--rounded-sm);
-            padding: var(--spacing-lg);
-            text-align: center;
-            margin-top: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+{% extends 'partials/base_kelompok.html' %}
+{% block workspace %}
+<div class="feature-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-        /* Modal dialog overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(18, 10, 89, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-card {
-            background-color: var(--color-surface);
-            border-radius: var(--rounded-sm);
-            border: 1px solid var(--color-secondary);
-            padding: 24px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-card {
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-
-                <!-- Dynamic Island Navbar -->
-    <div class="dynamic-island-container">
-        <div class="dynamic-island-nav">
-            <!-- Left links -->
-            <div class="nav-links-left">
-                <a href="/" class="nav-link-item">Home</a>
-                <a href="/about" class="nav-link-item">Tentang</a>
-            </div>
-            
-            <!-- Center Logo -->
-            <a href="/" class="brand-name-center">
-                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
-                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
-            </a>
-            
-            <!-- Right links -->
-            <div class="nav-links-right">
-                <a href="/dashboard" class="nav-link-item">Dashboard</a>
-                <a href="/status" class="nav-link-item active-page">Status Model</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container" style="max-width: 1100px;">
-        <section style="padding-top: var(--spacing-md);">
-            
-            <div class="flex-between">
-                <div>
-                    <h2 class="headline-md" style="margin-top: 8px;">Kelompok {{ num }}: {{ meta.title }}</h2>
-                    <p class="body-sm" style="margin-top: 4px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
-                </div>
+    <!-- Row 1: Workspace Grid (Left Panel Form, Right Panel Metrics & Curves) -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; flex-wrap: wrap;">
+        
+        <!-- Left Column: Input Form and Live Predict -->
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 16px; font-weight: 700;">Parameter Pengujian Menu</div>
+            <form id="k3-prediction-form" onsubmit="predictK3(event)">
                 
-                <div>
-                    {% if date %}
-                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Alur</a>
-                    {% else %}
-                        <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Cover</a>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Operational Status Banner -->
-            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
-                <div class="flex-between">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
                     <div>
-                        <span class="body-sm">Status Kegiatan Sesi Tanggal: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong>:</span>
-                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
-                            {% if status == 'completed' %}
-                                <span style="color: var(--color-success);">Telah Diselesaikan</span>
-                            {% else %}
-                                <span style="color: var(--color-primary-60);">Menunggu Pelaksanaan</span>
-                            {% endif %}
-                        </h4>
+                        <label class="form-label" for="waktu_makan">Waktu Makan</label>
+                        <select id="waktu_makan" name="waktu_makan" class="form-input">
+                            {% for item in categories.get('Waktu_Makan', ['Sarapan', 'Makan Siang', 'Makan Malam']) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    {% if date %}
-                        {% if status == 'completed' %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Ubah Hasil Harian</a>
-                        {% else %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Selesaikan Tugas Harian</a>
-                        {% endif %}
-                    {% endif %}
+                    <div>
+                        <label class="form-label" for="cuaca">Cuaca</label>
+                        <select id="cuaca" name="cuaca" class="form-input">
+                            {% for item in categories.get('Cuaca', ['Cerah', 'Berawan', 'Hujan']) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Blank Workspace Area for Kelompok Developers -->
-            <div class="work-container">
-                <h3 class="headline-sm" style="color: var(--color-primary-60); margin-bottom: 8px;">Workspace Kelompok 3</h3>
-                <p class="body-sm" style="max-width: 500px;">
-                    Tempat pengerjaan Front End &amp; Integrasi Deep Learning Model oleh Kelompok 3.
-                </p>
-
-                <div style="text-align: left; background-color: var(--color-code-bg); border: 1px solid var(--color-secondary); padding: 16px; border-radius: var(--rounded-sm); width: 100%; margin-top: var(--spacing-md); font-family: monospace; font-size: 13px;">
-                    <!-- TODO: Kelompok 3 Developer: Masukkan form parameter input tabular (cuaca, hari, lauk) di sini -->
-                    <span style="color: #656d78;">&lt;!-- Masukkan Kode UI Front End Kelompok 3 di Sini --&gt;</span>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                    <div>
+                        <label class="form-label" for="seksi_kantin">Kantin / Dapur</label>
+                        <select id="seksi_kantin" name="seksi_kantin" class="form-input">
+                            {% for item in categories.get('Seksi_Kantin', ['Seksi A', 'Seksi B']) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="karbohidrat">Karbohidrat</label>
+                        <select id="karbohidrat" name="karbohidrat" class="form-input">
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            {% for item in categories.get('Karbohidrat', []) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Technical Instructions Collapsible -->
-            <details class="tech-details">
-                <summary>💡 Petunjuk Integrasi Backend (Kelompok 3 Developer)</summary>
-                <div class="tech-content">
-&lt;!--
-Langkah Integrasi Backend Python Flask:
-1. Pastikan mengimpor scikit-learn / TensorFlow untuk model tabular Anda.
-2. Edit file app.py utama:
-   a. Buat route POST untuk menerima data inputan cuaca, hari, dan menu.
-   b. Lakukan encoding kategori input dan jalankan prediksi kelayakan gizi.
-   c. Return hasil evaluasi kesukaan kembali ke halaman ini.
---&gt;
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                    <div>
+                        <label class="form-label" for="lauk_protein">Lauk Protein</label>
+                        <select id="lauk_protein" name="lauk_protein" class="form-input">
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            {% for item in categories.get('Lauk_Protein', []) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="sayuran">Sayuran</label>
+                        <select id="sayuran" name="sayuran" class="form-input">
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            {% for item in categories.get('Sayuran', []) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="sup">Sup</label>
+                        <select id="sup" name="sup" class="form-input">
+                            <option value="Tidak Ada">Tidak Ada</option>
+                            {% for item in categories.get('Sup', []) %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-            </details>
 
-        </section>
-    </div>
+                <!-- Sliders & Inputs for Sisa Komponen -->
+                <div style="background: var(--color-workspace-bg); padding: 16px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); margin-bottom: 20px;">
+                    <div class="flex-between" style="margin-bottom: 12px;">
+                        <span class="detail-info-label" style="margin: 0; font-weight: 700;">Sisa Per Komponen</span>
+                        <div style="font-size: 13px; font-weight: 700; color: var(--color-primary);">
+                            Rata-rata: <span id="sisa-rata-display">0</span>% <span id="sisa-rata-badge" style="display: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 4px;">-</span>
+                        </div>
+                    </div>
 
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Karbohidrat -->
+                        <div>
+                            <div class="flex-between" style="font-size: 11px; margin-bottom: 4px;">
+                                <label for="sisa_karbohidrat">Karbohidrat (%)</label>
+                                <input type="number" id="sisa_karbohidrat" class="sisa-num form-input" style="width: 60px; padding: 2px 4px; font-size: 11px; text-align: center;" min="0" max="100" value="0">
+                            </div>
+                            <input type="range" class="sisa-slider" data-target="sisa_karbohidrat" min="0" max="100" value="0" style="width: 100%; height: 4px; accent-color: var(--color-primary);">
+                        </div>
+                        
+                        <!-- Lauk -->
+                        <div>
+                            <div class="flex-between" style="font-size: 11px; margin-bottom: 4px;">
+                                <label for="sisa_lauk">Lauk (%)</label>
+                                <input type="number" id="sisa_lauk" class="sisa-num form-input" style="width: 60px; padding: 2px 4px; font-size: 11px; text-align: center;" min="0" max="100" value="0">
+                            </div>
+                            <input type="range" class="sisa-slider" data-target="sisa_lauk" min="0" max="100" value="0" style="width: 100%; height: 4px; accent-color: var(--color-primary);">
+                        </div>
+
+                        <!-- Sayur -->
+                        <div>
+                            <div class="flex-between" style="font-size: 11px; margin-bottom: 4px;">
+                                <label for="sisa_sayuran">Sayur (%)</label>
+                                <input type="number" id="sisa_sayuran" class="sisa-num form-input" style="width: 60px; padding: 2px 4px; font-size: 11px; text-align: center;" min="0" max="100" value="0">
+                            </div>
+                            <input type="range" class="sisa-slider" data-target="sisa_sayuran" min="0" max="100" value="0" style="width: 100%; height: 4px; accent-color: var(--color-primary);">
+                        </div>
+
+                        <!-- Sup -->
+                        <div>
+                            <div class="flex-between" style="font-size: 11px; margin-bottom: 4px;">
+                                <label for="sisa_sup">Sup (%)</label>
+                                <input type="number" id="sisa_sup" class="sisa-num form-input" style="width: 60px; padding: 2px 4px; font-size: 11px; text-align: center;" min="0" max="100" value="0">
+                            </div>
+                            <input type="range" class="sisa-slider" data-target="sisa_sup" min="0" max="100" value="0" style="width: 100%; height: 4px; accent-color: var(--color-primary);">
+                        </div>
+                    </div>
                 </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
-                </p>
-            </div>
-        </div>
-    </footer>
 
-
-    <!-- Alert Modal: Confirm Step Completion -->
-    <div class="modal-overlay" id="confirm-task-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Konfirmasi Penyelesaian</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                Apakah Anda yakin ingin menyimpan langkah ini untuk sesi tanggal <strong>{{ date }}</strong>?
-            </p>
-            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST" id="complete-task-form">
-                <div class="form-group" style="text-align: left; margin-top: 12px;">
-                    <label class="form-label" for="custom-result" style="font-size: 13px;">Detail Hasil Operasional (Hasil Model):</label>
-                    <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="border-radius: 8px; resize: vertical; font-size: 13px; font-family: inherit; width: 100%; box-sizing: border-box;">{{ result }}</textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Ya, Simpan</button>
-                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Mulai Prediksi Preferensi</button>
             </form>
+
+            <!-- Predictions Result Injected Under Form -->
+            <div id="k3-result" class="result-box" style="display: none; margin-top: 20px;">
+                <div class="result-title">Hasil Prediksi Preferensi</div>
+                <div class="detail-info-grid" style="margin-top: 12px;">
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Klasifikasi Menu</div>
+                        <div class="detail-info-value" id="k3-label" style="font-size: 16px; font-weight: 700;">-</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Probabilitas Disukai</div>
+                        <div class="detail-info-value" id="k3-probability">-</div>
+                    </div>
+                </div>
+                <div class="detail-divider">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span>Confidence:</span>
+                        <strong id="k3-confidence-text">-</strong>
+                    </div>
+                    <div class="confidence-bar-container" style="height: 6px; margin: 0;">
+                        <div class="confidence-bar-fill" id="k3-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div id="k3-advice" style="padding: 10px; border-radius: var(--rounded-sm); border: 1px solid var(--color-secondary); font-size: 12px; margin-top: 10px; line-height: 1.4;">
+                    -
+                </div>
+            </div>
         </div>
+
+        <!-- Right Column: Model Metrics, Confusion Matrix, and Training curves -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+            
+            <!-- Card: Performance metrics -->
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Kinerja Model (DNN)</div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-value" style="font-size: 15px; font-weight: 700; color: var(--color-primary);">99.09%</div>
+                        <div class="detail-info-label" style="font-size: 9px; margin-top: 2px;">Akurasi</div>
+                    </div>
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-value" style="font-size: 15px; font-weight: 700; color: var(--color-primary);">85.71%</div>
+                        <div class="detail-info-label" style="font-size: 9px; margin-top: 2px;">Precision</div>
+                    </div>
+                    <div class="card" style="padding: 8px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg);">
+                        <div class="detail-info-value" style="font-size: 15px; font-weight: 700; color: var(--color-primary);">92.31%</div>
+                        <div class="detail-info-label" style="font-size: 9px; margin-top: 2px;">F1-Score</div>
+                    </div>
+                </div>
+
+                <!-- Confusion Matrix Heatmap (styled cells) -->
+                <div class="detail-divider" style="margin-top: 16px;">
+                    <div class="detail-info-label" style="margin-bottom: 8px;">Confusion Matrix (Test Set)</div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-width: 260px; margin: 0 auto;">
+                        <div style="background: rgba(16,185,129,0.15); border: 1px solid var(--color-success); border-radius: var(--rounded-sm); padding: 8px; text-align: center;">
+                            <div style="font-size: 14px; font-weight: 800; color: var(--color-success);">103</div>
+                            <div style="font-size: 8px; color: var(--color-primary-60);">TN (Tidak Suka)</div>
+                        </div>
+                        <div style="background: rgba(217,45,32,0.05); border: 1px solid var(--color-secondary); border-radius: var(--rounded-sm); padding: 8px; text-align: center;">
+                            <div style="font-size: 14px; font-weight: 800; color: var(--color-primary-60);">1</div>
+                            <div style="font-size: 8px; color: var(--color-primary-60);">FP</div>
+                        </div>
+                        <div style="background: rgba(217,45,32,0.05); border: 1px solid var(--color-secondary); border-radius: var(--rounded-sm); padding: 8px; text-align: center;">
+                            <div style="font-size: 14px; font-weight: 800; color: var(--color-primary-60);">0</div>
+                            <div style="font-size: 8px; color: var(--color-primary-60);">FN</div>
+                        </div>
+                        <div style="background: rgba(16,185,129,0.15); border: 1px solid var(--color-success); border-radius: var(--rounded-sm); padding: 8px; text-align: center;">
+                            <div style="font-size: 14px; font-weight: 800; color: var(--color-success);">6</div>
+                            <div style="font-size: 8px; color: var(--color-primary-60);">TP (Disukai)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Training curves -->
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Riwayat Training (80 Epoch)</div>
+                <div style="position: relative; height: 180px; width: 100%;">
+                    <canvas id="k3-training-chart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <script>
-        function openTaskModal() {
-            document.getElementById('confirm-task-modal').classList.add('active');
-        }
-        function closeTaskModal() {
-            document.getElementById('confirm-task-modal').classList.remove('active');
-        }
-        function confirmCompleteTask(event) {
-            event.preventDefault();
-            openTaskModal();
-        }
-    </script>
+    <!-- Row 2: Recommendation List (Dataset check) -->
+    <div class="card" style="padding: 20px;">
+        <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">5 Usulan Menu Paling Sedikit Sisa Porsi (Historis)</div>
+        <table class="gizi-table">
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Karbohidrat</th>
+                    <th>Lauk Protein</th>
+                    <th>Sisa Piring Rata-rata</th>
+                    <th>Confidence</th>
+                </tr>
+            </thead>
+            <tbody id="k3-recommend-body">
+                <tr><td colspan="5" style="text-align: center; color: var(--color-primary-60);">Memuat rekomendasi menu...</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+// Sliders & inputs synchronization
+const sisaIds = ['sisa_karbohidrat', 'sisa_lauk', 'sisa_sayuran', 'sisa_sup'];
+
+function calcAvgSisa() {
+    const values = sisaIds.map(id => {
+        const el = document.getElementById(id);
+        const v = el ? parseFloat(el.value) : NaN;
+        return (!isNaN(v) && el.value.trim() !== '') ? Math.min(100, Math.max(0, v)) : null;
+    }).filter(v => v !== null);
+
+    const avg = values.length > 0 ? (values.reduce((a, b) => a + b, 0) / values.length) : 0;
+    
+    document.getElementById('sisa-rata-display').textContent = avg.toFixed(1);
+    
+    const badge = document.getElementById('sisa-rata-badge');
+    badge.style.display = values.length > 0 ? 'inline-block' : 'none';
+    if (avg <= 20) {
+        badge.textContent = 'DISUKAI';
+        badge.style.backgroundColor = 'rgba(13,148,136,0.1)';
+        badge.style.color = 'var(--color-success)';
+    } else {
+        badge.textContent = 'TIDAK SUKA';
+        badge.style.backgroundColor = 'rgba(217,45,32,0.1)';
+        badge.style.color = 'var(--color-error)';
+    }
+}
+
+sisaIds.forEach(id => {
+    const numInput = document.getElementById(id);
+    const slider = document.querySelector(`.sisa-slider[data-target="${id}"]`);
+    if (numInput && slider) {
+        numInput.addEventListener('input', () => {
+            slider.value = numInput.value || 0;
+            calcAvgSisa();
+        });
+        slider.addEventListener('input', () => {
+            numInput.value = slider.value;
+            calcAvgSisa();
+        });
+    }
+});
+
+async function loadK3Recommendations() {
+    try {
+        const res = await fetch('/kelompok-3/recommend');
+        const data = await res.json();
+        if (data.status === 'success') {
+            let html = '';
+            data.data.forEach(m => {
+                html += `
+                    <tr>
+                        <td>${m.waktu_makan || '-'}</td>
+                        <td><strong>${m.karbohidrat || '-'}</strong></td>
+                        <td>${m.lauk_protein || '-'}</td>
+                        <td style="font-weight:600; color:var(--color-success);">${m.persentase_sisa.toFixed(1)}%</td>
+                        <td>${m.confidence ? m.confidence.toFixed(1) + '%' : '—'}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('k3-recommend-body').innerHTML = html;
+        }
+    } catch (e) {
+        document.getElementById('k3-recommend-body').innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--color-error);">Gagal memuat rekomendasi menu.</td></tr>';
+    }
+}
+
+async function predictK3(e) {
+    e.preventDefault();
+    const persentase_sisa = parseFloat(document.getElementById('sisa-rata-display').textContent) || 0;
+    const payload = {
+        persentase_sisa: persentase_sisa,
+        waktu_makan: document.getElementById('waktu_makan').value,
+        cuaca: document.getElementById('cuaca').value,
+        seksi_kantin: document.getElementById('seksi_kantin').value,
+        karbohidrat: document.getElementById('karbohidrat').value,
+        lauk_protein: document.getElementById('lauk_protein').value,
+        sayuran: document.getElementById('sayuran').value,
+        sup: document.getElementById('sup').value,
+        sisa_karbohidrat: parseFloat(document.getElementById('sisa_karbohidrat').value) || 0,
+        sisa_lauk: parseFloat(document.getElementById('sisa_lauk').value) || 0,
+        sisa_sayuran: parseFloat(document.getElementById('sisa_sayuran').value) || 0,
+        sisa_sup: parseFloat(document.getElementById('sisa_sup').value) || 0
+    };
+
+    const res = await fetch('/kelompok-3/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    const result = await res.json();
+    
+    const resultBox = document.getElementById('k3-result');
+    resultBox.style.display = 'block';
+
+    const isDisukai = result.label === 'Disukai';
+    const labelEl = document.getElementById('k3-label');
+    labelEl.textContent = result.label.toUpperCase();
+    labelEl.style.color = isDisukai ? 'var(--color-success)' : 'var(--color-error)';
+    
+    const probVal = result.probability * 100;
+    document.getElementById('k3-probability').textContent = probVal.toFixed(1) + '%';
+    
+    document.getElementById('k3-confidence-text').textContent = result.confidence.toFixed(1) + '%';
+    
+    const bar = document.getElementById('k3-bar');
+    bar.style.width = result.confidence + '%';
+    bar.style.backgroundColor = isDisukai ? 'var(--color-success)' : 'var(--color-error)';
+    
+    const adviceEl = document.getElementById('k3-advice');
+    if (document.getElementById('custom-result')) {
+        document.getElementById('custom-result').value = `Estimasi sisa porsi: ${persentase_sisa.toFixed(1)}%. Tingkat Kesukaan: ${result.label === 'Disukai' ? 'Tinggi (Menu Layak Dilanjutkan)' : 'Rendah (Menu Perlu Dievaluasi)'}.`;
+    }
+    if (isDisukai) {
+        adviceEl.textContent = 'Menu berpotensi disukai oleh sebagian besar peserta didik. Layak dipertahankan dalam program Makan Bergizi Gratis (MBG) untuk wilayah ini.';
+        adviceEl.style.background = 'rgba(13, 148, 136, 0.05)';
+        adviceEl.style.borderColor = 'rgba(13, 148, 136, 0.2)';
+        adviceEl.style.color = 'var(--color-success)';
+    } else {
+        adviceEl.textContent = 'Menu ini berpotensi menghasilkan banyak sisa pangan (> 20%). Evaluasi bahan makanan, bumbu, atau penyajian untuk menekan pembuangan makanan.';
+        adviceEl.style.background = 'rgba(217, 45, 32, 0.05)';
+        adviceEl.style.borderColor = 'rgba(217, 45, 32, 0.2)';
+        adviceEl.style.color = 'var(--color-error)';
+    }
+}
+
+// Draw Training chart using K3 dataset training arrays
+function drawK3TrainingChart() {
+    const ctx = document.getElementById('k3-training-chart').getContext('2d');
+    const epochs = Array.from({length: 80}, (_, i) => i + 1);
+    const trainLoss = [0.686, 0.6773, 0.6682, 0.6622, 0.6523, 0.6365, 0.6304, 0.6161, 0.6023, 0.5802, 0.5655, 0.5447, 0.5106, 0.4987, 0.4864, 0.464, 0.4362, 0.4191, 0.4079, 0.3921, 0.3656, 0.358, 0.3658, 0.3394, 0.3194, 0.2927, 0.3, 0.2896, 0.2768, 0.2566, 0.2632, 0.2375, 0.2219, 0.2277, 0.2162, 0.2015, 0.195, 0.2244, 0.1955, 0.1861, 0.1687, 0.1728, 0.1648, 0.1659, 0.1647, 0.1564, 0.1708, 0.1418, 0.1418, 0.1482, 0.1555, 0.1243, 0.1073, 0.1482, 0.1297, 0.1027, 0.1139, 0.1059, 0.1169, 0.0969, 0.1118, 0.1094, 0.0988, 0.0926, 0.0988, 0.1277, 0.0814, 0.0924, 0.1169, 0.089, 0.0847, 0.0902, 0.0666, 0.0936, 0.0887, 0.0968, 0.0802, 0.0917, 0.0996, 0.0737];
+    const valAcc = [94.55, 94.55, 95.45, 95.45, 95.45, 95.45, 95.45, 96.36, 98.18, 98.18, 99.09, 99.09, 99.09, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 99.09, 99.09, 99.09, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 97.27, 98.18, 97.27, 97.27, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 97.27, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18, 98.18];
+    const trainAcc = [78.32, 89.45, 91.02, 92.19, 92.58, 93.75, 93.16, 93.95, 95.12, 96.48, 96.29, 96.29, 98.63, 98.05, 97.07, 98.24, 98.24, 98.83, 98.44, 98.44, 97.85, 96.88, 96.09, 97.46, 96.48, 97.66, 96.68, 96.68, 95.7, 96.68, 95.51, 95.9, 95.9, 96.48, 94.92, 95.9, 95.9, 95.51, 95.9, 95.31, 97.66, 95.7, 95.51, 96.68, 96.29, 96.68, 95.31, 95.51, 96.48, 95.9, 94.92, 96.88, 97.66, 95.7, 96.68, 96.88, 96.48, 95.12, 96.09, 96.48, 97.85, 97.07, 97.27, 97.46, 96.09, 96.68, 97.27, 96.48, 96.29, 96.88, 97.07, 96.88, 98.05, 96.68, 95.7, 96.09, 97.66, 96.88, 96.88, 97.07];
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: epochs,
+            datasets: [
+                {
+                    label: 'Train Acc (%)',
+                    data: trainAcc,
+                    borderColor: '#1F5EAB',
+                    backgroundColor: 'rgba(31,94,171,0.05)',
+                    tension: 0.2,
+                    borderWidth: 1.5,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Val Acc (%)',
+                    data: valAcc,
+                    borderColor: '#0D9488',
+                    backgroundColor: 'rgba(13,148,136,0.05)',
+                    tension: 0.2,
+                    borderWidth: 1.5,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Loss',
+                    data: trainLoss,
+                    borderColor: '#EF4444',
+                    borderDash: [4, 4],
+                    tension: 0.2,
+                    borderWidth: 1.2,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } }
+        }
+    });
+}
+
+// Initial loads
+loadK3Recommendations();
+drawK3TrainingChart();
+</script>
+{% endblock %}

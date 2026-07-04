@@ -1,216 +1,396 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok {{ num }} - {{ meta.title }}</title>
-    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
-    <!-- Theme Manager JS -->
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
-    <!-- Shared Design System CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .work-container {
-            border: 2px dashed var(--color-primary-70);
-            background-color: var(--color-workspace-bg);
-            border-radius: var(--rounded-sm);
-            padding: var(--spacing-lg);
-            text-align: center;
-            margin-top: var(--spacing-md);
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+{% extends 'partials/base_kelompok.html' %}
+{% block workspace %}
+<div class="feature-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-        /* Modal dialog overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(18, 10, 89, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-card {
-            background-color: var(--color-surface);
-            border-radius: var(--rounded-sm);
-            border: 1px solid var(--color-secondary);
-            padding: 24px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(18, 10, 89, 0.15);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-card {
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-
-                <!-- Dynamic Island Navbar -->
-    <div class="dynamic-island-container">
-        <div class="dynamic-island-nav">
-            <!-- Left links -->
-            <div class="nav-links-left">
-                <a href="/" class="nav-link-item">Home</a>
-                <a href="/about" class="nav-link-item">Tentang</a>
-            </div>
-            
-            <!-- Center Logo -->
-            <a href="/" class="brand-name-center">
-                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
-                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
-            </a>
-            
-            <!-- Right links -->
-            <div class="nav-links-right">
-                <a href="/dashboard" class="nav-link-item">Dashboard</a>
-                <a href="/status" class="nav-link-item active-page">Status Model</a>
-            </div>
-        </div>
+    <!-- Row 0: Tabs Navigation -->
+    <div style="display: flex; gap: 12px; border-bottom: 1px solid var(--color-secondary); padding-bottom: 8px;">
+        <button class="btn btn-primary" id="k10-tab-detect-btn" onclick="switchK10Tab('detect')" style="min-height: auto; padding: 6px 16px;">Deteksi &amp; Scan</button>
+        <button class="btn btn-secondary" id="k10-tab-dash-btn" onclick="switchK10Tab('dash')" style="min-height: auto; padding: 6px 16px;">Dashboard Overview</button>
     </div>
 
-    <!-- Main Content -->
-    <div class="container" style="max-width: 1100px;">
-        <section style="padding-top: var(--spacing-md);">
+    <!-- TAB 1: DETEKSI & SCAN -->
+    <div id="k10-tab-detect" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; flex-wrap: wrap;">
+        
+        <!-- Left: Upload Zone -->
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Unggah Gambar Sampel</div>
             
-            <div class="flex-between">
-                <div>
-                    <h2 class="headline-md" style="margin-top: 8px;">Kelompok {{ num }}: {{ meta.title }}</h2>
-                    <p class="body-sm" style="margin-top: 4px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
+            <!-- Drag and Drop Zone -->
+            <div class="upload-zone" id="k10-dropzone" onclick="document.getElementById('k10-file').click()" style="border: 2px dashed var(--color-secondary); padding: 40px; text-align: center; border-radius: var(--rounded-sm); cursor: pointer; background: var(--color-workspace-bg); margin-bottom: 16px; transition: border-color 0.2s;">
+                <div id="k10-upload-placeholder">
+                    <div style="font-size: 28px; margin-bottom: 8px;">📁</div>
+                    <div class="upload-text" style="font-weight: 600; color: var(--color-primary);">Klik atau seret gambar di sini</div>
+                    <div class="upload-hint" style="font-size: 11px; color: var(--color-primary-60); margin-top: 4px;">PNG, JPG, JPEG (Max 16MB)</div>
                 </div>
-                
-                <div>
-                    {% if date %}
-                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Alur</a>
-                    {% else %}
-                        <a href="/" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;"> Kembali ke Cover</a>
-                    {% endif %}
-                </div>
+                <input type="file" id="k10-file" accept="image/*" style="display: none;" onchange="previewK10()">
             </div>
 
-            <!-- Operational Status Banner -->
-            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-sm) var(--spacing-md);">
-                <div class="flex-between">
-                    <div>
-                        <span class="body-sm">Status Kegiatan Sesi Tanggal: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong>:</span>
-                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
-                            {% if status == 'completed' %}
-                                <span style="color: var(--color-success);">Telah Diselesaikan</span>
-                            {% else %}
-                                <span style="color: var(--color-primary-60);">Menunggu Pelaksanaan</span>
-                            {% endif %}
-                        </h4>
+            <!-- Samples section presets -->
+            <div style="margin-top: 16px;">
+                <div class="detail-info-label" style="font-size: 11px; margin-bottom: 8px;">Coba Gambar Sampel:</div>
+                <div style="display: flex; gap: 12px;" id="k10-samples-container">
+                    <div onclick="loadExampleK10('sampel_sehat_1.png')" style="cursor: pointer; font-size: 11px; border: 1px solid var(--color-secondary); padding: 6px 12px; border-radius: var(--rounded-sm); background: var(--color-workspace-bg); font-weight: 600;">Sampel Sehat 1</div>
+                    <div onclick="loadExampleK10('sampel_anomali_1.png')" style="cursor: pointer; font-size: 11px; border: 1px solid var(--color-secondary); padding: 6px 12px; border-radius: var(--rounded-sm); background: var(--color-workspace-bg); font-weight: 600;">Sampel Anomali 1</div>
+                    <div onclick="loadExampleK10('sampel_anomali_2.png')" style="cursor: pointer; font-size: 11px; border: 1px solid var(--color-secondary); padding: 6px 12px; border-radius: var(--rounded-sm); background: var(--color-workspace-bg); font-weight: 600;">Sampel Anomali 2</div>
+                </div>
+            </div>
+            
+            <button onclick="detectK10()" class="btn btn-primary" style="margin-top: 20px; width: 100%;">Mulai Scan Deteksi</button>
+        </div>
+
+        <!-- Right: Results Card with scanning animations -->
+        <div id="k10-result-card" class="result-box" style="margin-top: 0; min-height: 380px;">
+            <div class="result-title">Hasil Analisis Spektrogram</div>
+            
+            <!-- Default placeholder state -->
+            <div id="k10-placeholder" style="text-align: center; color: var(--color-primary-60); padding: 80px 20px;">
+                Unggah gambar makanan di sebelah kiri untuk melihat hasil klasifikasi model anomali secara real-time.
+            </div>
+
+            <!-- Scanning preview animation state -->
+            <div id="k10-scanning" style="display: none; text-align: center; padding: 40px 20px;">
+                <div style="position: relative; max-height: 200px; max-width: 100%; border-radius: var(--rounded-sm); overflow: hidden; margin: 0 auto 16px;">
+                    <img id="k10-scan-preview" style="max-height: 200px; display: block; margin: 0 auto; border-radius: var(--rounded-sm);" alt="Preview">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--color-primary); animation: scanAnimK10 1.5s linear infinite;"></div>
+                </div>
+                <div class="body-sm" style="color: var(--color-primary); font-weight: 700;">Menganalisis piksel makanan...</div>
+            </div>
+
+            <!-- Style keyframe for scanning -->
+            <style>
+                @keyframes scanAnimK10 {
+                    0% { top: 0%; }
+                    50% { top: 100%; }
+                    100% { top: 0%; }
+                }
+            </style>
+
+            <!-- Results details state -->
+            <div id="k10-details" style="display: none; margin-top: 16px;">
+                <div style="max-height: 180px; overflow: hidden; border-radius: var(--rounded-sm); margin-bottom: 16px; border: 1px solid var(--color-secondary); background: var(--color-workspace-bg); display: flex; align-items: center; justify-content: center;">
+                    <img id="k10-result-img" style="max-height: 180px; width: auto;" alt="Result">
+                </div>
+
+                <div class="detail-info-grid">
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Klasifikasi Model</div>
+                        <div class="detail-info-value" id="k10-status" style="font-size: 16px; font-weight: 700;">-</div>
                     </div>
-                    {% if date %}
-                        {% if status == 'completed' %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-secondary" style="min-height: auto; padding: 8px 16px;">Ubah Hasil Harian</a>
-                        {% else %}
-                            <a onclick="confirmCompleteTask(event)" class="btn btn-primary" style="min-height: auto; padding: 8px 16px;">Selesaikan Tugas Harian</a>
-                        {% endif %}
-                    {% endif %}
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Waktu Deteksi</div>
+                        <div class="detail-info-value" id="k10-time" style="font-size: 12px;">-</div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Blank Workspace Area for Kelompok Developers -->
-            <div class="work-container">
-                <h3 class="headline-sm" style="color: var(--color-primary-60); margin-bottom: 8px;">Workspace Kelompok 10</h3>
-                <p class="body-sm" style="max-width: 500px;">
-                    Tempat pengerjaan Front End &amp; Integrasi Deep Learning Model oleh Kelompok 10.
-                </p>
-
-                <div style="text-align: left; background-color: var(--color-code-bg); border: 1px solid var(--color-secondary); padding: 16px; border-radius: var(--rounded-sm); width: 100%; margin-top: var(--spacing-md); font-family: monospace; font-size: 13px;">
-                    <!-- TODO: Kelompok 10 Developer: Masukkan form spectral band slider / HDR visualizer di sini -->
-                    <span style="color: #656d78;">&lt;!-- Masukkan Kode UI Front End Kelompok 10 di Sini --&gt;</span>
+                <div class="detail-divider">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span>Indeks/Nilai Anomali:</span>
+                        <strong id="k10-prediction-val">-</strong>
+                    </div>
+                    <div class="confidence-bar-container" style="height: 6px; margin: 0;">
+                        <div class="confidence-bar-fill" id="k10-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <span id="k10-explanation" style="font-size: 10px; color: var(--color-primary-60); display: block; margin-top: 6px; line-height: 1.4;"></span>
                 </div>
-            </div>
-
-            <!-- Technical Instructions Collapsible -->
-            <details class="tech-details">
-                <summary>💡 Petunjuk Integrasi Backend (Kelompok 10 Developer)</summary>
-                <div class="tech-content">
-&lt;!--
-Langkah Integrasi Backend Python Flask:
-1. Pastikan Anda mengimpor library pengolahan spektral (spectral/numpy/scipy) di Flask.
-2. Edit file app.py utama:
-   a. Buat route POST untuk menerima data kubus hiperspektral (.hdr / .dat).
-   b. Jalankan algoritma ERX untuk menemukan anomali mikro (logam, kaca).
-   c. Tampilkan data anomali dan safety index kembali ke HTML.
---&gt;
-                </div>
-            </details>
-
-        </section>
-    </div>
-
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height: 20px; width: auto;">
-                    <strong style="color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.5px;">NutriChainAI</strong>
-                </div>
-                <p class="body-sm" style="color: var(--color-primary-60); margin: 0;">
-                    &copy; 2026 NutriChainAI. Sistem Pengawasan &amp; Audit Digital Makan Bergizi Gratis (MBG) Nasional.
-                </p>
-                <p style="font-size: 11px; color: var(--color-primary-70); margin: 0;">
-                    Dikelola oleh Satuan Pelayanan Dapur Umum (SPPG) • Kerja Sama Teknologi Badan Gizi Nasional
-                </p>
             </div>
         </div>
-    </footer>
 
-
-    <!-- Alert Modal: Confirm Step Completion -->
-    <div class="modal-overlay" id="confirm-task-modal">
-        <div class="modal-card">
-            <h3 class="headline-sm" style="margin-bottom: 12px;">Konfirmasi Penyelesaian</h3>
-            <p class="body-sm" style="color: var(--color-primary-60); margin-bottom: var(--spacing-sm);">
-                Apakah Anda yakin ingin menyimpan langkah ini untuk sesi tanggal <strong>{{ date }}</strong>?
-            </p>
-            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST" id="complete-task-form">
-                <div class="form-group" style="text-align: left; margin-top: 12px;">
-                    <label class="form-label" for="custom-result" style="font-size: 13px;">Detail Hasil Operasional (Hasil Model):</label>
-                    <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="border-radius: 8px; resize: vertical; font-size: 13px; font-family: inherit; width: 100%; box-sizing: border-box;">{{ result }}</textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height: 36px; padding: 4px 16px;">Batal</button>
-                    <button type="submit" class="btn btn-primary" style="min-height: 36px; padding: 4px 16px;">Ya, Simpan</button>
-                </div>
-            </form>
-        </div>
     </div>
 
-    <script>
-        function openTaskModal() {
-            document.getElementById('confirm-task-modal').classList.add('active');
-        }
-        function closeTaskModal() {
-            document.getElementById('confirm-task-modal').classList.remove('active');
-        }
-        function confirmCompleteTask(event) {
-            event.preventDefault();
-            openTaskModal();
-        }
-    </script>
+    <!-- TAB 2: DASHBOARD OVERVIEW -->
+    <div id="k10-tab-dash" style="display: none; flex-direction: column; gap: 24px;">
+        
+        <!-- Stats cards grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label">Total Scan</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px;" id="k10-stat-total">-</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label" style="color: var(--color-success);">Bahan Normal</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px; color: var(--color-success);" id="k10-stat-normal">-</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label" style="color: var(--color-error);">Terdeteksi Anomali</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px; color: var(--color-error);" id="k10-stat-anomaly">-</div>
+            </div>
+            <div class="card" style="padding: 16px; text-align: center; border: 1px solid var(--color-secondary);">
+                <div class="detail-info-label" style="color: var(--color-warn);">Rasio Anomali</div>
+                <div class="headline-md" style="margin-top: 8px; font-size: 22px; color: var(--color-warn);" id="k10-stat-rate">-</div>
+            </div>
+        </div>
 
-</body>
-</html>
+        <!-- Charts grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Tren Deteksi (7 Hari Terakhir)</div>
+                <div style="position: relative; height: 180px; width: 100%;">
+                    <canvas id="k10-chart-trend"></canvas>
+                </div>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Distribusi Kategori</div>
+                <div style="position: relative; height: 180px; width: 100%; display: flex; justify-content: center;">
+                    <canvas id="k10-chart-dist" style="max-height: 180px; max-width: 180px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent scans table log -->
+        <div class="card" style="padding: 20px;">
+            <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Daftar Scan Terakhir (SQLite)</div>
+            <table class="gizi-table">
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Nama File</th>
+                        <th>Waktu</th>
+                        <th>Nilai Anomali</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="k10-table-body">
+                    <tr><td colspan="5" style="text-align: center; color: var(--color-primary-60);">Belum ada riwayat scan.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+let trendChartK10 = null;
+let distChartK10 = null;
+
+function switchK10Tab(tab) {
+    const detectTab = document.getElementById('k10-tab-detect');
+    const dashTab = document.getElementById('k10-tab-dash');
+    const detectBtn = document.getElementById('k10-tab-detect-btn');
+    const dashBtn = document.getElementById('k10-tab-dash-btn');
+    
+    if (tab === 'detect') {
+        detectTab.style.display = 'grid';
+        dashTab.style.display = 'none';
+        detectBtn.className = 'btn btn-primary';
+        dashBtn.className = 'btn btn-secondary';
+    } else {
+        detectTab.style.display = 'none';
+        dashTab.style.display = 'flex';
+        detectBtn.className = 'btn btn-secondary';
+        dashBtn.className = 'btn btn-primary';
+        
+        loadK10Dashboard();
+    }
+}
+
+function previewK10() {
+    const file = document.getElementById('k10-file').files[0];
+    if (!file) return;
+    
+    document.getElementById('k10-upload-placeholder').style.display = 'none';
+    const preview = document.getElementById('k10-scan-preview');
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        preview.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+}
+
+// Drag and drop zone interactions
+const dropzone = document.getElementById('k10-dropzone');
+dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.style.borderColor = 'var(--color-primary)';
+});
+dropzone.addEventListener('dragleave', () => {
+    dropzone.style.borderColor = 'var(--color-secondary)';
+});
+dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.style.borderColor = 'var(--color-secondary)';
+    const file = e.dataTransfer.files[0];
+    if (file) {
+        document.getElementById('k10-file').files = e.dataTransfer.files;
+        document.getElementById('k10-upload-placeholder').style.display = 'none';
+        const preview = document.getElementById('k10-scan-preview');
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            preview.src = evt.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+function loadExampleK10(filename) {
+    document.getElementById('k10-upload-placeholder').style.display = 'none';
+    const preview = document.getElementById('k10-scan-preview');
+    const mockUrl = '/static/uploads/' + filename;
+    preview.src = mockUrl;
+    
+    // Simulate setting file
+    // In our app context, since examples might not be file objects, we tell detectK10 to handle URL
+    document.getElementById('k10-file').value = '';
+    preview.dataset.isMock = 'true';
+    preview.dataset.mockFilename = filename;
+    previewK10();
+}
+
+async function detectK10() {
+    const fileInput = document.getElementById('k10-file');
+    const preview = document.getElementById('k10-scan-preview');
+    const isMock = preview.dataset.isMock === 'true';
+    
+    if (!fileInput.files[0] && !isMock) {
+        alert('Harap unggah gambar terlebih dahulu.');
+        return;
+    }
+    
+    document.getElementById('k10-placeholder').style.display = 'none';
+    document.getElementById('k10-details').style.display = 'none';
+    document.getElementById('k10-scanning').style.display = 'block';
+    
+    let result = null;
+    
+    if (isMock) {
+        // Fetch from mock test asset (we simulate the endpoint by converting url to blob)
+        const resBlob = await fetch(preview.src);
+        const blob = await resBlob.blob();
+        const mockFile = new File([blob], preview.dataset.mockFilename, { type: 'image/png' });
+        const formData = new FormData();
+        formData.append('image', mockFile);
+        const res = await fetch('/kelompok-10/api/predict', { method: 'POST', body: formData });
+        result = await res.json();
+    } else {
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
+        const res = await fetch('/kelompok-10/api/predict', { method: 'POST', body: formData });
+        result = await res.json();
+    }
+    
+    // Clear mock state
+    preview.dataset.isMock = 'false';
+    
+    // Simulate scan delay (1200ms)
+    setTimeout(() => {
+        document.getElementById('k10-scanning').style.display = 'none';
+        document.getElementById('k10-details').style.display = 'block';
+        
+        document.getElementById('k10-result-img').src = '/static/' + result.filepath;
+        
+        const isAnomali = result.status === 'Anomali';
+        const statusEl = document.getElementById('k10-status');
+        statusEl.textContent = result.status.toUpperCase();
+        statusEl.style.color = isAnomali ? 'var(--color-error)' : 'var(--color-success)';
+        
+        document.getElementById('k10-time').textContent = result.timestamp;
+        document.getElementById('k10-prediction-val').textContent = result.prediction.toFixed(4);
+        
+        const pct = result.prediction * 100;
+        const barFill = document.getElementById('k10-bar-fill');
+        barFill.style.width = pct + '%';
+        barFill.style.backgroundColor = isAnomali ? 'var(--color-error)' : 'var(--color-success)';
+        
+        const exp = document.getElementById('k10-explanation');
+        if (isAnomali) {
+            exp.textContent = 'TERDETEKSI KONTAMINASI ATAU CACAT FISIK PADA MAKANAN! Kandungan pixel hiperspektral berada di luar rentang normal. Segera pisahkan baki pangan ini.';
+            exp.style.color = 'var(--color-error)';
+        } else {
+            exp.textContent = 'Makanan tergolong normal dan aman dari kontaminasi pangan makro. Nilai pixel berada di bawah threshold anomali (0.50).';
+            exp.style.color = 'var(--color-success)';
+        }
+
+        if (document.getElementById('custom-result')) {
+            document.getElementById('custom-result').value = `Inspeksi Mikro: ${result.status} (Safety Index: ${(100 - result.prediction * 100).toFixed(1)}%, ${isAnomali ? '1' : '0'} anomali terdeteksi).`;
+        }
+    }, 1200);
+}
+
+async function loadK10Dashboard() {
+    try {
+        const res = await fetch('/kelompok-10/api/stats_data');
+        const data = await res.json();
+        
+        // Update stats card
+        document.getElementById('k10-stat-total').textContent = data.total_scans;
+        document.getElementById('k10-stat-normal').textContent = data.normal_count;
+        document.getElementById('k10-stat-anomaly').textContent = data.anomaly_count;
+        document.getElementById('k10-stat-rate').textContent = data.anomaly_rate + '%';
+        
+        // Populate recent scans table log
+        let tableHtml = '';
+        data.recent_scans.forEach(s => {
+            const isAnomali = s.status === 'Anomali';
+            const color = isAnomali ? 'var(--color-error)' : 'var(--color-success)';
+            tableHtml += `
+                <tr>
+                    <td><img src="/static/${s.filepath}" style="height: 36px; border-radius: 4px;" alt="Thumb"></td>
+                    <td><strong>${s.filename}</strong></td>
+                    <td style="font-size: 11px; color: var(--color-primary-60);">${s.created_at}</td>
+                    <td>${s.prediction.toFixed(4)}</td>
+                    <td style="color: ${color}; font-weight: 700;">${s.status.toUpperCase()}</td>
+                </tr>
+            `;
+        });
+        document.getElementById('k10-table-body').innerHTML = tableHtml || '<tr><td colspan="5" style="text-align: center;">Belum ada riwayat scan.</td></tr>';
+        
+        // Render Trend Chart
+        const ctxTrend = document.getElementById('k10-chart-trend').getContext('2d');
+        if (trendChartK10) trendChartK10.destroy();
+        trendChartK10 = new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                labels: data.chart.labels,
+                datasets: [
+                    {
+                        label: 'Total Scan',
+                        data: data.chart.totals,
+                        borderColor: '#1F5EAB',
+                        backgroundColor: 'transparent',
+                        tension: 0.2
+                    },
+                    {
+                        label: 'Anomali',
+                        data: data.chart.anomalies,
+                        borderColor: '#D92D20',
+                        backgroundColor: 'transparent',
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } }
+            }
+        });
+        
+        // Render Distribution Category chart
+        const ctxDist = document.getElementById('k10-chart-dist').getContext('2d');
+        if (distChartK10) distChartK10.destroy();
+        distChartK10 = new Chart(ctxDist, {
+            type: 'doughnut',
+            data: {
+                labels: ['Normal', 'Anomali'],
+                datasets: [{
+                    data: [data.normal_count, data.anomaly_count],
+                    backgroundColor: ['#0D9488', '#D92D20'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+        
+    } catch (e) {
+        console.error(e);
+    }
+}
+</script>
+{% endblock %}

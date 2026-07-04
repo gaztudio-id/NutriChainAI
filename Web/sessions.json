@@ -1,12 +1,12 @@
 {
-  "2026-06-25": {
+  "2026-07-04": {
     "kelompok-1": {
       "status": "pending",
       "result": "Belum Selesai"
     },
     "kelompok-2": {
-      "status": "pending",
-      "result": "Belum Selesai"
+      "status": "completed",
+      "result": "Menu Usulan (Ayam): Opsi 1: Tempe Bacem, Kubis, Semangka | Opsi 2: Telur Dadar, Bayam, Melon | Opsi 3: Tempe Mendoan, Wortel, Pepaya"
     },
     "kelompok-3": {
       "status": "pending",

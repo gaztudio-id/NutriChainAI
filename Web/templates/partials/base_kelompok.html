@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelompok {{ num }} — {{ meta.title }} | NutriChainAI</title>
+    <meta name="description" content="Detail modul Kelompok {{ num }}: {{ meta.title }} — {{ meta.algo }} | NutriChainAI MBG">
+    <link rel="icon" href="{{ url_for('static', filename='Icon Dark.png') }}" type="image/png">
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Detail Info Card Grid */
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        .detail-info-item {}
+        .detail-info-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-primary-70);
+            margin-bottom: 4px;
+        }
+        .detail-info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-primary);
+            line-height: 1.4;
+        }
+        .detail-divider {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-secondary);
+        }
+        .detail-text-block {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--color-primary-60);
+            margin-top: 6px;
+        }
+
+        /* Workspace Area */
+        .workspace-card {
+            border: 1px solid var(--color-secondary);
+            border-radius: var(--rounded-md);
+            background: var(--color-workspace-bg);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        /* Interactive Feature Elements */
+        .feature-container {
+            margin-top: 20px;
+        }
+        .upload-zone {
+            border: 2px dashed var(--color-primary-70);
+            border-radius: var(--rounded-sm);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            background: var(--color-surface);
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+        }
+        .upload-zone:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary-90);
+        }
+        .upload-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .upload-hint {
+            font-size: 12px;
+            color: var(--color-primary-60);
+            margin-top: 4px;
+        }
+        .preview-container {
+            margin-top: 16px;
+            text-align: center;
+        }
+        .preview-img {
+            max-width: 100%;
+            max-height: 280px;
+            border-radius: var(--rounded-sm);
+            border: 1px solid var(--color-secondary);
+            display: none;
+        }
+        .result-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-secondary);
+            border-radius: var(--rounded-sm);
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+        .confidence-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--color-secondary);
+            border-radius: var(--rounded-full);
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .confidence-bar-fill {
+            height: 100%;
+            background: var(--color-primary);
+            border-radius: var(--rounded-full);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Phase badge */
+        .phase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: var(--rounded-full);
+            background: var(--color-primary-90);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: 0.02em;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(18,10,89,.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-card {
+            background: var(--color-surface);
+            border-radius: var(--rounded-sm);
+            border: 1px solid var(--color-secondary);
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(18,10,89,0.15);
+            transform: translateY(-20px);
+            transition: transform .3s;
+        }
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        /* Table helper */
+        .gizi-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+        .gizi-table th, .gizi-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-secondary);
+        }
+        .gizi-table th {
+            background: var(--color-workspace-bg);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Dynamic Island Navbar -->
+    <div class="dynamic-island-container">
+        <div class="dynamic-island-nav">
+            <div class="nav-links-left">
+                <a href="/" class="nav-link-item">Home</a>
+                <a href="/about" class="nav-link-item">Tentang</a>
+            </div>
+            <a href="/" class="brand-name-center">
+                <img src="{{ url_for('static', filename='Logo Light.png') }}" alt="Logo" class="logo-navbar show-light-theme">
+                <img src="{{ url_for('static', filename='Logo Dark.png') }}" alt="Logo" class="logo-navbar show-dark-theme">
+            </a>
+            <div class="nav-links-right">
+                <a href="/dashboard" class="nav-link-item">Dashboard</a>
+                <a href="/status" class="nav-link-item">Status Model</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="max-width: 1100px;">
+        <section style="padding-top: 60px;">
+
+            <!-- Header -->
+            <div class="flex-between" style="flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <div class="phase-badge">{{ meta.phase }}</div>
+                    <h1 class="headline-md" style="margin-top: 12px;">Kelompok {{ num }}: {{ meta.title }}</h1>
+                    <p class="body-sm" style="margin-top: 6px;">Algoritma: <strong>{{ meta.algo }}</strong></p>
+                </div>
+                <div>
+                    {% if date %}
+                        <a href="/session/{{ date }}" class="btn btn-secondary" style="min-height:auto;padding:8px 16px;">← Kembali ke Alur</a>
+                    {% else %}
+                        <a href="/" class="btn btn-secondary" style="min-height:auto;padding:8px 16px;">← Kembali</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Pipeline Step Info -->
+            {% if step_meta %}
+            <div class="card" style="margin-top: var(--spacing-md); padding: var(--spacing-md);">
+                <div class="detail-info-grid">
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Kode Langkah</div>
+                        <div class="detail-info-value">Langkah {{ step_meta.code }}</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Lokasi Operasional</div>
+                        <div class="detail-info-value">{{ step_meta.location }}</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">Fase Pipeline</div>
+                        <div class="detail-info-value">{{ step_meta.phase_title }}</div>
+                    </div>
+                </div>
+                <div class="detail-divider">
+                    <div class="detail-info-label">Peran dalam Pipeline</div>
+                    <p class="detail-text-block">{{ step_meta.role }}</p>
+                </div>
+                <div class="detail-divider">
+                    <div class="detail-info-label">Output yang Diharapkan</div>
+                    <p class="detail-text-block">{{ step_meta.expected_output }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Session Status -->
+            <div class="card" style="margin-top: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-md);">
+                <div class="flex-between" style="flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <span class="body-sm">Status Sesi: <strong>{{ date or 'Tidak ada Sesi Aktif' }}</strong></span>
+                        <h4 class="headline-sm" style="font-size: 18px; margin-top: 4px;">
+                            {% if status == 'completed' %}
+                                <span style="color: var(--color-success);">✓ Telah Diselesaikan</span>
+                            {% else %}
+                                <span style="color: var(--color-primary-60);">○ Menunggu Pelaksanaan</span>
+                            {% endif %}
+                        </h4>
+                    </div>
+                    {% if date %}
+                        <a onclick="confirmCompleteTask(event)" class="btn {% if status == 'completed' %}btn-secondary{% else %}btn-primary{% endif %}" style="min-height:auto;padding:8px 16px;cursor:pointer;">
+                            {% if status == 'completed' %}Ubah Hasil Harian{% else %}Selesaikan Tugas Harian{% endif %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Workspace Content -->
+            <div class="workspace-card">
+                <div class="workspace-header" style="border-bottom: 1px solid var(--color-secondary); padding-bottom: 16px; margin-bottom: 20px;">
+                    <h3 class="headline-sm">{{ meta.title }}</h3>
+                    <p class="body-sm" style="color:var(--color-primary-60);margin-top:4px;">Panel pengelolaan kelayakan operasional modul AI.</p>
+                </div>
+
+                {% block workspace %}{% endblock %}
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 0;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <img src="{{ url_for('static', filename='Icon Light.png') }}" class="show-light-theme" alt="Icon" style="height:20px;width:auto;">
+                    <img src="{{ url_for('static', filename='Icon Dark.png') }}" class="show-dark-theme" alt="Icon" style="height:20px;width:auto;">
+                    <strong style="color:var(--color-primary);font-size:14px;font-weight:700;letter-spacing:0.5px;">NutriChainAI</strong>
+                </div>
+                <p class="body-sm" style="color:var(--color-primary-60);margin:0;">&copy; 2026 NutriChainAI &middot; Sistem Pengawasan MBG Nasional</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Complete Task Modal -->
+    <div class="modal-overlay" id="confirm-task-modal">
+        <div class="modal-card">
+            <h3 class="headline-sm" style="margin-bottom:12px;">Konfirmasi Penyelesaian</h3>
+            <p class="body-sm" style="color:var(--color-primary-60);margin-bottom:12px;">Simpan langkah untuk sesi <strong>{{ date }}</strong>?</p>
+            <form action="/session/{{ date }}/complete/kelompok-{{ num }}" method="POST">
+                <label class="form-label" for="custom-result">Detail Hasil Operasional (Output):</label>
+                <textarea class="form-input" id="custom-result" name="custom-result" rows="3" required style="width:100%;margin:8px 0 16px;border-radius:var(--rounded-sm);">{{ result }}</textarea>
+                <div style="display:flex;justify-content:flex-end;gap:12px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()" style="min-height:auto;padding:8px 16px;">Batal</button>
+                    <button type="submit" class="btn btn-primary" style="min-height:auto;padding:8px 16px;">Ya, Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openTaskModal(){ document.getElementById('confirm-task-modal').classList.add('active'); }
+        function closeTaskModal(){ document.getElementById('confirm-task-modal').classList.remove('active'); }
+        function confirmCompleteTask(e){ e.preventDefault(); openTaskModal(); }
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
