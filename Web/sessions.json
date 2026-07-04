@@ -9,8 +9,8 @@
       "result": "Menu Usulan (Ayam): Opsi 1: Tempe Bacem, Kubis, Semangka | Opsi 2: Telur Dadar, Bayam, Melon | Opsi 3: Tempe Mendoan, Wortel, Pepaya"
     },
     "kelompok-3": {
-      "status": "pending",
-      "result": "Belum Selesai"
+      "status": "completed",
+      "result": "Estimasi sisa porsi: 5.8%. Tingkat Kesukaan: Tinggi (Menu Layak Dilanjutkan)."
     },
     "kelompok-4": {
       "status": "pending",
@@ -29,12 +29,12 @@
       "result": "Belum Selesai"
     },
     "kelompok-8": {
-      "status": "pending",
-      "result": "Belum Selesai"
+      "status": "completed",
+      "result": "Kelengkapan baki saji: Terdeteksi Tidak Lengkap. Kurang: makanan_pokok, buah."
     },
     "kelompok-9": {
-      "status": "pending",
-      "result": "Belum Selesai"
+      "status": "completed",
+      "result": "K9 (TOTAL: 1,000,572 siswa, Rp 1597112.1Jt [Detail -> SD: 662,384 siswa (Rp 950728.0Jt) | SMP: 243,938 siswa (Rp 456226.4Jt) | SMA: 87,018 siswa (Rp 179777.5Jt) | SLB: 7,232 siswa (Rp 10380.2Jt)]) | Beras: 1923.8Kg, Buah: 1000.4Kg, Daging: 300.1Kg, Ikan: 625.3Kg, Minyak: 70.7Kg, Sayur: 1250.5Kg, Susu: 512.5Kg, Telur: 322.7Kg"
     },
     "kelompok-10": {
       "status": "pending",

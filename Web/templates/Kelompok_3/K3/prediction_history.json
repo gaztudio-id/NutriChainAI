@@ -1,0 +1,26 @@
+[
+  {
+    "id": "b13db177aa",
+    "timestamp": "2026-07-04 20:49:48",
+    "waktu_makan": "Makan Siang",
+    "cuaca": "Cerah",
+    "karbohidrat": "Nasi Putih",
+    "lauk_protein": "Ayam Goreng",
+    "persentase_sisa_rata": 5.8,
+    "probability": 91.93,
+    "confidence": 91.93,
+    "label": "Disukai"
+  },
+  {
+    "id": "e9bfcbe56c",
+    "timestamp": "2026-07-04 20:49:47",
+    "waktu_makan": "Makan Siang",
+    "cuaca": "Cerah",
+    "karbohidrat": "Nasi Putih",
+    "lauk_protein": "Ayam Goreng",
+    "persentase_sisa_rata": 5.8,
+    "probability": 91.93,
+    "confidence": 91.93,
+    "label": "Disukai"
+  }
+]

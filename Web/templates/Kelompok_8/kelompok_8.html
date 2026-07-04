@@ -1,51 +1,207 @@
 {% extends 'partials/base_kelompok.html' %}
-{% block workspace %}
-<div class="feature-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
 
-    <!-- Row 1: Workspace Grid (Left Live Stream Viewport, Right Status Banner) -->
-    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; flex-wrap: wrap;">
+{% block extra_head %}
+<!-- Phosphor Icons for Premium UI -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+    /* Responsive Grid Split */
+    .k8-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+    @media (min-width: 992px) {
+        .k8-grid {
+            grid-template-columns: 1.25fr 0.75fr;
+        }
+    }
+
+    /* Premium Viewport Frame */
+    .k8-viewport-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-secondary);
+        border-radius: var(--rounded-md);
+        padding: 24px;
+        box-shadow: 0 4px 16px rgba(18, 10, 89, 0.015);
+    }
+    .k8-viewport-container {
+        position: relative;
+        background: #090433; /* Dark canvas back */
+        border: 1px solid var(--color-secondary);
+        border-radius: var(--rounded-sm);
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Button Group & Premium Action Buttons */
+    .k8-btn-group {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 16px;
+    }
+    .k8-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: var(--rounded-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        line-height: 1.2;
+    }
+    .k8-btn-secondary {
+        color: var(--color-primary);
+        background: var(--color-primary-90);
+        border-color: var(--color-secondary);
+    }
+    .k8-btn-secondary:hover {
+        background: var(--color-secondary);
+    }
+    .k8-btn-primary {
+        color: var(--color-neutral);
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+    .k8-btn-primary:hover {
+        opacity: 0.95;
+        box-shadow: 0 4px 12px rgba(18, 10, 89, 0.15);
+    }
+    .k8-btn-success {
+        color: #FFFFFF;
+        background: var(--color-success);
+        border-color: var(--color-success);
+    }
+    .k8-btn-success:hover {
+        opacity: 0.95;
+        box-shadow: 0 4px 12px rgba(48, 110, 0, 0.15);
+    }
+    .k8-btn-error {
+        color: #FFFFFF;
+        background: var(--color-error);
+        border-color: var(--color-error);
+    }
+    .k8-btn-error:hover {
+        opacity: 0.95;
+    }
+
+    /* Status Card & Typography */
+    .k8-status-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-secondary);
+        border-radius: var(--rounded-md);
+        padding: 24px;
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 16px rgba(18, 10, 89, 0.015);
+    }
+    .k8-status-banner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        border-radius: var(--rounded-sm);
+        text-align: center;
+        color: #FFFFFF;
+        background-color: var(--color-primary-70);
+        transition: background-color 0.4s ease, transform 0.2s ease;
+        min-height: 150px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Component List styling */
+    .k8-checklist-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 10px;
+    }
+    .k8-checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--color-primary-60);
+        font-weight: 500;
+        font-size: 13px;
+    }
+    .k8-checklist-item i {
+        color: var(--color-primary);
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+{% block workspace %}
+<div class="feature-container">
+    <div class="k8-grid">
         
-        <!-- Left: Live Stream Viewport Card -->
-        <div class="card" style="padding: 20px;">
+        <!-- Left: Live Stream / Camera Viewport Card -->
+        <div class="k8-viewport-card">
             <div class="detail-info-label" style="margin-bottom: 12px; font-weight: 700;">Live Stream Viewport</div>
-            <div style="position: relative; background: #000; border-radius: var(--rounded-sm); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <div class="k8-viewport-container">
                 <!-- Streaming from unified app.py generator -->
                 <img id="k8-video-feed" src="/kelompok-8/api/stream/video" alt="Video Stream" style="width: 100%; height: 100%; object-fit: cover;">
+                <!-- HTML5 Browser Video Feed (Hidden by default) -->
+                <video id="k8-browser-video" autoplay playsinline style="display: none; width: 100%; height: 100%; object-fit: cover;"></video>
             </div>
             
-            <div class="detail-divider" style="margin-top: 16px;">
-                <div class="detail-info-label" style="margin-bottom: 8px;">Uji Sampel Foto Baki</div>
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <button class="btn btn-secondary" onclick="document.getElementById('k8-file-upload').click()" style="min-height: auto; padding: 10px;">Pilih Foto Baki</button>
+            <div class="detail-divider">
+                <div class="detail-info-label" style="margin-bottom: 10px;">Uji Sampel Foto / Kamera Baki</div>
+                <div class="k8-btn-group">
+                    <button class="k8-btn k8-btn-secondary" onclick="document.getElementById('k8-file-upload').click()">
+                        <i class="ph-bold ph-upload-simple"></i> Pilih Foto Baki
+                    </button>
                     <input type="file" id="k8-file-upload" accept="image/*" style="display: none;" onchange="uploadImageK8(event)">
+                    
+                    <button id="k8-btn-toggle-cam" class="k8-btn k8-btn-primary" onclick="toggleBrowserCamera()">
+                        <i class="ph-bold ph-camera"></i> Aktifkan Kamera Browser
+                    </button>
+                    
+                    <button id="k8-btn-capture" class="k8-btn k8-btn-success" onclick="captureBrowserSnapshot()" style="display: none;">
+                        <i class="ph-bold ph-aperture"></i> Ambil Foto & Analisis
+                    </button>
+                    
                     <span id="k8-upload-status" class="body-sm" style="color: var(--color-primary-60); font-style: italic;">Tidak ada file terpilih</span>
                 </div>
             </div>
         </div>
 
         <!-- Right: Status Banner Card -->
-        <div class="card" style="padding: 20px; min-height: 280px; display: flex; flex-direction: column;">
+        <div class="k8-status-card">
             <div class="detail-info-label" style="margin-bottom: 16px; font-weight: 700; border-bottom: 1px solid var(--color-secondary); padding-bottom: 8px;">Status Inspeksi Baki</div>
             
             <!-- Large Status Banner Box -->
-            <div id="k8-status-banner" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; border-radius: var(--rounded-sm); text-align: center; color: #FFF; background-color: var(--color-primary-70); transition: background-color 0.3s; min-height: 140px;">
+            <div id="k8-status-banner" class="k8-status-banner">
                 <span style="font-size: 20px; font-weight: 800; letter-spacing: 1px;">MENUNGGU DATA...</span>
             </div>
             
             <!-- Items checklist -->
-            <div class="detail-divider" style="margin-top: 16px;">
+            <div class="detail-divider">
                 <div class="detail-info-label">Komponen Wajib Baki MBG:</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; margin-top: 6px;">
-                    <div>• Makanan Pokok (Nasi)</div>
-                    <div>• Lauk Pauk (Protein)</div>
-                    <div>• Sayur Mayur</div>
-                    <div>• Buah Segar</div>
+                <div class="k8-checklist-grid">
+                    <div class="k8-checklist-item"><i class="ph-bold ph-dot-outline"></i> Makanan Pokok (Nasi)</div>
+                    <div class="k8-checklist-item"><i class="ph-bold ph-dot-outline"></i> Lauk Pauk (Protein)</div>
+                    <div class="k8-checklist-item"><i class="ph-bold ph-dot-outline"></i> Sayur Mayur</div>
+                    <div class="k8-checklist-item"><i class="ph-bold ph-dot-outline"></i> Buah Segar</div>
                 </div>
             </div>
         </div>
 
     </div>
-
 </div>
 {% endblock %}
 
@@ -86,6 +242,9 @@ async function uploadImageK8(e) {
     const file = e.target.files[0];
     if (!file) return;
     
+    // Stop browser camera if active
+    stopBrowserCamera();
+    
     document.getElementById('k8-upload-status').textContent = file.name;
     const formData = new FormData();
     formData.append('file', file);
@@ -104,6 +263,136 @@ async function uploadImageK8(e) {
     
     // Trigger instant check
     pollK8Status();
+}
+
+// HTML5 Browser Camera Controller Logic
+let localStream = null;
+
+async function toggleBrowserCamera() {
+    const video = document.getElementById('k8-browser-video');
+    const feedImg = document.getElementById('k8-video-feed');
+    const toggleBtn = document.getElementById('k8-btn-toggle-cam');
+    const captureBtn = document.getElementById('k8-btn-capture');
+
+    if (localStream) {
+        stopBrowserCamera();
+    } else {
+        try {
+            localStream = await navigator.mediaDevices.getUserMedia({
+                video: { width: 1280, height: 720, facingMode: 'environment' },
+                audio: false
+            });
+            video.srcObject = localStream;
+            video.style.display = 'block';
+            feedImg.style.display = 'none';
+            toggleBtn.innerHTML = '<i class="ph-bold ph-camera-slash"></i> Matikan Kamera';
+            toggleBtn.className = 'k8-btn k8-btn-error';
+            captureBtn.style.display = 'inline-flex';
+            document.getElementById('k8-upload-status').textContent = 'Kamera Browser Aktif';
+        } catch (err) {
+            alert('Tidak dapat mengakses kamera: ' + err.message);
+            console.error('Camera access error:', err);
+        }
+    }
+}
+
+function stopBrowserCamera() {
+    const video = document.getElementById('k8-browser-video');
+    const feedImg = document.getElementById('k8-video-feed');
+    const toggleBtn = document.getElementById('k8-btn-toggle-cam');
+    const captureBtn = document.getElementById('k8-btn-capture');
+
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+    }
+    video.srcObject = null;
+    video.style.display = 'none';
+    feedImg.style.display = 'block';
+    
+    // Reset back to server video feed source (with cache-buster)
+    feedImg.src = "/kelompok-8/api/stream/video?t=" + new Date().getTime();
+    
+    toggleBtn.innerHTML = '<i class="ph-bold ph-camera"></i> Aktifkan Kamera Browser';
+    toggleBtn.className = 'k8-btn k8-btn-primary';
+    captureBtn.style.display = 'none';
+    document.getElementById('k8-upload-status').textContent = 'Kamera Dimatikan';
+}
+
+async function captureBrowserSnapshot() {
+    const video = document.getElementById('k8-browser-video');
+    if (!localStream || video.paused || video.ended) return;
+
+    // Create canvas matching video stream dimensions
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Convert frame to JPG Data URL
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    const blob = dataURLtoBlob(dataUrl);
+
+    // Camera shutter flash visual effect
+    const container = video.parentElement;
+    const flash = document.createElement('div');
+    flash.style.position = 'absolute';
+    flash.style.top = '0';
+    flash.style.left = '0';
+    flash.style.width = '100%';
+    flash.style.height = '100%';
+    flash.style.background = '#FFF';
+    flash.style.opacity = '1';
+    flash.style.transition = 'opacity 0.4s';
+    flash.style.zIndex = '10';
+    container.appendChild(flash);
+    setTimeout(() => {
+        flash.style.opacity = '0';
+        setTimeout(() => flash.remove(), 400);
+    }, 50);
+
+    document.getElementById('k8-upload-status').textContent = 'Menganalisis snapshot...';
+
+    // Prepare FormData payload
+    const formData = new FormData();
+    formData.append('file', blob, 'snapshot.jpg');
+
+    try {
+        const res = await fetch('/kelompok-8/api/detect-image', {
+            method: 'POST',
+            body: formData
+        });
+        if (!res.ok) throw new Error('Detection failed');
+
+        document.getElementById('k8-upload-status').textContent = 'Analisis kamera selesai.';
+
+        // Turn off camera stream to present the snapshot result
+        stopBrowserCamera();
+
+        // Update preview image to the captured snapshot
+        const feedImg = document.getElementById('k8-video-feed');
+        feedImg.src = dataUrl;
+
+        // Fetch checklist metrics instantly
+        pollK8Status();
+    } catch (err) {
+        alert('Gagal mendeteksi snapshot kamera: ' + err.message);
+        document.getElementById('k8-upload-status').textContent = 'Gagal.';
+    }
+}
+
+// Convert base64 dataURL to Blob
+function dataURLtoBlob(dataurl) {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
 }
 
 // Poll status every 1200ms to mimic websocket live update

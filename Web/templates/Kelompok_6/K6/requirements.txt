@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+transformers
+torch
+scikit-learn
+pydantic
+youtube-comment-downloader
+motor
+
+tensorflow
+pandas

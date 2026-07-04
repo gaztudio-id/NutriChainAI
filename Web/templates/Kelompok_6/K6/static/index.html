@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriChainAI</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="ph-fill ph-bowl-food" style="color: var(--primary);"></i>
+                Makan Bergizi Gratis
+            </div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="tab-sentiment">
+                    <i class="ph ph-chat-text"></i> Analisis Langsung
+                </button>
+                <button class="tab-btn" data-tab="tab-youtube">
+                    <i class="ph ph-youtube-logo"></i> Scraping YouTube
+                </button>
+                <button class="tab-btn" data-tab="tab-forecasting">
+                    <i class="ph ph-chart-line-up"></i> Visualisasi Forecasting
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="background-gradient"></div>
+
+    <main class="container">
+        
+        <div id="tab-sentiment" class="tab-content active">
+            <header class="hero">
+                <div class="hero-badge">Model BERT</div>
+                <h1>Analisis Sentimen Langsung</h1>
+                <p>Ketik ulasan atau opini masyarakat untuk dianalisis kecenderungan sentimennya secara otomatis menggunakan AI.</p>
+            </header>
+            <div class="grid">
+                <section class="card center-card">
+                    <div class="card-header">
+                        <h2>Uji Teks Sentimen</h2>
+                        <span class="badge badge-indigo"><i class="ph ph-cpu"></i> BERT Engine</span>
+                    </div>
+                    <div class="card-body">
+                        <form id="sentiment-form">
+                            <div class="form-group">
+                                <label for="sentiment-text">Teks Ulasan</label>
+                                <textarea id="sentiment-text" rows="4" placeholder="Contoh: Program makan bergizi ini sangat membantu anak-anak untuk lebih fokus belajar di sekolah..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="btn-analyze">
+                                <i class="ph ph-magic-wand"></i> Analisis Sekarang
+                            </button>
+                        </form>
+
+                        <div id="sentiment-result" class="result-box hidden">
+                            
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        
+        <div id="tab-youtube" class="tab-content">
+            <header class="hero">
+                <div class="hero-badge">Web Scraper</div>
+                <h1>Scraping & Labeling YouTube</h1>
+                <p>Tarik data komentar dari video YouTube untuk melihat proporsi sentimen opini publik secara instan.</p>
+            </header>
+            <div class="grid">
+                <section class="card full-width-card">
+                    <div class="card-header">
+                        <h2>YouTube Comment Scraper</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="scrape-form" class="scrape-form-inline">
+                            <div class="form-group flex-grow">
+                                <label for="youtube-url">URL Video YouTube</label>
+                                <div class="input-with-icon">
+                                    <i class="ph ph-link"></i>
+                                    <input type="url" id="youtube-url" placeholder="https://www.youtube.com/watch?v=..." required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="width: 160px; flex-shrink: 0;">
+                                <label for="max-comments">Jumlah Data</label>
+                                <select id="max-comments" class="form-select">
+                                    <option value="10">10 Komentar</option>
+                                    <option value="50" selected>50 Komentar</option>
+                                    <option value="100">100 Komentar</option>
+                                    <option value="200">200 Komentar</option>
+                                </select>
+                            </div>
+                            <div class="form-action" style="padding-bottom: 2px;">
+                                <button type="submit" class="btn btn-primary" id="btn-scrape" style="height: 48px;">
+                                    <i class="ph ph-download-simple"></i> Tarik
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="scrape-loading" class="loading-state hidden">
+                            <div class="spinner"></div>
+                            <p>Sedang menarik data komentar dan menganalisis sentimen...</p>
+                        </div>
+
+                        <div id="scrape-result" class="hidden">
+                            <div class="dashboard-grid">
+                                <div class="chart-card">
+                                    <h3>Distribusi Sentimen</h3>
+                                    <div class="chart-container">
+                                        <canvas id="sentimentChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="stats-container">
+                                    <div class="stat-card stat-total">
+                                        <div class="stat-icon"><i class="ph ph-users"></i></div>
+                                        <div class="stat-content">
+                                            <h3>Total Komentar</h3>
+                                            <p id="stat-total">0</p>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card stat-pos">
+                                        <div class="stat-icon"><i class="ph ph-thumbs-up"></i></div>
+                                        <div class="stat-content">
+                                            <h3>Sentimen Positif</h3>
+                                            <p id="stat-pos">0</p>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card stat-neg">
+                                        <div class="stat-icon"><i class="ph ph-thumbs-down"></i></div>
+                                        <div class="stat-content">
+                                            <h3>Sentimen Negatif</h3>
+                                            <p id="stat-neg">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-card">
+                                <div class="table-header">
+                                    <h3>Data Komentar</h3>
+                                </div>
+                                <div class="table-container">
+                                    <table class="comments-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Komentar</th>
+                                                <th style="width: 140px;">Sentimen</th>
+                                                <th style="width: 100px;">Akurasi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="comments-tbody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        
+        <div id="tab-forecasting" class="tab-content">
+            <header class="hero">
+                <div class="hero-badge">LSTM Model & Live Data</div>
+                <h1>Visualisasi Forecasting & Tren</h1>
+                <p>Prediksi tren dan visualisasi data menggunakan model jaringan saraf tiruan (LSTM) serta pantauan sentimen database MongoDB secara langsung.</p>
+            </header>
+            
+            <div class="grid">
+                
+                <section class="card full-width-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h2>Tren Sentimen (Database MongoDB)</h2>
+                        <span class="badge badge-indigo"><i class="ph ph-database"></i> Live Data</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Visualisasi time-series bulanan berdasarkan input ulasan yang tersimpan di dalam database MongoDB.</p>
+                        
+                        <div class="chart-card">
+                            <div class="chart-container" style="position: relative; height:40vh; width:100%">
+                                <canvas id="dbSentimentChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                
+                <section class="card full-width-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h2>Prediksi Tren Harian (LSTM Forecasting)</h2>
+                        <span class="badge badge-indigo"><i class="ph ph-trend-up"></i> AI Prediction</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Visualisasi ini menggunakan model AI (LSTM) untuk mempelajari pola sentimen harian dari database Anda, lalu memproyeksikan rasio sentimen positif untuk 30 hari ke depan.</p>
+                        
+                        <div class="chart-card">
+                            <div class="chart-container" style="position: relative; height:40vh; width:100%">
+                                <canvas id="lstmForecastChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
