@@ -7,9 +7,10 @@ import sys
 import re
 import io
 import sqlite3
+import time
 from datetime import datetime, timedelta
 from collections import Counter
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
 from werkzeug.utils import secure_filename
 
 # Optional/Try-Except Imports for Resilient Loading
@@ -879,7 +880,10 @@ def k2_recommend():
 
     if K2_MODEL is not None and K2_TOKENIZER is not None and np is not None:
         try:
-            from tensorflow.keras.preprocessing.sequence import pad_sequences
+            try:
+                from tensorflow.keras.preprocessing.sequence import pad_sequences
+            except ImportError:
+                from keras.preprocessing.sequence import pad_sequences
             teks_clean = menu.lower().strip()
             sekuens = K2_TOKENIZER.texts_to_sequences([teks_clean])
             padded = pad_sequences(sekuens, maxlen=20, padding="post")
