@@ -1,6 +1,6 @@
 # NutriChain AI: Sistem Cerdas Terintegrasi Manajemen MBG
 ## Audit, Pemantauan, dan Verifikasi Cerdas Makan Bergizi Gratis (MBG) Nasional
-### Berbasis Deep Learning End-to-End - TA 2025/2026
+### Berbasis Deep Learning End-to-End
 
 NutriChain AI adalah platform digital terintegrasi yang dirancang untuk mengotomatisasi pengawasan, jaminan mutu, dan keamanan pangan dalam rantai distribusi program Makan Bergizi Gratis (MBG) nasional. Sistem ini mensinkronisasikan 11 modul Deep Learning ke dalam 5 fase Standard Operating Procedure (SOP) operasional secara asinkron dari hulu ke hilir.
 
